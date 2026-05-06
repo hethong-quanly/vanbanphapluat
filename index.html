@@ -181,7 +181,7 @@
             </div>
             
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              {/* Nút Mở File .htm Cục Bộ */}
+             {/* Nút Mở File .htm Cục Bộ */}
               <button className="btn-upload" onClick={() => fileInputRef.current.click()}>
                 📂 Mở file .htm cục bộ
               </button>
@@ -192,7 +192,14 @@
                 accept=".htm,.html" 
                 onChange={handleOpenLocalFile} 
               />
-
+{/* NÚT MỞ TRỢ LÝ ẢO */}
+              <button 
+                className="btn-primary" 
+                onClick={() => window.open('van-ban/trolyao.html', '_blank')}
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 16px" }}
+              >
+                🤖 Trợ Lý Ảo AI
+              </button>
               <div style={{ position: "relative" }}>
                 <input
                   value={searchQuery}
@@ -670,7 +677,7 @@
                     }
                     setSelectedDoc(null); 
                   }}>📄 Xem toàn văn</button>
-                  <button className="btn-secondary" onClick={() => { setAiQuery(`Phân tích nội dung: ${selectedDoc.soHieu}`); setActiveTab("ai"); setSelectedDoc(null); }}>🤖 Phân tích AI</button>
+                  <button className="btn-secondary" onClick={() => { window.open('van-ban/trolyao.html', '_blank'); setSelectedDoc(null); }}>🤖 Hỏi Trợ Lý Ảo</button>
                   <button className="btn-secondary" onClick={() => showNotif("Đã lưu vào danh sách")}>💾 Lưu</button>
                   <button className="btn-secondary" onClick={() => showNotif("Đã sao chép liên kết")}>🔗 Chia sẻ</button>
                 </div>
