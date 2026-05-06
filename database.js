@@ -1,5 +1,5 @@
 // File database.js - Quản lý danh mục văn bản
-const LEXVIET_DATABASE = [
+const VKS_DATABASE = [
   { 
     id: 1, 
     soHieu: "100/2015/QH13", 
