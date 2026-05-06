@@ -15,8 +15,10 @@
 <body style="margin: 0; padding: 0; background-color: #0B1120;">
   <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState, useEffect, useRef } = React;
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- THÊM DÒNG NÀY ĐỂ KẾT NỐI DATABASE -->
+  <script src="./database.js"></script>
+</head>
 
     const LEGAL_FIELDS = [
       { id: 1, name: "Hình sự", icon: "⚖️", color: "#C0392B", count: 847 },
@@ -41,16 +43,8 @@
       { id: 20, name: "Lĩnh vực khác", icon: "📁", color: "#95A5A6", count: 1456 },
     ];
 
-    const SAMPLE_DOCS = [
-      { id: 1, soHieu: "Bộ luật Hình sự 2015", coQuan: "Quốc hội", ngayBanHanh: "27/11/2015", hieu: "Còn hiệu lực", loai: "Bộ luật", linhVuc: [1], tomTat: "Bộ luật Hình sự quy định về tội phạm và hình phạt, bảo vệ quyền con người, quyền công dân, bảo vệ chế độ xã hội chủ nghĩa." },
-      { id: 2, soHieu: "Bộ luật Dân sự 2015", coQuan: "Quốc hội", ngayBanHanh: "24/11/2015", hieu: "Còn hiệu lực", loai: "Bộ luật", linhVuc: [2], tomTat: "Quy định địa vị pháp lý, chuẩn mực pháp lý về cách ứng xử của cá nhân, pháp nhân trong quan hệ dân sự." },
-      { id: 3, soHieu: "Luật Đất đai 2024", coQuan: "Quốc hội", ngayBanHanh: "18/01/2024", hieu: "Còn hiệu lực", loai: "Luật", linhVuc: [6], tomTat: "Quy định về chế độ sở hữu đất đai, quyền hạn và trách nhiệm của Nhà nước đại diện chủ sở hữu toàn dân về đất đai." },
-      { id: 4, soHieu: "Luật Doanh nghiệp 2020", coQuan: "Quốc hội", ngayBanHanh: "17/06/2020", hieu: "Còn hiệu lực", loai: "Luật", linhVuc: [8], tomTat: "Quy định về việc thành lập, tổ chức quản lý, tổ chức lại, giải thể và hoạt động có liên quan của doanh nghiệp." },
-      { id: 5, soHieu: "NĐ 13/2023/NĐ-CP", coQuan: "Chính phủ", ngayBanHanh: "17/04/2023", hieu: "Còn hiệu lực", loai: "Nghị định", linhVuc: [15], tomTat: "Nghị định về bảo vệ dữ liệu cá nhân, quy định nguyên tắc, biện pháp bảo vệ dữ liệu cá nhân." },
-      { id: 6, soHieu: "Luật Lao động 2019", coQuan: "Quốc hội", ngayBanHanh: "20/11/2019", hieu: "Còn hiệu lực", loai: "Bộ luật", linhVuc: [5], tomTat: "Bộ luật Lao động quy định tiêu chuẩn lao động, quyền, nghĩa vụ và lợi ích của người lao động, người sử dụng lao động." },
-      { id: 7, soHieu: "Luật Phòng chống tham nhũng 2018", coQuan: "Quốc hội", ngayBanHanh: "20/11/2018", hieu: "Còn hiệu lực", loai: "Luật", linhVuc: [19], tomTat: "Luật quy định về phòng ngừa, phát hiện tham nhũng, xử lý tham nhũng và vi phạm pháp luật về phòng, chống tham nhũng." },
-      { id: 8, soHieu: "TT 23/2023/TT-BTC", coQuan: "Bộ Tài chính", ngayBanHanh: "25/04/2023", hieu: "Còn hiệu lực", loai: "Thông tư", linhVuc: [9], tomTat: "Thông tư hướng dẫn về quản lý và sử dụng kinh phí sự nghiệp thực hiện Chương trình mục tiêu quốc gia." },
-    ];
+    // Lấy dữ liệu từ file database.js bên ngoài
+    const SAMPLE_DOCS = typeof VKS_DATABASE !== 'undefined' ? VKS_DATABASE : [];
 
     const DOC_TYPES = ["Tất cả", "Bộ luật", "Luật", "Nghị quyết", "Nghị định", "Thông tư", "Quyết định", "Chỉ thị", "Công văn", "Án lệ"];
     const STATUS_TYPES = ["Tất cả", "Còn hiệu lực", "Hết hiệu lực", "Chưa có hiệu lực"];
