@@ -10,7 +10,7 @@ const VKS_DATABASE = [
     loai: "Bộ luật", 
     linhVuc: [1], 
     tomTat: "Quy định về tội phạm và hình phạt, bảo vệ quyền con người, quyền công dân.", 
-    link: "van-ban/bo-luat-hinh-su-2015.html" // Đường dẫn tới file nội dung chi tiết
+    link: "https://vanban.chinhphu.vn/?pageid=27160&docid=214583&classid=1&orggroupid=1" 
   },
   { 
     id: 2, 
@@ -22,7 +22,7 @@ const VKS_DATABASE = [
     loai: "Bộ luật", 
     linhVuc: [2], 
     tomTat: "Quy định địa vị pháp lý, chuẩn mực pháp lý về cách ứng xử của cá nhân, pháp nhân.", 
-    link: "van-ban/bo-luat-dan-su-2015.html"
+    link: "https://chinhphu.vn/?pageid=27160&docid=214582&classid=1&orggroupid=1"
   },
-  // Anh có thể copy paste thêm các văn bản khác vào đây theo mẫu trên
+ 
 ];
