@@ -3,89 +3,443 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nội dung văn bản</title>
+  <title>Trợ Lý Ảo VKSND - LEXVIET</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+    
     body {
-      background-color: #E8E0D0; /* Màu nền giấy cổ điển, dịu mắt khi đọc lâu */
+      background-color: #0B1120;
+      color: #E8E0D0;
+      font-family: 'IBM Plex Sans', sans-serif;
       margin: 0;
-      padding: 40px 20px;
-      font-family: 'Times New Roman', Times, serif;
-      color: #1a1a1a;
-      line-height: 1.6;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
     }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #FFFFFF;
-      padding: 50px 60px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      border-radius: 4px;
-    }
+
+    /* Thanh Header */
     .header {
+      background: #0D1628;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 16px 24px;
       display: flex;
       justify-content: space-between;
-      text-align: center;
-      margin-bottom: 40px;
+      align-items: center;
+      flex-shrink: 0;
     }
-    .header-left, .header-right { width: 45%; }
-    .quoc-hieu { font-weight: bold; font-size: 18px; }
-    .tieu-ngu { font-weight: bold; font-size: 19px; border-bottom: 1px solid #000; padding-bottom: 5px; display: inline-block; }
-    .co-quan { font-weight: bold; font-size: 16px; }
-    .so-hieu { font-size: 16px; }
-    .dia-danh { text-align: right; font-style: italic; margin-bottom: 30px; }
-    .ten-van-ban { text-align: center; font-weight: bold; font-size: 20px; margin: 30px 0; }
-    .dieu-luat { font-weight: bold; margin-top: 20px; }
-    .noi-dung-dieu { text-align: justify; margin-bottom: 15px; }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #C9A84C, #A07830);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #0B1120;
+    }
+
+    .btn-close {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #8A9BBF;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .btn-close:hover {
+      background: rgba(201,168,76,0.1);
+      color: #C9A84C;
+      border-color: rgba(201,168,76,0.3);
+    }
+
+    /* Khu vực Chat */
+    .chat-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .chat-wrapper {
+      max-width: 850px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .message {
+      display: flex;
+      flex-direction: column;
+      max-width: 85%;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg-user {
+      align-self: flex-end;
+    }
+
+    .msg-ai {
+      align-self: flex-start;
+    }
+
+    .msg-sender {
+      font-size: 11px;
+      color: #8A9BBF;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .msg-user .msg-sender {
+      text-align: right;
+      color: #C9A84C;
+    }
+
+    .msg-bubble {
+      padding: 14px 18px;
+      border-radius: 12px;
+      line-height: 1.6;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .msg-user .msg-bubble {
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: #E8E0D0;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg-ai .msg-bubble {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #C8BFAE;
+      border-bottom-left-radius: 4px;
+    }
+
+    /* Gợi ý tình huống */
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .suggestion-chip {
+      background: rgba(201,168,76,0.05);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: #C9A84C;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .suggestion-chip:hover {
+      background: rgba(201,168,76,0.15);
+    }
+
+    /* Khu vực Nhập liệu */
+    .input-area {
+      background: #0D1628;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding: 20px 24px;
+      display: flex;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .input-box {
+      max-width: 850px;
+      width: 100%;
+      display: flex;
+      gap: 12px;
+      position: relative;
+    }
+
+    .input-field {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #E8E0D0;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+      height: 24px;
+      overflow-y: hidden;
+    }
+
+    .input-field:focus {
+      border-color: #C9A84C;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .btn-send {
+      background: linear-gradient(135deg, #C9A84C, #A07830);
+      border: none;
+      color: #0B1120;
+      padding: 0 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-family: 'IBM Plex Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-send:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .btn-send:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .typing-indicator {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: #C9A84C;
+      border-radius: 50%;
+      margin: 0 2px;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .typing-indicator:nth-child(1) { animation-delay: -0.32s; }
+    .typing-indicator:nth-child(2) { animation-delay: -0.16s; }
     
-    /* Nút in ấn và quay lại */
-    .controls { text-align: center; margin-bottom: 20px; }
-    .btn { background: #0B1120; color: #C9A84C; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-family: sans-serif; font-size: 14px; border: 1px solid #C9A84C; cursor: pointer; margin: 0 10px; }
-    .btn:hover { background: #1a2639; }
-    @media print { .controls { display: none; } .container { box-shadow: none; padding: 0; } body { background: #FFF; padding: 0; } }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.5); }
   </style>
 </head>
 <body>
-  <div class="controls">
-    <button class="btn" onclick="window.close()">Trở về phần mềm</button>
-    <button class="btn" onclick="window.print()">🖨️ In văn bản này</button>
-  </div>
 
-  <div class="container">
-    <div class="header">
-      <div class="header-left">
-        <div class="co-quan">QUỐC HỘI</div>
-        <div class="so-hieu">Số: 100/2015/QH13</div>
-      </div>
-      <div class="header-right">
-        <div class="quoc-hieu">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
-        <div class="tieu-ngu">Độc lập - Tự do - Hạnh phúc</div>
+  <!-- Thanh Header -->
+  <header class="header">
+    <div class="header-title">
+      <div class="ai-icon">🤖</div>
+      <div>
+        <div style="font-size: 15px; font-weight: 600; color: #E8E0D0;">Trợ Lý Ảo Pháp Lý</div>
+        <div style="font-size: 12px; color: #8A9BBF; margin-top: 2px;">Hệ thống LEXVIET - Sẵn sàng phân tích nghiệp vụ</div>
       </div>
     </div>
-    
-    <div class="dia-danh">Hà Nội, ngày 27 tháng 11 năm 2015</div>
-    
-    <div class="ten-van-ban">BỘ LUẬT<br>HÌNH SỰ</div>
-    
-    <!-- Bắt đầu phần nội dung anh dán vào từ file Word hoặc file HTML cũ -->
-    <div class="noi-dung">
-      <p style="text-align: center;"><em>Căn cứ Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam;<br>Quốc hội ban hành Bộ luật hình sự.</em></p>
-      
-      <div style="text-align: center; font-weight: bold; margin-top: 30px;">PHẦN THỨ NHẤT<br>NHỮNG QUY ĐỊNH CHUNG</div>
-      <div style="text-align: center; font-weight: bold; margin-top: 15px;">Chương I<br>ĐIỀU KHOẢN CƠ BẢN</div>
+    <button class="btn-close" onclick="window.close()">✕ Đóng Cửa Sổ</button>
+  </header>
 
-      <div class="dieu-luat">Điều 1. Nhiệm vụ của Bộ luật hình sự</div>
-      <div class="noi-dung-dieu">
-        Bộ luật hình sự có nhiệm vụ bảo vệ chủ quyền quốc gia, an ninh của đất nước, bảo vệ chế độ xã hội chủ nghĩa, quyền con người, quyền công dân, bảo vệ quyền bình đẳng giữa đồng bào các dân tộc, bảo vệ lợi ích của Nhà nước, tổ chức, bảo vệ trật tự pháp luật, chống mọi hành vi phạm tội; giáo dục mọi người ý thức tuân theo pháp luật, phòng ngừa và đấu tranh chống tội phạm.
-      </div>
+  <!-- Khu vực hiển thị nội dung Chat -->
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-wrapper" id="chatWrapper">
       
-      <div class="dieu-luat">Điều 2. Cơ sở của trách nhiệm hình sự</div>
-      <div class="noi-dung-dieu">
-        1. Chỉ người nào phạm một tội đã được Bộ luật hình sự quy định mới phải chịu trách nhiệm hình sự.<br>
-        2. Chỉ pháp nhân thương mại nào phạm một tội đã được quy định tại Điều 76 của Bộ luật này mới phải chịu trách nhiệm hình sự.
+      <!-- Lời chào mặc định của AI -->
+      <div class="message msg-ai">
+        <div class="msg-sender">LEXVIET AI ASSISTANT</div>
+        <div class="msg-bubble">Xin chào đồng chí! Tôi là Trợ lý ảo AI được thiết kế riêng để hỗ trợ nghiệp vụ Kiểm sát.
+        
+Tôi có thể giúp đồng chí:
+• Phân tích cấu thành tội phạm dựa trên hồ sơ vụ án.
+• Tra cứu nhanh các văn bản quy phạm pháp luật, nghị định, thông tư.
+• Tổng hợp và tóm tắt án lệ có liên quan.
+• Gợi ý hướng đề xuất xử lý vụ việc.
+
+Đồng chí cần hỗ trợ vấn đề gì hôm nay?</div>
+        
+        <div class="suggestions">
+          <button class="suggestion-chip" onclick="fillInput('Phân tích dấu hiệu pháp lý tội Nhận hối lộ theo BLHS 2015')">Phân tích tội Nhận hối lộ</button>
+          <button class="suggestion-chip" onclick="fillInput('Tóm tắt những điểm mới của Luật Đất đai 2024')">Điểm mới Luật Đất đai 2024</button>
+          <button class="suggestion-chip" onclick="fillInput('Phân biệt tội Cướp tài sản và Cưỡng đoạt tài sản')">Phân biệt Cướp và Cưỡng đoạt TS</button>
+        </div>
       </div>
+
     </div>
-    <!-- Kết thúc phần nội dung -->
   </div>
+
+  <!-- Khu vực nhập liệu -->
+  <div class="input-area">
+    <div class="input-box">
+      <textarea 
+        id="userInput" 
+        class="input-field" 
+        placeholder="Nhập câu hỏi hoặc tình huống pháp lý..." 
+        onkeydown="handleKeyPress(event)"
+      ></textarea>
+      <button id="sendBtn" class="btn-send" onclick="sendMessage()">
+        <span>Gửi</span> ↗
+      </button>
+    </div>
+  </div>
+
+  <!-- Script xử lý Logic Chat -->
+  <script>
+    const chatWrapper = document.getElementById('chatWrapper');
+    const chatContainer = document.getElementById('chatContainer');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    // Hàm tự động điều chỉnh chiều cao ô nhập liệu
+    userInput.addEventListener('input', function() {
+      this.style.height = '24px';
+      this.style.height = (this.scrollHeight) + 'px';
+      if (this.scrollHeight > 150) {
+        this.style.overflowY = 'auto';
+      } else {
+        this.style.overflowY = 'hidden';
+      }
+    });
+
+    // Điền câu hỏi từ nút gợi ý
+    function fillInput(text) {
+      userInput.value = text;
+      userInput.focus();
+    }
+
+    // Nhấn Enter để gửi (Shift+Enter để xuống dòng)
+    function handleKeyPress(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    }
+
+    // Cuộn xuống dòng tin nhắn mới nhất
+    function scrollToBottom() {
+      setTimeout(() => {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }, 50);
+    }
+
+    // Hàm xử lý gửi tin nhắn
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      // 1. Hiển thị tin nhắn của User
+      appendMessage('user', text);
+      userInput.value = '';
+      userInput.style.height = '24px';
+      sendBtn.disabled = true;
+
+      // 2. Hiển thị trạng thái AI đang gõ
+      const typingId = showTypingIndicator();
+
+      // 3. Giả lập gọi API AI (Có thể thay thế bằng fetch gọi API thật sau này)
+      setTimeout(() => {
+        removeTypingIndicator(typingId);
+        
+        // Đoạn phản hồi mẫu mô phỏng nghiệp vụ kiểm sát
+        const aiResponse = `🤖 Dựa trên dữ liệu hệ thống LEXVIET và đối chiếu quy định hiện hành, tôi xin phân tích tình huống đồng chí vừa nêu như sau:
+
+1. Cơ sở pháp lý áp dụng:
+- Bộ luật Hình sự năm 2015 (sửa đổi, bổ sung 2017).
+- Các văn bản hướng dẫn thi hành liên quan trực tiếp đến lĩnh vực này.
+
+2. Đánh giá hồ sơ:
+- Hành vi có dấu hiệu thỏa mãn các yếu tố cấu thành cơ bản của tội phạm.
+- Tuy nhiên, cần rà soát lại lời khai của các bên liên quan và đối chiếu cẩn thận với vật chứng/dấu vết hiện trường nhằm đảm bảo nguyên tắc suy đoán vô tội và tuân thủ nghiêm ngặt Bộ luật Tố tụng Hình sự.
+
+3. Đề xuất hướng xử lý:
+- Yêu cầu Cơ quan điều tra bổ sung các chứng cứ vật chất còn thiếu.
+- Củng cố căn cứ pháp lý trước khi ban hành Cáo trạng.
+
+Đồng chí có muốn tôi xuất báo cáo chi tiết cho tình huống này ra file Word không?`;
+
+        appendMessage('ai', aiResponse);
+        sendBtn.disabled = false;
+        userInput.focus();
+      }, 2000); // Đợi 2 giây giả lập thời gian AI suy nghĩ
+    }
+
+    // Hàm thêm bong bóng tin nhắn vào khung chat
+    function appendMessage(sender, text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `message msg-${sender}`;
+      
+      const senderName = sender === 'user' ? 'Kiểm sát viên' : 'LEXVIET AI';
+      
+      msgDiv.innerHTML = `
+        <div class="msg-sender">${senderName}</div>
+        <div class="msg-bubble">${escapeHTML(text)}</div>
+      `;
+      
+      chatWrapper.appendChild(msgDiv);
+      scrollToBottom();
+    }
+
+    // Hiển thị 3 dấu chấm AI đang gõ
+    function showTypingIndicator() {
+      const id = 'typing-' + Date.now();
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'message msg-ai';
+      msgDiv.id = id;
+      msgDiv.innerHTML = `
+        <div class="msg-sender">LEXVIET AI đang phân tích</div>
+        <div class="msg-bubble">
+          <span class="typing-indicator"></span>
+          <span class="typing-indicator"></span>
+          <span class="typing-indicator"></span>
+        </div>
+      `;
+      chatWrapper.appendChild(msgDiv);
+      scrollToBottom();
+      return id;
+    }
+
+    function removeTypingIndicator(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    // Bảo mật hiển thị văn bản thuần
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+          }[tag] || tag)
+      );
+    }
+  </script>
 </body>
 </html>
