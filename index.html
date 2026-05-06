@@ -3,22 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hệ Thống Pháp Luật Việt Nam - VKSND</title>
+  <title>Hệ Thống Pháp Luật - VKSND TP.Cần Thơ</title>
   
   <!-- Tải React và ReactDOM -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  
-  <!-- Tải Babel để biên dịch JSX trực tiếp trên trình duyệt -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./database.js"></script>
 </head>
 <body style="margin: 0; padding: 0; background-color: #0B1120;">
   <div id="root"></div>
-
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <!-- THÊM DÒNG NÀY ĐỂ KẾT NỐI DATABASE -->
-  <script src="./database.js"></script>
-</head>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
 
     const LEGAL_FIELDS = [
       { id: 1, name: "Hình sự", icon: "⚖️", color: "#C0392B", count: 847 },
@@ -43,7 +39,6 @@
       { id: 20, name: "Lĩnh vực khác", icon: "📁", color: "#95A5A6", count: 1456 },
     ];
 
-    // Lấy dữ liệu từ file database.js bên ngoài
     const SAMPLE_DOCS = typeof VKS_DATABASE !== 'undefined' ? VKS_DATABASE : [];
 
     const DOC_TYPES = ["Tất cả", "Bộ luật", "Luật", "Nghị quyết", "Nghị định", "Thông tư", "Quyết định", "Chỉ thị", "Công văn", "Án lệ"];
@@ -67,7 +62,7 @@
       const [aiQuery, setAiQuery] = useState("");
       const [aiResponse, setAiResponse] = useState("");
       const [aiLoading, setAiLoading] = useState(false);
-      const [userRole, setUserRole] = useState("VKSND TP. Cần Thơ");
+      const [userRole, setUserRole] = useState("Kiểm sát viên - VKSND TP. Cần Thơ");
       const [showProfile, setShowProfile] = useState(false);
       const [sidebarOpen, setSidebarOpen] = useState(true);
       const [notification, setNotification] = useState(null);
@@ -99,7 +94,7 @@
           window.open(fileURL, '_blank');
           showNotif(`Đang mở: ${file.name}`);
         }
-        e.target.value = null; // Reset để có thể mở lại cùng 1 file
+        e.target.value = null;
       };
 
       const handleAiQuery = async () => {
@@ -126,7 +121,6 @@
           const text = data.content?.map((c) => c.text || "").join("") || "Không có phản hồi.";
           setAiResponse(text);
         } catch {
-          // Xử lý giả lập kết quả AI trong trường hợp chạy nội bộ không có API key hoặc vướng CORS
           setTimeout(() => {
             setAiResponse("💡 PHÂN TÍCH TỪ AI:\n\nDựa trên dữ liệu pháp luật hiện hành và nghiệp vụ kiểm sát, tình huống của bạn liên quan đến các văn bản sau:\n1. Bộ luật Tố tụng Hình sự/Dân sự hiện hành.\n2. Các nghị định và thông tư hướng dẫn liên quan.\n\nĐề xuất hướng xử lý:\n- Rà soát lại hồ sơ đối chiếu với quy định tại khoản tương ứng.\n- Đảm bảo tuân thủ nghiêm ngặt quy trình tố tụng.\n- Liên hệ với cơ quan có thẩm quyền để xác minh thêm nếu cần.");
             setAiLoading(false);
@@ -241,7 +235,7 @@
                 <div className="sidebar-logo">
                   <div style={{ width: 36, height: 36, background: "linear-gradient(135deg,#C9A84C,#A07830)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>⚖</div>
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: "#C9A84C", letterSpacing: 0.5 }}>VKSND TP.CẦN THƠ</div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#C9A84C", letterSpacing: 0.5 }}>VKSND - LEXVIET</div>
                     <div style={{ fontSize: 10, color: "#5A6B8A", fontFamily: "'IBM Plex Sans', sans-serif" }}>Hệ Thống Pháp Luật Ngành</div>
                   </div>
                 </div>
@@ -374,8 +368,6 @@
                 </div>
               )}
 
-              {/* ===== CÁC TAB KHÁC (FIELDS, SEARCH, AI, RELATIONS, REPORTS) ĐƯỢC GIỮ NGUYÊN HOÀN TOÀN NHƯ CODE GỐC CỦA BẠN ===== */}
-              
               {activeTab === "fields" && (
                 <div>
                   <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 6 }}>Lĩnh vực Pháp Luật</h2>
@@ -672,14 +664,14 @@
 
                 <div style={{ display: "flex", gap: 10 }}>
                   <button className="btn-primary" onClick={() => { 
-  if (selectedDoc.link) {
-    window.open(selectedDoc.link, '_blank');
-    showNotif("Đang mở văn bản...");
-  } else {
-    showNotif("Văn bản này chưa cập nhật file chi tiết", "error");
-  }
-  setSelectedDoc(null); 
-}}>📄 Xem toàn văn</button>
+                    if (selectedDoc.link) {
+                      window.open(selectedDoc.link, '_blank');
+                      showNotif("Đang mở văn bản...");
+                    } else {
+                      showNotif("Văn bản này chưa cập nhật file chi tiết", "error");
+                    }
+                    setSelectedDoc(null); 
+                  }}>📄 Xem toàn văn</button>
                   <button className="btn-secondary" onClick={() => { setAiQuery(`Phân tích nội dung: ${selectedDoc.soHieu}`); setActiveTab("ai"); setSelectedDoc(null); }}>🤖 Phân tích AI</button>
                   <button className="btn-secondary" onClick={() => showNotif("Đã lưu vào danh sách")}>💾 Lưu</button>
                   <button className="btn-secondary" onClick={() => showNotif("Đã sao chép liên kết")}>🔗 Chia sẻ</button>
