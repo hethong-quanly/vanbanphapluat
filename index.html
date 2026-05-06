@@ -79,7 +79,28 @@
           doc.coQuan.toLowerCase().includes(searchQuery.toLowerCase());
         return matchField && matchType && matchStatus && matchSearch;
       });
+// STATE LƯU TRỮ TIN TỨC MỚI
+      const [tinTucMoi, setTinTucMoi] = useState("Đang tải dữ liệu văn bản mới nhất từ Cổng thông tin Chính phủ...");
 
+      // LỆNH TỰ ĐỘNG LẤY DỮ LIỆU KHI MỞ PHẦN MỀM
+      useEffect(() => {
+        // Sử dụng RSS của Báo Chính Phủ (chuyên mục Pháp luật) thông qua proxy rss2json
+        const rssUrl = 'https://baochinhphu.vn/rss/phap-luat-43.rss';
+        const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+        fetch(proxyUrl)
+          .then(response => response.json())
+          .then(data => {
+            if (data && data.items && data.items.length > 0) {
+              // Lấy 3 tin mới nhất, ghép lại thành một dòng chữ chạy
+              const tinMoiNhat = data.items.slice(0, 3).map(item => item.title).join('  ⭐  ');
+              setTinTucMoi(tinMoiNhat);
+            }
+          })
+          .catch(error => {
+            setTinTucMoi("Luật Đất đai 2024 có hiệu lực từ 01/08/2024 · NĐ 08/2025/NĐ-CP về BLDS"); // Báo lỗi thì hiện tin mặc định
+          });
+      }, []);
       const showNotif = (msg, type = "success") => {
         setNotification({ msg, type });
         setTimeout(() => setNotification(null), 3000);
@@ -175,7 +196,12 @@
             <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
               <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ background: "none", border: "none", cursor: "pointer", color: "#C9A84C", fontSize: 18, padding: "4px 8px" }}>☰</button>
               <div style={{ width: 1, height: 28, background: "rgba(201,168,76,0.2)" }} />
-              <span style={{ fontSize: 13, fontFamily: "'IBM Plex Sans', sans-serif", color: "#8A9BBF" }}>
+            <div style={{ fontSize: 13, fontFamily: "'IBM Plex Sans', sans-serif", color: "#8A9BBF", width: "500px", overflow: "hidden", display: "flex", alignItems: "center" }}>
+                <span style={{ color: "#C9A84C", whiteSpace: "nowrap", marginRight: "8px", fontWeight: "bold" }}>🔔 CẬP NHẬT:</span>
+                <marquee scrollamount="4" style={{ color: "#E8E0D0" }}>
+                  {tinTucMoi}
+                </marquee>
+              </div>
                 🔔 <span style={{ color: "#C9A84C" }}>Mới:</span> Luật Đất đai 2024 có hiệu lực từ 01/08/2024 · NĐ 08/2025/NĐ-CP về BLDS ·
               </span>
             </div>
