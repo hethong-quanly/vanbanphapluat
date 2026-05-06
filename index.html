@@ -671,7 +671,15 @@
                 </div>
 
                 <div style={{ display: "flex", gap: 10 }}>
-                  <button className="btn-primary" onClick={() => { showNotif("Đang mở toàn văn..."); setSelectedDoc(null); }}>📄 Xem toàn văn</button>
+                  <button className="btn-primary" onClick={() => { 
+  if (selectedDoc.link) {
+    window.open(selectedDoc.link, '_blank');
+    showNotif("Đang mở văn bản...");
+  } else {
+    showNotif("Văn bản này chưa cập nhật file chi tiết", "error");
+  }
+  setSelectedDoc(null); 
+}}>📄 Xem toàn văn</button>
                   <button className="btn-secondary" onClick={() => { setAiQuery(`Phân tích nội dung: ${selectedDoc.soHieu}`); setActiveTab("ai"); setSelectedDoc(null); }}>🤖 Phân tích AI</button>
                   <button className="btn-secondary" onClick={() => showNotif("Đã lưu vào danh sách")}>💾 Lưu</button>
                   <button className="btn-secondary" onClick={() => showNotif("Đã sao chép liên kết")}>🔗 Chia sẻ</button>
