@@ -9,7 +9,7 @@ const VKS_DATABASE = [
     hieu: "Còn hiệu lực", 
     loai: "Bộ luật", 
     linhVuc: [1], 
-    tomTat: "Quy định về tội phạm và hình phạt, bảo vệ quyền con người, quyền công dân.", 
+    tomTat: "Quy định về lĩnh vực hình sự, tội phạm và hình phạt.", 
     link: "https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/7/86qh.signed.pdf" 
   },
   { 
@@ -21,8 +21,8 @@ const VKS_DATABASE = [
     hieu: "Còn hiệu lực", 
     loai: "Bộ luật", 
     linhVuc: [2], 
-    tomTat: "Quy định địa vị pháp lý, chuẩn mực pháp lý về cách ứng xử của cá nhân, pháp nhân.", 
-    link: "https://chinhphu.vn/?pageid=27160&docid=214582&classid=1&orggroupid=1"
+    tomTat: "Quy định lĩnh vực dân sự.", 
+    link: "https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/7/85qh.signed.pdf"
   },
  
 ];
