@@ -10,7 +10,7 @@ const VKS_DATABASE = [
     loai: "Bộ luật", 
     linhVuc: [1], 
     tomTat: "Quy định về tội phạm và hình phạt, bảo vệ quyền con người, quyền công dân.", 
-    link: "https://vanban.chinhphu.vn/?pageid=27160&docid=214583&classid=1&orggroupid=1" 
+    link: "https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/7/86qh.signed.pdf" 
   },
   { 
     id: 2, 
