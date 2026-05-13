@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hệ thống văn bản - VKSND TP. Cần Thơ</title>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="./database.js"></script>
+  <script src="./db_01_vanbanluat.js"></script>
+  <script src="./db_02_quytrinh.js"></script>
+  <script src="./db_03_rutkinhngiem.js"></script>
+  <script src="./db_04_anle.js"></script>
+  <script src="./db_05_congvan.js"></script>
+  
+  <script src="./chm_database.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,19 +27,27 @@
   <script type="text/babel">
     const { useState, useEffect, useRef, useMemo } = React;
 
-    // ── Dữ liệu từ database.js (bao gồm dữ liệu từ file CHM) ──
-    const DOCS     = typeof VKS_DATABASE !== 'undefined' ? VKS_DATABASE : [];
-    const QUYTRINH = typeof VKS_QUY_TRINH !== 'undefined' ? VKS_QUY_TRINH : [];
-    const RKN      = [
-      ...(typeof VKS_RUT_KINH_NGHIEM !== 'undefined' ? VKS_RUT_KINH_NGHIEM : []),
-      ...(typeof VKS_RKN_CHM !== 'undefined' ? VKS_RKN_CHM : []),
-    ];
-    const ANLE     = [
-      ...(typeof VKS_AN_LE !== 'undefined' ? VKS_AN_LE : []),
-      ...(typeof VKS_AN_LE_CHM !== 'undefined' ? VKS_AN_LE_CHM : []),
-    ];
-    const CONGVAN  = typeof VKS_CONG_VAN !== 'undefined' ? VKS_CONG_VAN : [];
+   const DOCS = [
+  ...(typeof DB_VAN_BAN_LUAT !== 'undefined' ? DB_VAN_BAN_LUAT : []),
+  ...(typeof CHM_VAN_BAN_LUAT !== 'undefined' ? CHM_VAN_BAN_LUAT : []),
+];
 
+const QUYTRINH = typeof DB_QUY_TRINH !== 'undefined' ? DB_QUY_TRINH : [];
+
+const RKN = [
+  ...(typeof DB_RUT_KINH_NGHIEM !== 'undefined' ? DB_RUT_KINH_NGHIEM : []),
+  ...(typeof CHM_RUT_KINH_NGHIEM !== 'undefined' ? CHM_RUT_KINH_NGHIEM : []),
+];
+
+const ANLE = [
+  ...(typeof DB_AN_LE !== 'undefined' ? DB_AN_LE : []),
+  ...(typeof CHM_AN_LE !== 'undefined' ? CHM_AN_LE : []),
+];
+
+const CONGVAN = [
+  ...(typeof DB_CONG_VAN !== 'undefined' ? DB_CONG_VAN : []),
+  ...(typeof CHM_CONG_VAN !== 'undefined' ? CHM_CONG_VAN : []),
+];
     const LEGAL_FIELDS = [
       { id:1,  name:"Hình sự",             icon:"⚖️",  color:"#C0392B" },
       { id:2,  name:"Dân sự",              icon:"👥",  color:"#2980B9" },
