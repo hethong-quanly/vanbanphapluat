@@ -917,7 +917,7 @@ const CONGVAN = typeof DB_CONG_VAN !== 'undefined' ? DB_CONG_VAN : [];
                 <span style={{color:'#C9A84C',fontSize:10}}>▼</span>
               </div>
               {showProfile && <div style={{position:'absolute',right:0,top:'calc(100% + 8px)',background:'#0F1930',border:'1px solid #C9A84C22',borderRadius:10,padding:10,width:200,zIndex:300}}>
-                {['Quản trị viên','Kiểm sát viên','Chuyên viên pháp lý','Người tra cứu'].map(r=>(
+                {['Quản trị viên', 'Người tra cứu'].map(r=>(
                   <div key={r} onClick={()=>{setUserRole(r);setShowProfile(false);notify(`Đã chuyển vai trò: ${r}`)}}
                     style={{padding:'7px 10px',borderRadius:6,cursor:'pointer',fontSize:13,background:userRole===r?'#C9A84C18':'none',color:userRole===r?'#C9A84C':'#DDD6C8',display:'flex',justifyContent:'space-between'}}>
                     {r} {userRole===r&&'✓'}
