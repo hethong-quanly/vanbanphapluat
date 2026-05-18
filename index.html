@@ -614,11 +614,11 @@ const CONGVAN = typeof DB_CONG_VAN !== 'undefined' ? DB_CONG_VAN : [];
       const [lv, setLv]     = useState('Tất cả');
       const [q, setQ]       = useState('');
       const loais = ['Tất cả', ...new Set(ANLE.map(a=>a.linhVuc))];
-      const filtered = ANLE.filter(a => {
-        const mL = lv==='Tất cả' || a.linhVuc===lv;
-        const mQ = !q || [a.soAnLe,a.tieuDe,a.noiDung,a.nguyenTacApDung].some(s=>s.toLowerCase().includes(q.toLowerCase()));
-        return mL && mQ;
-      });
+      const filtered = useMemo(() => ANLE.filter(a => {
+  const mL = lv==='Tất cả' || a.linhVuc===lv;
+  const mQ = !q || [a.soAnLe,a.tieuDe,a.noiDung,a.nguyenTacApDung].some(s=>s.toLowerCase().includes(q.toLowerCase()));
+  return mL && mQ;
+}), [lv, q]);
 
       return <div>
         <div className="page-header">
@@ -971,7 +971,7 @@ const CONGVAN = typeof DB_CONG_VAN !== 'undefined' ? DB_CONG_VAN : [];
           </div>
         </div>
 
-        {notif && <Notif key={Date.now()} msg={notif.msg} type={notif.type} onDone={()=>setNotif(null)} />}
+        {notif && <Notif key={notif.msg} msg={notif.msg} type={notif.type} onDone={()=>setNotif(null)} />}
       </div>;
     }
 
