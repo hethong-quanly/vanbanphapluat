@@ -91,8 +91,8 @@ const CONGVAN = typeof DB_CONG_VAN !== 'undefined' ? DB_CONG_VAN : [];
       .topbar-search:focus { border-color:#C9A84C55; }
       .topbar-search-wrap { position:relative; }
       .topbar-search-wrap::after { content:'🔍'; position:absolute; right:10px; top:50%; transform:translateY(-50%); font-size:12px; pointer-events:none; }
-      .btn-tro_ly_ao { background:linear-gradient(135deg,#C9A84C,#8A6020); border:none; color:#07110A; font-weight:700; font-size:12px; padding:8px 16px; border-radius:6px; cursor:pointer; display:flex; align-items:center; gap:6px; transition:opacity 0.2s; font-family:'IBM Plex Sans',sans-serif; }
-      .btn-tro_ly_ao:hover { opacity:0.85; }
+      .btn-trolyao { background:linear-gradient(135deg,#C9A84C,#8A6020); border:none; color:#07110A; font-weight:700; font-size:12px; padding:8px 16px; border-radius:6px; cursor:pointer; display:flex; align-items:center; gap:6px; transition:opacity 0.2s; font-family:'IBM Plex Sans',sans-serif; }
+      .btn-trolyao:hover { opacity:0.85; }
       .avatar-btn { background:#0E1828; border:1px solid #C9A84C33; border-radius:7px; padding:5px 10px; cursor:pointer; display:flex; align-items:center; gap:8px; color:#DDD6C8; }
       .avatar-name { font-size:12px; font-weight:600; }
       .avatar-role { font-size:10px; color:#C9A84C; }
@@ -695,7 +695,7 @@ const CONGVAN = typeof DB_CONG_VAN !== 'undefined' ? DB_CONG_VAN : [];
     }
 
     // ── AI ASSISTANT ─────────────────────────────────────────
-    function Tro_Ly_Ao({ notify }) {
+    function TroLyAo({ notify }) {
       const [q, setQ]   = useState('');
       const [res, setRes] = useState('');
       const [loading, setLoading] = useState(false);
@@ -879,7 +879,7 @@ const CONGVAN = typeof DB_CONG_VAN !== 'undefined' ? DB_CONG_VAN : [];
         { id:'rutkn',     label:'Rút kinh nghiệm',        icon:'📢', badge: RKN.length },
         { id:'anle',      label:'Án lệ',                  icon:'⚖️', badge: ANLE.length },
         { id:'congvan',   label:'Văn bản nghiệp vụ',      icon:'📨', badge: CONGVAN.length },
-        { id:'tro_ly_ao',   label:'Trợ lý AI',              icon:'🤖' },
+        { id:'trolyao',   label:'Trợ lý AI',              icon:'🤖' },
       ];
 
       return <div className="app">
