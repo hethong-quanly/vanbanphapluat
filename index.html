@@ -81,15 +81,15 @@
     function getMockResponse(question) {
       const q = question.toLowerCase();
       if (q.includes('hối lộ') || q.includes('tham nhũng') || q.includes('tham ô')) {
-        return `📋 PHÂN TÍCH TỘI PHẠM THAM NHŨNG\n(Chế độ offline – Dữ liệu nội bộ LEXVIET)\n\n1. CĂN CỨ PHÁP LÝ:\n   • Tội Nhận hối lộ: Điều 354 BLHS 2015 (sửa đổi 2017)\n   • Tội Tham ô tài sản: Điều 353 BLHS 2015\n   • Hướng dẫn: NQ 03/2020/NQ-HĐTP; Án lệ 52/2022/AL\n\n2. CẤU THÀNH TỘI PHẠM:\n   • Chủ thể: Người có chức vụ, quyền hạn\n   • Hành vi: Lợi dụng chức vụ để nhận lợi ích vật chất\n   • Lỗi: Cố ý trực tiếp\n\n3. ĐỀ XUẤT HƯỚNG XỬ LÝ:\n   • Xác định tư cách pháp lý của chủ thể\n   • Thu thập chứng cứ về hành vi nhận/đưa hối lộ\n   • Đối chiếu Điều 354 và định khung hình phạt\n\n⚡ Để phân tích chuyên sâu, vui lòng kết nối API hoặc mô tả cụ thể tình huống.`;
+        return `📋 PHÂN TÍCH TỘI PHẠM THAM NHŨNG\n(Chế độ offline – Dữ liệu nội bộ)\n\n1. CĂN CỨ PHÁP LÝ:\n   • Tội Nhận hối lộ: Điều 354 BLHS 2015 (sửa đổi 2017)\n   • Tội Tham ô tài sản: Điều 353 BLHS 2015\n   • Hướng dẫn: NQ 03/2020/NQ-HĐTP; Án lệ 52/2022/AL\n\n2. CẤU THÀNH TỘI PHẠM:\n   • Chủ thể: Người có chức vụ, quyền hạn\n   • Hành vi: Lợi dụng chức vụ để nhận lợi ích vật chất\n   • Lỗi: Cố ý trực tiếp\n\n3. ĐỀ XUẤT HƯỚNG XỬ LÝ:\n   • Xác định tư cách pháp lý của chủ thể\n   • Thu thập chứng cứ về hành vi nhận/đưa hối lộ\n   • Đối chiếu Điều 354 và định khung hình phạt\n\n⚡ Để phân tích chuyên sâu, vui lòng kết nối API hoặc mô tả cụ thể tình huống.`;
       }
       if (q.includes('tạm giam') || q.includes('tạm giữ') || q.includes('ngăn chặn')) {
-        return `📋 BIỆN PHÁP NGĂN CHẶN TRONG TTHS\n(Chế độ offline – Dữ liệu nội bộ LEXVIET)\n\n1. CĂN CỨ: Điều 109–125 BLTTHS 2015\n\n2. ĐIỀU KIỆN TẠM GIAM (Điều 119):\n   • Bị can phạm tội đặc biệt/rất nghiêm trọng\n   • Có căn cứ bị can sẽ bỏ trốn hoặc cản trở điều tra\n   • Thời hạn tối đa giai đoạn điều tra: 4 tháng\n\n3. LƯU Ý THỰC TIỄN:\n   • Kiểm sát lệnh tạm giam trong 24h (Điều 120)\n   • Theo dõi thời hạn theo từng vụ án\n   • Xem TB RKN 01/2024 về theo dõi thời hạn tố tụng\n\n⚡ Nhập tình huống cụ thể để được hỗ trợ chi tiết hơn.`;
+        return `📋 BIỆN PHÁP NGĂN CHẶN TRONG TTHS\n(Chế độ offline – Dữ liệu nội bộ)\n\n1. CĂN CỨ: Điều 109–125 BLTTHS 2015\n\n2. ĐIỀU KIỆN TẠM GIAM (Điều 119):\n   • Bị can phạm tội đặc biệt/rất nghiêm trọng\n   • Có căn cứ bị can sẽ bỏ trốn hoặc cản trở điều tra\n   • Thời hạn tối đa giai đoạn điều tra: 4 tháng\n\n3. LƯU Ý THỰC TIỄN:\n   • Kiểm sát lệnh tạm giam trong 24h (Điều 120)\n   • Theo dõi thời hạn theo từng vụ án\n   • Xem TB RKN 01/2024 về theo dõi thời hạn tố tụng\n\n⚡ Nhập tình huống cụ thể để được hỗ trợ chi tiết hơn.`;
       }
       if (q.includes('cướp') || q.includes('cưỡng đoạt') || q.includes('tài sản')) {
-        return `📋 PHÂN BIỆT TỘI CƯỚP VÀ CƯỠNG ĐOẠT TÀI SẢN\n(Chế độ offline – Dữ liệu nội bộ LEXVIET)\n\n1. TỘI CƯỚP TÀI SẢN (Điều 168 BLHS):\n   • Dùng vũ lực/đe dọa dùng vũ lực ngay tức khắc\n   • Làm nạn nhân không thể chống cự\n   • Thực hiện ngay tại hiện trường\n\n2. TỘI CƯỠNG ĐOẠT TÀI SẢN (Điều 170 BLHS):\n   • Đe dọa sẽ gây hại trong tương lai\n   • Nạn nhân có thời gian suy xét, nhưng bị áp lực\n   • Không cần dùng vũ lực trực tiếp\n\n3. ĐIỂM PHÂN BIỆT THEN CHỐT:\n   • Thời điểm thực hiện hành vi đe dọa\n   • Mức độ và tính chất của đe dọa\n   • Khả năng phản kháng của bị hại\n\n⚡ Tham khảo Án lệ 43/2021/AL về định tội danh.`;
+        return `📋 PHÂN BIỆT TỘI CƯỚP VÀ CƯỠNG ĐOẠT TÀI SẢN\n(Chế độ offline – Dữ liệu nội bộ)\n\n1. TỘI CƯỚP TÀI SẢN (Điều 168 BLHS):\n   • Dùng vũ lực/đe dọa dùng vũ lực ngay tức khắc\n   • Làm nạn nhân không thể chống cự\n   • Thực hiện ngay tại hiện trường\n\n2. TỘI CƯỠNG ĐOẠT TÀI SẢN (Điều 170 BLHS):\n   • Đe dọa sẽ gây hại trong tương lai\n   • Nạn nhân có thời gian suy xét, nhưng bị áp lực\n   • Không cần dùng vũ lực trực tiếp\n\n3. ĐIỂM PHÂN BIỆT THEN CHỐT:\n   • Thời điểm thực hiện hành vi đe dọa\n   • Mức độ và tính chất của đe dọa\n   • Khả năng phản kháng của bị hại\n\n⚡ Tham khảo Án lệ 43/2021/AL về định tội danh.`;
       }
-      return `📋 PHÂN TÍCH NGHIỆP VỤ\n(Chế độ offline – Hệ thống LEXVIET)\n\n1. CĂN CỨ PHÁP LÝ ÁP DỤNG:\n   • Bộ luật Hình sự 2015 (sửa đổi, bổ sung 2017)\n   • Bộ luật Tố tụng Hình sự 2015\n   • Các văn bản hướng dẫn nghiệp vụ VKSND Tối cao\n\n2. ĐÁNH GIÁ TÌNH HUỐNG:\n   • Cần xem xét đầy đủ 04 yếu tố cấu thành tội phạm\n   • Đảm bảo nguyên tắc suy đoán vô tội (Điều 13 BLTTHS)\n   • Rà soát thời hạn tố tụng theo từng giai đoạn\n\n3. ĐỀ XUẤT HƯỚNG XỬ LÝ:\n   • Thu thập, đánh giá toàn diện chứng cứ\n   • Tham khảo án lệ tương tự trong hệ thống\n   • Phối hợp với phòng nghiệp vụ nếu vụ án phức tạp\n\n⚡ Kết nối internet và API để nhận phân tích AI chuyên sâu.`;
+      return `📋 PHÂN TÍCH NGHIỆP VỤ\n(Chế độ offline)\n\n1. CĂN CỨ PHÁP LÝ ÁP DỤNG:\n   • Bộ luật Hình sự 2015 (sửa đổi, bổ sung 2017)\n   • Bộ luật Tố tụng Hình sự 2015\n   • Các văn bản hướng dẫn nghiệp vụ VKSND Tối cao\n\n2. ĐÁNH GIÁ TÌNH HUỐNG:\n   • Cần xem xét đầy đủ 04 yếu tố cấu thành tội phạm\n   • Đảm bảo nguyên tắc suy đoán vô tội (Điều 13 BLTTHS)\n   • Rà soát thời hạn tố tụng theo từng giai đoạn\n\n3. ĐỀ XUẤT HƯỚNG XỬ LÝ:\n   • Thu thập, đánh giá toàn diện chứng cứ\n   • Tham khảo án lệ tương tự trong hệ thống\n   • Phối hợp với phòng nghiệp vụ nếu vụ án phức tạp\n\n⚡ Kết nối internet và API để nhận phân tích AI chuyên sâu.`;
     }
 
     // ── CSS-in-JS ─────────────────────────────────────────────
@@ -1035,7 +1035,7 @@
     function TroLyAo({ notify }) {
       const [messages, setMessages] = useState([{
         role: 'ai',
-        text: `Xin chào đồng chí! Tôi là Trợ lý AI của Hệ thống LEXVIET – VKSND TP. Cần Thơ.\n\nTôi có thể hỗ trợ đồng chí:\n• Phân tích cấu thành tội phạm theo BLHS 2015\n• Tra cứu điều khoản, thủ tục tố tụng\n• Tổng hợp án lệ và thông báo rút kinh nghiệm\n• Gợi ý hướng đề xuất xử lý vụ việc\n\nĐồng chí cần hỗ trợ vấn đề gì hôm nay?`
+        text: `Xin chào đồng chí! Tôi là Trợ lý AI của VKSND TP. Cần Thơ.\n\nTôi có thể hỗ trợ đồng chí:\n• Phân tích cấu thành tội phạm theo BLHS 2015\n• Tra cứu điều khoản, thủ tục tố tụng\n• Tổng hợp án lệ và thông báo rút kinh nghiệm\n• Gợi ý hướng đề xuất xử lý vụ việc\n\nĐồng chí cần hỗ trợ vấn đề gì hôm nay?`
       }]);
       const [q, setQ]           = useState('');
       const [loading, setLoading] = useState(false);
@@ -1084,7 +1084,7 @@
             body: JSON.stringify({
               model: "claude-sonnet-4-20250514",
               max_tokens: 1000,
-              system: `Bạn là Trợ lý Pháp lý AI của VKSND TP. Cần Thơ (Hệ thống LEXVIET).
+              system: `Bạn là Trợ lý Pháp lý AI của VKSND TP. Cần Thơ.
 Nhiệm vụ: Hỗ trợ kiểm sát viên phân tích nghiệp vụ kiểm sát chuyên sâu.
 Quy tắc phản hồi:
 - Luôn trích dẫn điều khoản cụ thể (Điều X, Khoản Y của Luật/BLTTHS/BLHS)
@@ -1150,14 +1150,14 @@ Quy tắc phản hồi:
             {messages.map((m, i) => (
               <div key={i} className={`ai-msg ${m.role === 'user' ? 'ai-msg-user' : 'ai-msg-ai'}`}>
                 <div className="ai-msg-sender">
-                  {m.role === 'user' ? 'Kiểm sát viên' : 'LEXVIET AI'}
+                  {m.role === 'user' ? 'Kiểm sát viên' : 'AI'}
                 </div>
                 <div className="ai-msg-bubble">{m.text}</div>
               </div>
             ))}
             {loading && (
               <div className="ai-msg ai-msg-ai">
-                <div className="ai-msg-sender">LEXVIET AI đang phân tích</div>
+                <div className="ai-msg-sender">AI đang phân tích</div>
                 <div className="ai-msg-bubble" style={{padding:0}}>
                   <div className="ai-typing">
                     <div className="ai-dot" />
@@ -1250,8 +1250,8 @@ Quy tắc phản hồi:
             <div className="topbar-logo">
               <div className="topbar-logo-icon">⚖</div>
               <div>
-                <div className="topbar-logo-text">LEXVIET</div>
-                <div className="topbar-logo-sub">VKSND TP. CẦN THƠ</div>
+                <div className="topbar-logo-text">VKSND TP. CẦN THƠ</div>
+                <div className="topbar-logo-sub">HỆ THỐNG VĂN BẢN PHÁP LUẬT</div>
               </div>
             </div>
 
