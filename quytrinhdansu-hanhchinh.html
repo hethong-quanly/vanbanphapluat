@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quy trình kiểm sát án Dân sự và Hành chính - VKSND</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background-color: #f0f2f5; }
+        h1 { color: #003366; text-align: center; border-bottom: 3px solid #003366; padding-bottom: 15px; margin-bottom: 30px; text-transform: uppercase; }
+        .loai-an { background: #fff; padding: 20px; margin-bottom: 40px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .loai-an-title { color: #b30000; border-left: 6px solid #b30000; padding-left: 15px; font-size: 1.5em; text-transform: uppercase; margin-bottom: 20px; }
+        h2 { color: #00509e; margin-top: 20px; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; }
+        .giai-doan { padding: 10px 0; }
+        .quy-trinh { list-style-type: none; padding-left: 0; }
+        .quy-trinh li { background: #fafafa; margin-bottom: 15px; padding: 15px; border: 1px solid #d1d9e6; border-radius: 6px; }
+        .step-title { font-weight: bold; font-size: 1.1em; color: #00509e; margin-bottom: 10px; }
+        .task-group { margin-top: 10px; padding-left: 10px; border-left: 3px solid #4CAF50; }
+        .task-label { font-weight: bold; color: #2e7d32; }
+        .task-content { margin-top: 5px; font-size: 0.95em; color: #444; margin-bottom: 10px; }
+        .workflow-branch { background: #fff3cd; border: 1px solid #ffeeba; border-radius: 4px; padding: 10px; font-size: 0.9em; margin-top: 10px; color: #856404; }
+        .workflow-branch ul { margin-top: 5px; margin-bottom: 0; padding-left: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>HỆ THỐNG QUY TRÌNH KIỂM SÁT ÁN DÂN SỰ VÀ HÀNH CHÍNH</h1>
+
+    <div class="loai-an" data-type="dan-su" id="module-dan-su">
+        <h2 class="loai-an-title">PHẦN A: QUY TRÌNH KIỂM SÁT ÁN DÂN SỰ</h2>
+        
+        <section class="giai-doan" data-level="ds-so-tham">
+            <h2>I. Giai đoạn Sơ thẩm</h2>
+            <ul class="quy-trinh">
+                <li data-step="1.1">
+                    <div class="step-title">Bước 1: Kiểm sát trả lại đơn khởi kiện và thụ lý vụ án</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Yêu cầu Tòa án chuyển Thông báo thụ lý/Quyết định trả lại đơn. Kiểm tra thẩm quyền, thời hiệu, điều kiện khởi kiện, tư cách đương sự. Lập Phiếu kiểm sát.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong>
+                        <ul>
+                            <li><em>Đúng pháp luật:</em> Cập nhật phần mềm trạng thái "Đang giải quyết", vào sổ thụ lý kiểm sát.</li>
+                            <li><em>Có vi phạm:</em> KSV dự thảo văn bản <strong>Kiến nghị</strong> trình Lãnh đạo viện. -> Nếu Tòa án chấp nhận: Thụ lý lại; Nếu Tòa án bác bỏ: Báo cáo VKS cấp trên.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li data-step="1.2">
+                    <div class="step-title">Bước 2: Kiểm sát lập hồ sơ, thu thập chứng cứ và áp dụng BPKCTT</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Kiểm sát các quyết định áp dụng/hủy bỏ biện pháp khẩn cấp tạm thời (BPKCTT). Tham gia lấy lời khai, đối chất, xem xét thẩm định tại chỗ. KSV yêu cầu Tòa án thu thập thêm chứng cứ nếu hồ sơ chưa đầy đủ.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong>
+                        <ul>
+                            <li><em>Vi phạm về BPKCTT:</em> Báo cáo đề xuất ban hành Kiến nghị ngay lập tức do tính cấp bách.</li>
+                            <li><em>Vi phạm thu thập chứng cứ:</em> Tập hợp vi phạm để phát biểu tại phiên tòa hoặc ban hành Kiến nghị chung.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li data-step="1.3">
+                    <div class="step-title">Bước 3: Nghiên cứu hồ sơ, lập Báo cáo và Tham gia phiên tòa</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Nhận quyết định đưa vụ án ra xét xử. Trích cứu hồ sơ, lập Báo cáo đề xuất quan điểm giải quyết và dự thảo Bài phát biểu trình duyệt. Tham gia phiên tòa, hỏi làm rõ tình tiết, phát biểu quan điểm của VKS.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong> Báo cáo kết quả xét xử cho Lãnh đạo viện ngay sau phiên tòa. Nếu HĐXX hoãn phiên tòa -> Chuyển trạng thái "Tạm hoãn", chờ Quyết định mở lại.
+                    </div>
+                </li>
+                <li data-step="1.4">
+                    <div class="step-title">Bước 4: Kiểm sát Bản án/Quyết định sơ thẩm</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Nhận và kiểm sát hình thức, nội dung bản án. Đối chiếu biên bản phiên tòa. Lập Phiếu kiểm sát bản án.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong>
+                        <ul>
+                            <li><em>Bản án đúng pháp luật:</em> Chuyển trạng thái "Chờ hiệu lực/Chờ kháng cáo".</li>
+                            <li><em>Bản án có vi phạm nghiêm trọng:</em> Dự thảo <strong>Quyết định Kháng nghị Phúc thẩm</strong> trình Lãnh đạo viện trong thời hạn 15 ngày.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="giai-doan" data-level="ds-phuc-tham">
+            <h2>II. Giai đoạn Phúc thẩm</h2>
+            <ul class="quy-trinh">
+                <li data-step="2.1">
+                    <div class="step-title">Bước 1: Kiểm sát thụ lý Phúc thẩm và Kháng cáo, Kháng nghị</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Kiểm tra tính hợp lệ của đơn kháng cáo, thời hạn nộp. Kiểm sát Thông báo thụ lý phúc thẩm của Tòa án cùng cấp.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong> Nếu kháng cáo quá hạn -> Tham gia phiên họp xét kháng cáo quá hạn. Nếu Tòa án cấp sơ thẩm chậm chuyển hồ sơ -> Ban hành văn bản đôn đốc/kiến nghị.
+                    </div>
+                </li>
+                <li data-step="2.2">
+                    <div class="step-title">Bước 2: Chuẩn bị và Tham gia phiên tòa Phúc thẩm</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Nghiên cứu hồ sơ, phân tích tài liệu mới. Lập Báo cáo án trình Lãnh đạo. Tham gia phiên tòa, phát biểu quan điểm (Giữ nguyên, Sửa, hay Hủy bản án sơ thẩm). Kiểm sát bản án phúc thẩm sau khi tuyên.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong> 
+                        <ul>
+                            <li><em>Bản án phúc thẩm đúng luật:</em> Kết thúc luồng giải quyết thông thường.</li>
+                            <li><em>Bản án phúc thẩm vi phạm nghiêm trọng:</em> Báo cáo VKS cấp cao/VKSND Tối cao đề xuất <strong>Kháng nghị Giám đốc thẩm</strong>.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        
+        <section class="giai-doan" data-level="ds-gdt-tt">
+            <h2>III. Giai đoạn Giám đốc thẩm / Tái thẩm</h2>
+            <ul class="quy-trinh">
+                <li data-step="3.1">
+                    <div class="step-title">Bước 1: Phân loại đơn và Kháng nghị</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Tiếp nhận đơn. Rút hồ sơ gốc từ Tòa án. Nghiên cứu xác định có sai lầm nghiêm trọng (GĐT) hoặc tình tiết mới (TT) hay không. Lập Báo cáo đề xuất.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong> Không có căn cứ -> Ra Thông báo trả lời đương sự. Có căn cứ -> Tham mưu Lãnh đạo ban hành <strong>Quyết định Kháng nghị</strong>.
+                    </div>
+                </li>
+                <li data-step="3.2">
+                    <div class="step-title">Bước 2: Tham gia phiên tòa và Kiểm sát quyết định</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">KSV bảo vệ Quyết định kháng nghị của VKS tại phiên tòa. Đề xuất Hội đồng xét xử. Kiểm sát Quyết định GĐT/TT.</div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="loai-an" data-type="hanh-chinh" id="module-hanh-chinh">
+        <h2 class="loai-an-title">PHẦN B: QUY TRÌNH KIỂM SÁT ÁN HÀNH CHÍNH</h2>
+
+        <section class="giai-doan" data-level="hc-so-tham">
+            <h2>I. Giai đoạn Sơ thẩm</h2>
+            <ul class="quy-trinh">
+                <li data-step="1.1">
+                    <div class="step-title">Bước 1: Kiểm sát việc trả lại đơn khởi kiện và thụ lý vụ án</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Kiểm tra đối tượng khởi kiện (Quyết định hành chính, Hành vi hành chính có thuộc thẩm quyền Tòa án không), thời hiệu, điều kiện khởi kiện. Lập Phiếu kiểm sát.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong>
+                        <ul>
+                            <li><em>Đúng pháp luật:</em> Chuyển trạng thái sang "Đang giải quyết", đưa vào sổ theo dõi.</li>
+                            <li><em>Tòa án trả lại đơn sai:</em> KSV báo cáo Lãnh đạo ký văn bản <strong>Kiến nghị</strong>. -> Chấp nhận: Thụ lý lại; Bác bỏ: Báo cáo VKS cấp trên.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li data-step="1.2">
+                    <div class="step-title">Bước 2: Kiểm sát đối thoại và thu thập chứng cứ</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Kiểm sát quá trình đối thoại (thủ tục trọng tâm án hành chính). KSV có thể trực tiếp tiến hành xác minh thu thập chứng cứ nếu Tòa án không thực hiện.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong>
+                        <ul>
+                            <li><em>Các bên đối thoại thành:</em> Tòa án ra Quyết định công nhận kết quả đối thoại thành -> KSV kiểm sát và kết thúc luồng.</li>
+                            <li><em>Đối thoại không thành:</em> Tòa án ra Quyết định đưa vụ án ra xét xử -> Chuyển sang Bước 3.</li>
+                        </ul>
+                    </div>
+                </li>
+                <li data-step="1.3">
+                    <div class="step-title">Bước 3: Lập hồ sơ kiểm sát, Tham gia phiên tòa và Kiểm sát Bản án</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Lập Báo cáo đề xuất đánh giá tính hợp pháp của Quyết định hành chính/Hành vi hành chính bị kiện. Trình bày Bài phát biểu tại phiên tòa. Kiểm sát Bản án sau khi xét xử.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong>
+                        <ul>
+                            <li><em>Bản án đúng:</em> Lưu hồ sơ, chuyển trạng thái chờ hiệu lực.</li>
+                            <li><em>Bản án vi phạm:</em> Soạn dự thảo <strong>Quyết định Kháng nghị Phúc thẩm</strong> trình Lãnh đạo viện trong 15 ngày.</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="giai-doan" data-level="hc-phuc-tham-gdt">
+            <h2>II. Giai đoạn Phúc thẩm / Giám đốc thẩm / Tái thẩm</h2>
+            <ul class="quy-trinh">
+                <li data-step="2.1">
+                    <div class="step-title">Bước 1: Kiểm sát Phúc thẩm</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Kiểm sát thụ lý phúc thẩm. Rút hồ sơ, phân tích kháng cáo/kháng nghị. Tham gia phiên tòa Phúc thẩm phát biểu quan điểm giải quyết.</div>
+                    </div>
+                    <div class="workflow-branch">
+                        <strong>🔄 Rẽ nhánh tiến trình:</strong> Nếu HĐXX tuyên án khác với quan điểm VKS -> Báo cáo ngay lên VKS cấp trên bằng văn bản để xem xét Giám đốc thẩm.
+                    </div>
+                </li>
+                <li data-step="2.2">
+                    <div class="step-title">Bước 2: Giám đốc thẩm / Tái thẩm</div>
+                    <div class="task-group">
+                        <div class="task-label">Công việc của KSV:</div>
+                        <div class="task-content">Tiếp nhận đơn. Rút hồ sơ gốc. Nghiên cứu xác định vi phạm/tình tiết mới. Nếu có căn cứ, dự thảo Quyết định Kháng nghị GĐT/TT. Tham gia phiên tòa GĐT/TT để bảo vệ kháng nghị.</div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+</body>
+</html>
