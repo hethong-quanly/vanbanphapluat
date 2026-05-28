@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VKSND TP.Cần Thơ - Trợ Lý Ảo</title>
+  <title>Trợ Lý Ảo VKSND TP.CẦN THƠ</title>
   
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -51,22 +51,6 @@
       font-size: 20px;
       color: #0B1120;
     }
-
-    .status-text {
-      font-size: 12px; 
-      color: #8A9BBF; 
-      margin-top: 2px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    .status-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #fbbf24; /* Loading */
-    }
-    .status-dot.ok { background: #4ade80; box-shadow: 0 0 0 2px rgba(74,222,128,0.2); }
-    .status-dot.error { background: #f87171; }
 
     .btn-close {
       background: rgba(255,255,255,0.05);
@@ -117,8 +101,13 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .msg-user { align-self: flex-end; }
-    .msg-ai { align-self: flex-start; }
+    .msg-user {
+      align-self: flex-end;
+    }
+
+    .msg-ai {
+      align-self: flex-start;
+    }
 
     .msg-sender {
       font-size: 11px;
@@ -138,14 +127,22 @@
       border-radius: 12px;
       line-height: 1.6;
       font-size: 14px;
+      white-space: normal; /* Cho phép render HTML chuẩn */
+      word-wrap: break-word;
     }
+
+    /* CSS bổ sung cho render Markdown (in đậm, danh sách) của AI */
+    .msg-bubble strong { font-weight: 600; color: #fff; }
+    .msg-bubble ul { padding-left: 20px; margin: 8px 0; }
+    .msg-bubble li { margin-bottom: 4px; }
+    .msg-bubble p { margin-top: 0; margin-bottom: 10px; }
+    .msg-bubble p:last-child { margin-bottom: 0; }
 
     .msg-user .msg-bubble {
       background: rgba(201,168,76,0.1);
       border: 1px solid rgba(201,168,76,0.3);
       color: #E8E0D0;
       border-bottom-right-radius: 4px;
-      white-space: pre-wrap;
     }
 
     .msg-ai .msg-bubble {
@@ -154,11 +151,6 @@
       color: #C8BFAE;
       border-bottom-left-radius: 4px;
     }
-
-    /* AI Formatting */
-    .msg-ai .msg-bubble strong { color: #C9A84C; font-weight: 600; }
-    .msg-ai .msg-bubble ul, .msg-ai .msg-bubble ol { margin: 8px 0; padding-left: 20px; }
-    .msg-ai .msg-bubble li { margin-bottom: 4px; }
 
     /* Gợi ý tình huống */
     .suggestions {
@@ -181,9 +173,6 @@
 
     .suggestion-chip:hover {
       background: rgba(201,168,76,0.15);
-    }
-    .suggestion-chip:disabled {
-      opacity: 0.5; cursor: not-allowed;
     }
 
     /* Khu vực Nhập liệu */
@@ -224,7 +213,6 @@
       border-color: #C9A84C;
       background: rgba(255,255,255,0.08);
     }
-    .input-field:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .btn-send {
       background: linear-gradient(135deg, #C9A84C, #A07830);
@@ -247,7 +235,8 @@
     }
 
     .btn-send:disabled {
-      opacity: 0.5;
+      background: #555;
+      color: #888;
       cursor: not-allowed;
     }
 
@@ -282,11 +271,8 @@
     <div class="header-title">
       <div class="ai-icon">🤖</div>
       <div>
-        <div style="font-size: 15px; font-weight: 600; color: #E8E0D0;">Trợ Lý Ảo VKSND</div>
-        <div class="status-text" id="headerStatus">
-          <div class="status-dot" id="statusDot"></div>
-          <span id="statusMessage">Đang khởi tạo hệ thống...</span>
-        </div>
+        <div style="font-size: 15px; font-weight: 600; color: #E8E0D0;">Trợ Lý Ảo Pháp Lý</div>
+        <div id="connection-status" style="font-size: 12px; color: #8A9BBF; margin-top: 2px;">Hệ thống văn bản - Đang kết nối dữ liệu...</div>
       </div>
     </div>
     <button class="btn-close" onclick="window.close()">✕ Đóng Cửa Sổ</button>
@@ -294,7 +280,15 @@
 
   <div class="chat-container" id="chatContainer">
     <div class="chat-wrapper" id="chatWrapper">
+      
+      <div class="message msg-ai" id="welcome-msg">
+        <div class="msg-sender">AI ASSISTANT</div>
+        <div class="msg-bubble">Xin chào đồng chí! Tôi là Trợ lý ảo AI được thiết kế riêng để hỗ trợ nghiệp vụ Kiểm sát, được trợ lực bởi Groq AI.
+        
+Đang khởi tạo kết nối an toàn tới cơ sở dữ liệu VKSND... Vui lòng chờ trong giây lát.</div>
       </div>
+
+    </div>
   </div>
 
   <div class="input-area">
@@ -302,7 +296,7 @@
       <textarea 
         id="userInput" 
         class="input-field" 
-        placeholder="Vui lòng chờ, đang kết nối AI..." 
+        placeholder="Hệ thống đang khởi động..." 
         onkeydown="handleKeyPress(event)"
         disabled
       ></textarea>
@@ -322,281 +316,29 @@
         storageBucket: "dansu-vksndtpct.firebasestorage.app",
         appId: "1:843158256686:web:eb128d64c8b9bfd7aef3bf"
     };
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
     var db = firebase.database();
 
     // Biến toàn cục
-    let GROQ_KEY = '';
     let isSending = false;
+    let GEMINI_KEY = ''; // Lấy tự động từ Firebase
 
-    // Các phần tử DOM
     const chatWrapper = document.getElementById('chatWrapper');
     const chatContainer = document.getElementById('chatContainer');
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
-    const statusDot = document.getElementById('statusDot');
-    const statusMessage = document.getElementById('statusMessage');
+    const connectionStatus = document.getElementById('connection-status');
 
-    // ===== KHỞI TẠO ỨNG DỤNG =====
+    // ===== KHỞI ĐỘNG HỆ THỐNG =====
     async function initApp() {
         try {
+            // Đọc cấu hình API Key từ Firebase
             const snap = await db.ref('config/groq_key').once('value');
             const key = snap.val();
 
             if (!key) {
-                setAppStatus('error', 'Chưa có API Key. Vui lòng thiết lập cấu hình.');
-                showWelcomeMessage(false);
-                return;
-            }
-
-            GROQ_KEY = key;
-            setAppStatus('ok', 'Hệ thống AI đã sẵn sàng (Llama 3.3)');
-            
-            userInput.disabled = false;
-            sendBtn.disabled = false;
-            userInput.placeholder = "Nhập câu hỏi, tra cứu luật, hoặc yêu cầu phân tích dữ liệu...";
-            
-            showWelcomeMessage(true);
-
-        } catch(e) {
-            setAppStatus('error', 'Lỗi kết nối CSDL: ' + e.message);
-            showWelcomeMessage(false);
-        }
-    }
-
-    function setAppStatus(state, message) {
-        statusDot.className = 'status-dot ' + state;
-        statusMessage.innerText = message;
-    }
-
-    function showWelcomeMessage(isSuccess) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'message msg-ai';
-        
-        let content = '';
-        if (isSuccess) {
-            content = `Xin chào đồng chí! Tôi là Trợ lý ảo AI được thiết kế riêng để hỗ trợ nghiệp vụ Kiểm sát, vận hành bởi **Groq AI (Llama 3.3)**.
-            
-Tôi có thể giúp đồng chí:
-• **Phân tích dữ liệu hệ thống** (Án Dân sự, Thi hành án, Khiếu tố).
-• **Tra cứu nhanh** các văn bản quy phạm pháp luật (BLDS, BLTTDS, v.v.).
-• **Đề xuất hướng xử lý** hoặc rút kinh nghiệm nghiệp vụ.
-
-Đồng chí cần hỗ trợ vấn đề gì hôm nay?`;
-        } else {
-            content = `Hệ thống tạm thời không thể kết nối tới máy chủ AI. Vui lòng kiểm tra lại cấu hình API hoặc mạng Internet.`;
-        }
-
-        msgDiv.innerHTML = `
-            <div class="msg-sender">AI ASSISTANT</div>
-            <div class="msg-bubble">${fmt(content)}</div>
-            ${isSuccess ? `
-            <div class="suggestions">
-              <button class="suggestion-chip" onclick="fillInput('Phân tích số liệu hệ thống hôm nay và đưa ra nhận xét')">Phân tích dữ liệu hôm nay</button>
-              <button class="suggestion-chip" onclick="fillInput('Tổng hợp phân tích số liệu tháng này, so sánh tổng thể')">Thống kê án tháng này</button>
-              <button class="suggestion-chip" onclick="fillInput('Phân tích rủi ro vi phạm thời hạn tố tụng trong án DS, THA')">Hồ sơ quá hạn / Vi phạm</button>
-              <button class="suggestion-chip" onclick="fillInput('Thời hạn thụ lý và xét xử dân sự theo BLTTDS 2015 là bao lâu?')">Tra cứu thời hạn thụ lý</button>
-            </div>` : ''}
-        `;
-        chatWrapper.appendChild(msgDiv);
-    }
-
-    // ===== LẤY DỮ LIỆU FIREBASE (Context) =====
-    async function fetchSystemData() {
-        const today = new Date(); today.setHours(0,0,0,0);
-        const monthStart = new Date(today.getFullYear(), today.getMonth(), 1).getTime();
-        const todayTs = today.getTime();
-
-        async function get(path) {
-            const snap = await db.ref(path).once('value');
-            return Object.values(snap.val() || {});
-        }
-
-        const [ads, tha, dkt] = await Promise.all([get('an_dan_su'), get('thi_hanh_an'), get('don_khieu_to')]);
-        const capCount = {};
-        ads.forEach(x => { const c = x.cap_thu_ly || 'Khác'; capCount[c] = (capCount[c]||0)+1; });
-
-        return {
-            tong: { an: ads.length, tha: tha.length, dkt: dkt.length },
-            homNay: { an: ads.filter(x=>(x.timestamp||0)>=todayTs).length, tha: tha.filter(x=>(x.timestamp||0)>=todayTs).length, dkt: dkt.filter(x=>(x.timestamp||0)>=todayTs).length },
-            thang: { an: ads.filter(x=>(x.timestamp||0)>=monthStart).length, tha: tha.filter(x=>(x.timestamp||0)>=monthStart).length, dkt: dkt.filter(x=>(x.timestamp||0)>=monthStart).length },
-            phanLoai: Object.entries(capCount).map(([k,v])=>`${k}: ${v} vụ`).join(', ') || 'Chưa có dữ liệu'
-        };
-    }
-
-    // ===== GỌI API GROQ =====
-    async function callGroq(question, context = '') {
-        const systemPrompt = `Bạn là Trợ lý ảo của Viện Kiểm sát Nhân dân, chuyên nghiệp về kiểm sát dân sự. Trả lời bằng tiếng Việt, ngắn gọn, súc tích, chính xác. Trích dẫn điều luật cụ thể khi cần thiết. 
-${context ? '\n===DỮ LIỆU HỆ THỐNG===\n' + context + '\n===================' : ''}`;
-
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GROQ_KEY}`
-            },
-            body: JSON.stringify({
-                model: 'llama-3.3-70b-versatile',
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user',   content: question }
-                ],
-                max_tokens: 1024,
-                temperature: 0.7
-            })
-        });
-
-        if (!res.ok) {
-            const err = await res.json().catch(() => ({}));
-            throw new Error(err.error?.message || `Lỗi kết nối HTTP ${res.status}`);
-        }
-
-        const data = await res.json();
-        const text = data?.choices?.[0]?.message?.content;
-        if (!text) throw new Error('API không trả về nội dung');
-        return text;
-    }
-
-    // ===== XỬ LÝ SỰ KIỆN GIAO DIỆN =====
-    userInput.addEventListener('input', function() {
-      this.style.height = '24px';
-      this.style.height = (this.scrollHeight) + 'px';
-      if (this.scrollHeight > 150) {
-        this.style.overflowY = 'auto';
-      } else {
-        this.style.overflowY = 'hidden';
-      }
-    });
-
-    function fillInput(text) {
-      if(isSending || !GROQ_KEY) return;
-      userInput.value = text;
-      userInput.focus();
-      sendMessage(); // Tự động gửi khi ấn nút gợi ý cho tiện
-    }
-
-    function handleKeyPress(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    }
-
-    function scrollToBottom() {
-      setTimeout(() => { chatContainer.scrollTop = chatContainer.scrollHeight; }, 50);
-    }
-
-    // Hàm format Markdown sang HTML của AI
-    function fmt(text) {
-        return text
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/^#{1,3}\s+(.+)$/gm, '<strong>$1</strong>')
-            .replace(/^[-•]\s+(.+)$/gm, '<li>$1</li>')
-            .replace(/(<li>.*?<\/li>\n?)+/gs, m => `<ul>${m}</ul>`)
-            .replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
-    }
-
-    // Bảo mật hiển thị văn bản thuần của người dùng nhập
-    function escapeHTML(str) {
-      return str.replace(/[&<>'"]/g, tag => ({
-          '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-      }[tag] || tag));
-    }
-
-    function appendUserMessage(text) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'message msg-user';
-      msgDiv.innerHTML = `
-        <div class="msg-sender">Kiểm sát viên</div>
-        <div class="msg-bubble">${escapeHTML(text)}</div>
-      `;
-      chatWrapper.appendChild(msgDiv);
-      scrollToBottom();
-    }
-
-    function appendAIMessage(htmlContent) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'message msg-ai';
-      msgDiv.innerHTML = `
-        <div class="msg-sender">AI</div>
-        <div class="msg-bubble">${htmlContent}</div>
-      `;
-      chatWrapper.appendChild(msgDiv);
-      scrollToBottom();
-    }
-
-    function showTypingIndicator() {
-      const id = 'typing-' + Date.now();
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'message msg-ai';
-      msgDiv.id = id;
-      msgDiv.innerHTML = `
-        <div class="msg-sender">Đang phân tích dữ liệu</div>
-        <div class="msg-bubble" style="padding: 10px 18px;">
-          <span class="typing-indicator"></span>
-          <span class="typing-indicator"></span>
-          <span class="typing-indicator"></span>
-        </div>
-      `;
-      chatWrapper.appendChild(msgDiv);
-      scrollToBottom();
-      return id;
-    }
-
-    function removeTypingIndicator(id) {
-      const el = document.getElementById(id);
-      if (el) el.remove();
-    }
-
-    function setSendingState(state) {
-        isSending = state;
-        sendBtn.disabled = state;
-        userInput.disabled = state;
-        // Disable suggestion chips while loading
-        document.querySelectorAll('.suggestion-chip').forEach(btn => btn.disabled = state);
-    }
-
-    // ===== HÀM XỬ LÝ CHÍNH =====
-    async function sendMessage() {
-      if (isSending || !GROQ_KEY) return;
-      
-      const text = userInput.value.trim();
-      if (!text) return;
-
-      appendUserMessage(text);
-      userInput.value = '';
-      userInput.style.height = '24px';
-      setSendingState(true);
-
-      const typingId = showTypingIndicator();
-
-      try {
-          let context = '';
-          const lowerQ = text.toLowerCase();
-          
-          // Kiểm tra xem câu hỏi có cần context dữ liệu hệ thống không
-          if (['dữ liệu','hồ sơ','thống kê','bao nhiêu','tổng','tháng','hôm nay','phân tích','số liệu'].some(k => lowerQ.includes(k))) {
-              const data = await fetchSystemData();
-              context = `Án dân sự: ${data.tong.an} (${data.phanLoai}), THA: ${data.tong.tha}, Khiếu tố: ${data.tong.dkt}. Tháng này: án ${data.thang.an}, THA ${data.thang.tha}, KT ${data.thang.dkt}. Hôm nay: án ${data.homNay.an}, THA ${data.homNay.tha}, KT ${data.homNay.dkt}.`;
-          }
-
-          const reply = await callGroq(text, context);
-          
-          removeTypingIndicator(typingId);
-          appendAIMessage(fmt(reply));
-
-      } catch (error) {
-          removeTypingIndicator(typingId);
-          appendAIMessage(`⚠️ **Lỗi hệ thống:** ${error.message}`);
-      }
-
-      setSendingState(false);
-      userInput.focus();
-    }
-
-    // Chạy khi khởi động
-    window.onload = initApp;
-  </script>
-</body>
-</html>
+                connectionStatus.style.color = '#f87171';
+                connectionStatus.innerText = 'Lỗi: Chưa thiết lập API Key trong Cấu hình.';
+                updateWelcomeMsg('Hệ thống chưa có API Key. Vui lòng
