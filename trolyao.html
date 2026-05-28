@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trợ Lý Ảo Pháp Lý - LEXVIET</title>
+  <title>VKSND TP.Cần Thơ - Trợ Lý Ảo</title>
   
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -388,7 +388,7 @@ Tôi có thể giúp đồng chí:
         }
 
         msgDiv.innerHTML = `
-            <div class="msg-sender">LEXVIET AI ASSISTANT</div>
+            <div class="msg-sender">AI ASSISTANT</div>
             <div class="msg-bubble">${fmt(content)}</div>
             ${isSuccess ? `
             <div class="suggestions">
@@ -519,7 +519,7 @@ ${context ? '\n===DỮ LIỆU HỆ THỐNG===\n' + context + '\n================
       const msgDiv = document.createElement('div');
       msgDiv.className = 'message msg-ai';
       msgDiv.innerHTML = `
-        <div class="msg-sender">LEXVIET AI</div>
+        <div class="msg-sender">AI</div>
         <div class="msg-bubble">${htmlContent}</div>
       `;
       chatWrapper.appendChild(msgDiv);
