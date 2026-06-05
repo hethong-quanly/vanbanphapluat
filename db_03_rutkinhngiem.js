@@ -538,4 +538,148 @@ const DB_RUT_KINH_NGHIEM = [
     bienPhap: "Kháng nghị phúc thẩm và được TAND cấp cao chấp nhận hủy toàn bộ bản án sơ thẩm để giải quyết lại[cite: 30].",
     file: ""
   }
+// ── CÁC THÔNG BÁO RÚT KINH NGHIỆM BỔ SUNG (ĐỢT 2) ─────────────────────
+
+  {
+    id: "rkn-040",
+    soThongBao: "27/TB-VC1-HC",
+    tieuDe: "Thông báo rút kinh nghiệm đối với bản án hành chính sơ thẩm có vi phạm bị hủy án (Yêu cầu hủy giấy chứng nhận quyền sử dụng đất)",
+    ngayBanHanh: "19/05/2022",
+    linhVuc: "Hành chính",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa án cấp sơ thẩm vi phạm trong thu thập và đánh giá chứng cứ: Chưa làm rõ trước khi ký hợp đồng tặng cho thì quyền sử dụng đất thuộc về cá nhân (cụ Phú) hay thuộc về hộ gia đình; chưa làm rõ việc các đồng thừa kế khác bị giả mạo chữ ký trong hợp đồng tặng cho (người không biết chữ nhưng lại có chữ ký); không xem xét việc trên đất có tài sản chung của hộ gia đình nhưng hợp đồng tặng cho không đề cập[cite: 22].",
+    baiHoc: "Trong án hành chính yêu cầu hủy GCNQSDĐ dựa trên hợp đồng tặng cho, KSV phải yêu cầu Tòa án thu thập hồ sơ địa chính để xác định nguồn gốc đất (cá nhân hay hộ gia đình) và giám định chữ ký/chữ điểm chỉ nếu có dấu hiệu giả mạo[cite: 22].",
+    bienPhap: "Bản án hành chính phúc thẩm đã hủy toàn bộ bản án sơ thẩm để xét xử lại. Thông báo rút kinh nghiệm cho VKSND các tỉnh khu vực phía Bắc[cite: 22].",
+    file: "27 TB rkn bản án HC Dương Văn Trung - UB thị xã H, tỉnh Q.pdf"
+  },
+
+  {
+    id: "rkn-041",
+    soThongBao: "40/TB-VC1-DS",
+    tieuDe: "Thông báo rút kinh nghiệm về tranh chấp hợp đồng mua bán tài sản",
+    ngayBanHanh: "17/09/2018",
+    linhVuc: "Dân sự",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa án cấp sơ thẩm và phúc thẩm đánh giá chứng cứ thiếu căn cứ khi cho rằng việc thanh toán tiền cho một nhân viên công ty (không có giấy ủy quyền của người bán) là đã hoàn thành nghĩa vụ thanh toán. Tòa án dựa vào các bản kê thanh toán có chữ ký bị giám định là giả mạo để bác yêu cầu khởi kiện của nguyên đơn[cite: 31].",
+    baiHoc: "Phải kiểm tra chặt chẽ giấy ủy quyền nhận tiền trong giao dịch mua bán tài sản. Không được sử dụng các tài liệu, chứng từ có chữ ký đã bị cơ quan giám định kết luận là giả mạo làm căn cứ giải quyết vụ án[cite: 31].",
+    bienPhap: "Giám đốc thẩm hủy cả 2 bản án sơ thẩm và phúc thẩm để xét xử lại. Rút kinh nghiệm về việc đánh giá chứng cứ thanh toán và kết luận giám định[cite: 31].",
+    file: "27 TB rut KN gq án DS.signed.pdf"
+  },
+
+  {
+    id: "rkn-042",
+    soThongBao: "268/TB-BCC",
+    tieuDe: "Thông báo của Ban thực hiện cưỡng chế thu hồi đất Về thời gian tổ chức cưỡng chế thực hiện Quyết định thu hồi đất",
+    ngayBanHanh: "05/06/2020",
+    linhVuc: "Hành chính (Thông báo thực tế)",
+    capBanHanh: "UBND thành phố Hạ Long (Ban cưỡng chế)",
+    noiDungViPham: "Đây là tài liệu thông báo thời gian tổ chức cưỡng chế thu hồi đất đối với Công ty cổ phần du lịch Hạ Long để giao cho Trung tâm phát triển quỹ đất, yêu cầu công ty có mặt để chấp hành, nếu vắng mặt sẽ tiến hành tháo dỡ theo quy định[cite: 32].",
+    baiHoc: "Tài liệu mang tính chất tham khảo về quy trình thông báo và thực hiện cưỡng chế thu hồi đất trong thực tiễn của chính quyền địa phương[cite: 32].",
+    bienPhap: "Giao UBND phường gửi thông báo và tiến hành cưỡng chế đúng quy định[cite: 32].",
+    file: "30 TB rut KN tranh chấp đòi nhà.pdf" // Note: Theo nội dung file được cung cấp.
+  },
+
+  {
+    id: "rkn-043",
+    soThongBao: "44/TB-VC1-V2",
+    tieuDe: "Thông báo rút kinh nghiệm về giải quyết vụ án 'Đòi quyền sử dụng đất'",
+    ngayBanHanh: "29/06/2022",
+    linhVuc: "Dân sự",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa án cấp phúc thẩm tuyên giao đất nhưng không xác định rõ mốc giới, số đo các cạnh của thửa đất, không xem xét phần móng bức tường đang sử dụng, và không đính kèm sơ đồ thửa đất tranh chấp vào bản án. Bản án giao 84m2 nhưng thực tế khi cơ quan THADS thi hành thì phần đất chỉ có 76,4m2, dẫn đến bản án không thể thi hành được[cite: 33].",
+    baiHoc: "Khi bản án quyết định giao tài sản là quyền sử dụng đất, KSV phải yêu cầu Tòa án tuyên rõ ràng vị trí, kích thước các cạnh, tứ cận và bắt buộc phải có sơ đồ thửa đất kèm theo bản án để đảm bảo tính khả thi trong thi hành án[cite: 33].",
+    bienPhap: "Ủy ban Thẩm phán TAND cấp cao chấp nhận kháng nghị tái thẩm, hủy toàn bộ bản án phúc thẩm và sơ thẩm để giải quyết lại[cite: 33].",
+    file: "33 TB rut KN kien doi TS.pdf"
+  },
+
+  {
+    id: "rkn-044",
+    soThongBao: "45/TB-VC1-V2",
+    tieuDe: "Thông báo rút kinh nghiệm về giải quyết vụ án 'Tranh chấp hợp đồng chuyển nhượng quyền sử dụng đất'",
+    ngayBanHanh: "29/06/2022",
+    linhVuc: "Dân sự",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa án cấp sơ thẩm và phúc thẩm xác định sai lỗi của các bên khi hợp đồng chuyển nhượng đất vô hiệu (nhận định hoàn toàn do lỗi người bán, trong khi người mua không đủ điều kiện nhận chuyển nhượng đất nông nghiệp và giao dịch không công chứng). Định giá tài sản sai: đối tượng giao dịch là đất nông nghiệp nhưng Hội đồng định giá lại tính theo giá đất ở nông thôn, dẫn đến buộc bồi thường thiệt hại sai pháp luật[cite: 34].",
+    baiHoc: "Khi tuyên hợp đồng vô hiệu, phải đánh giá khách quan mức độ lỗi của cả hai bên. Việc định giá bồi thường thiệt hại phải dựa trên loại đất thực tế tại thời điểm giao dịch, không được tự ý định giá theo loại đất khác có giá trị cao hơn[cite: 34].",
+    bienPhap: "Giám đốc thẩm hủy toàn bộ bản án phúc thẩm và sơ thẩm để giải quyết sơ thẩm lại. Rút kinh nghiệm đánh giá lỗi và định giá tài sản[cite: 34].",
+    file: "35 TB rkn gq tranh chap chia tai san sau ly hon.pdf" 
+  },
+
+  {
+    id: "rkn-045",
+    soThongBao: "45/TB-VC1-V2 (2)",
+    tieuDe: "Thông báo rút kinh nghiệm công tác kiểm sát việc giải quyết vụ án tranh chấp đòi tài sản (Cổ phiếu)",
+    ngayBanHanh: "17/10/2018",
+    linhVuc: "Dân sự",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa án hai cấp đánh giá chứng cứ thiếu chính xác: Bỏ qua giao dịch thực tế giữa người mua và chủ sở hữu cổ phiếu (qua trung gian); buộc bị đơn trả bằng tiền mặt (4,06 tỷ đồng) trong khi chứng cứ thể hiện tài sản bị đơn đang giữ hộ là cổ phiếu (1 triệu cổ phiếu). Tuyên hủy hợp đồng chuyển nhượng cổ phần nhưng không giải quyết hậu quả vô hiệu (xử lý số tiền cổ tức phát sinh)[cite: 35].",
+    baiHoc: "Khi giải quyết tranh chấp tài sản là cổ phiếu, cổ phần, phải làm rõ đối tượng tranh chấp là hiện vật (cổ phiếu) hay tiền. Tuyên hợp đồng vô hiệu bắt buộc phải đi kèm giải quyết hậu quả pháp lý (bao gồm hoa lợi, lợi tức)[cite: 35].",
+    bienPhap: "Hủy toàn bộ bản án phúc thẩm và sơ thẩm theo thủ tục Giám đốc thẩm để giải quyết lại. Rút kinh nghiệm chung toàn khu vực[cite: 35].",
+    file: "36 TB rkn vụ TCQSDĐ .pdf" 
+  },
+
+  {
+    id: "rkn-046",
+    soThongBao: "46/TB-VC1-DS",
+    tieuDe: "Thông báo rút kinh nghiệm về tranh chấp thừa kế tài sản",
+    ngayBanHanh: "23/10/2017",
+    linhVuc: "Dân sự",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa sơ thẩm tống đạt bản án cho bị đơn bằng niêm yết nhưng chỉ niêm yết tại UBND xã mà không niêm yết tại trụ sở Tòa án và nơi cư trú của bị đơn, làm tước quyền kháng cáo. Về nội dung: Tòa án chưa làm rõ nguồn gốc tài sản (có bị nhà nước trưng mua trong cải cách ruộng đất hay không); đất bao gồm đất ở và đất vườn nhưng Tòa án không định giá riêng biệt từng loại đất và khi chia thừa kế cũng không xác định rõ ai nhận loại đất nào[cite: 36].",
+    baiHoc: "KSV phải kiểm sát nghiêm ngặt thủ tục tống đạt, niêm yết bản án. Trong chia thừa kế đất đai, phải yêu cầu định giá rành mạch từng loại đất (đất ở, đất nông nghiệp) để chia kỷ phần cho công bằng[cite: 36].",
+    bienPhap: "Hội đồng Giám đốc thẩm hủy cả 2 bản án để xét xử lại. Rút kinh nghiệm nghiêm túc về thủ tục tố tụng và định giá di sản[cite: 36].",
+    file: "38 TB rkn vụ án DS Lại Quyết Thắng - Phạm Thị Hồng Phượng.pdf" 
+  },
+
+  {
+    id: "rkn-047",
+    soThongBao: "47/TB-VC1-DS",
+    tieuDe: "Thông báo rút kinh nghiệm về tranh chấp kiện đòi tài sản (Chuyển nhượng quyền góp vốn dự án)",
+    ngayBanHanh: "23/10/2017",
+    linhVuc: "Dân sự",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa án cấp phúc thẩm xác định sai thẩm quyền giải quyết theo lãnh thổ (nhầm lẫn giữa nơi đăng ký thường trú và nơi cư trú/tạm trú thực tế). Tòa án xác định sai bản chất giao dịch: cho rằng các bên đã chuyển từ hợp đồng chuyển nhượng quyền sử dụng đất sang giao dịch 'xác nhận nợ', từ đó bỏ sót việc đưa chủ đầu tư dự án và người chuyển nhượng ban đầu vào tham gia tố tụng để làm rõ điều kiện chuyển nhượng lô đất[cite: 37].",
+    baiHoc: "Thẩm quyền giải quyết vụ án phải dựa trên nơi cư trú thực tế (tạm trú hợp pháp) tại thời điểm khởi kiện. Phải xác định đúng quan hệ pháp luật cốt lõi (hợp đồng chuyển nhượng) và đưa đầy đủ các bên liên quan chuỗi giao dịch vào tham gia tố tụng[cite: 37].",
+    bienPhap: "Giám đốc thẩm hủy cả bản án sơ thẩm và phúc thẩm, giao hồ sơ về Tòa án cấp quận có thẩm quyền để giải quyết lại[cite: 37].",
+    file: "38 TBRKN án DS.pdf" // Note: Theo nội dung file.
+  },
+
+  {
+    id: "rkn-048",
+    soThongBao: "56/TB-VC1-V2",
+    tieuDe: "Thông báo rút kinh nghiệm về giải quyết vụ án 'Kiện đòi tài sản là quyền sử dụng đất' có vi phạm bị cấp phúc thẩm hủy án",
+    ngayBanHanh: "04/08/2022",
+    linhVuc: "Dân sự",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa án cấp sơ thẩm giải quyết thiếu yêu cầu khởi kiện (bỏ qua yêu cầu hủy Giấy chứng nhận QSDĐ) nên không đưa UBND thị xã và UBND xã vào tham gia tố tụng. Công nhận hợp đồng tặng cho không đúng pháp luật do diện tích trong hợp đồng mâu thuẫn với hiện trạng thực tế và GCNQSDĐ cấp trùm lên cả nhà của nguyên đơn đang sinh sống (do cán bộ địa chính tự ý ghi thêm diện tích)[cite: 38].",
+    baiHoc: "KSV cần kiểm sát chặt chẽ tất cả các yêu cầu khởi kiện của đương sự để xác định đủ tư cách người tham gia tố tụng. Khi có sự sai lệch giữa hợp đồng tặng cho, bản đồ địa chính và hiện trạng, phải yêu cầu đối chất, làm rõ nguồn gốc sai sót[cite: 38].",
+    bienPhap: "Tòa án cấp phúc thẩm chấp nhận đề nghị của VKS, hủy toàn bộ bản án sơ thẩm để xét xử lại. Rút kinh nghiệm chung về kiểm sát yêu cầu khởi kiện[cite: 38].",
+    file: ""
+  },
+
+  {
+    id: "rkn-049",
+    soThongBao: "56/TB-VC1-V2 (2)",
+    tieuDe: "Thông báo rút kinh nghiệm Về việc định giá tài sản là quyền sử dụng đất (Tranh chấp thừa kế)",
+    ngayBanHanh: "01/09/2021",
+    linhVuc: "Dân sự",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa án sơ thẩm và phúc thẩm xác định sai loại đất: Đất có nguồn gốc trước năm 1980, không tranh chấp, là đất ở nhưng Tòa án lại xác định phần lớn diện tích là đất trồng cây lâu năm. Dẫn đến Hội đồng định giá áp dụng sai đơn giá (định giá đất vườn thay vì đất thổ cư), làm sai lệch giá trị di sản và sai tiền án phí[cite: 39].",
+    baiHoc: "Khi xác định di sản thừa kế là quyền sử dụng đất, KSV phải đối chiếu kỹ nguồn gốc đất và quy định pháp luật đất đai để xác định đúng loại đất (đất ở hay đất vườn), từ đó giám sát chặt chẽ tính chính xác của Biên bản định giá tài sản[cite: 39].",
+    bienPhap: "Phát hành thông báo rút kinh nghiệm cho VKS cấp tỉnh, huyện khu vực phía Bắc để chấn chỉnh công tác kiểm sát định giá tài sản[cite: 39].",
+    file: ""
+  },
+
+  {
+    id: "rkn-050",
+    soThongBao: "58/TB-VC1-V2",
+    tieuDe: "Thông báo rút kinh nghiệm Vụ án 'Ly hôn, tranh chấp về nuôi con, chia tài sản khi ly hôn và đòi quyền sử dụng đất'",
+    ngayBanHanh: "19/08/2022",
+    linhVuc: "Hôn nhân và gia đình",
+    capBanHanh: "VKSND Cấp cao tại Hà Nội",
+    noiDungViPham: "Tòa sơ thẩm đánh giá sai chứng cứ: Mặc dù Giấy chứng nhận QSDĐ đứng tên hai vợ chồng và mua trong thời kỳ hôn nhân, nhưng Tòa án lại dựa vào lời khai một phía của bố mẹ chồng (cho rằng mua hộ) dù không có văn bản chứng minh, để tuyên giao đất cho bố mẹ chồng và chỉ chia giá trị bằng tiền cho vợ chồng[cite: 40].",
+    baiHoc: "Tài sản mua trong thời kỳ hôn nhân và đã cấp GCNQSDĐ tên vợ chồng phải được suy đoán pháp lý là tài sản chung của vợ chồng. Mọi yêu cầu cho rằng 'đứng tên hộ' phải có chứng cứ vật chất rõ ràng (giấy ủy quyền, hợp đồng nhờ mua hộ), không được chỉ dựa vào lời khai[cite: 40].",
+    bienPhap: "VKSND cấp cao kháng nghị phúc thẩm. Tòa phúc thẩm sửa bản án sơ thẩm, giao đất cho người vợ/chồng quản lý và chia giá trị theo đúng luật HNGĐ[cite: 40].",
+    file: ""
+  }
 ];
