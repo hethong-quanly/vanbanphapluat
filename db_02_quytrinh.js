@@ -1,5 +1,5 @@
 // ============================================================
-// db_02_quytrinh.js – Quy trình Kiểm sát Dân sự & Hành chính
+// db_02_quytrinh.js – Quy trình Kiểm sát Dân sự & Hành chính, THAHS, Hình sự
 // VKSND TP. Cần Thơ – Hệ thống LEXVIET
 // ============================================================
 
@@ -317,8 +317,7 @@ const DB_QUY_TRINH = [
     ]
   },
 
-];
-// ══════════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════
   // PHẦN C: KIỂM SÁT TẠM GIỮ, TẠM GIAM VÀ THI HÀNH ÁN HÌNH SỰ (THAHS)
   // ══════════════════════════════════════════════════════════
 
@@ -329,19 +328,19 @@ const DB_QUY_TRINH = [
     trangThai: "Đang áp dụng",
     ngayBanHanh: "26/01/2024",
     tieuDe: "Trực tiếp kiểm sát việc tạm giữ, tạm giam tại Nhà tạm giữ Công an",
-    moTa: "Quy trình kiểm sát định kỳ hoặc đột xuất tại Cơ sở giam giữ nhằm bảo đảm việc thực hiện nghiêm chỉnh lệnh, quyết định của cơ quan có thẩm quyền; bảo đảm quyền con người, các chế độ ăn, ở, chăm sóc y tế đối với người bị tạm giữ, tạm giam[cite: 98, 99, 100].",
+    moTa: "Quy trình kiểm sát định kỳ hoặc đột xuất tại Cơ sở giam giữ nhằm bảo đảm việc thực hiện nghiêm chỉnh lệnh, quyết định của cơ quan có thẩm quyền; bảo đảm quyền con người, các chế độ ăn, ở, chăm sóc y tế đối với người bị tạm giữ, tạm giam.",
     cacBuoc: [
-      "Xác định thời điểm, phạm vi kiểm sát (tiến hành toàn diện vào 06 tháng đầu năm và 06 tháng cuối năm) hoặc trực tiếp kiểm sát đột xuất[cite: 179, 180, 182].",
-      "Kiểm tra hệ thống hồ sơ, sổ theo dõi tạm giữ, tạm giam: việc lập danh bản, chỉ bản; lưu ý kiểm tra thân thể khi giao nhận người bị tạm giữ, tạm giam phải do cán bộ cùng giới thực hiện[cite: 119, 120, 142].",
-      "Kiểm tra cơ sở vật chất phục vụ công tác quản lý: hệ thống loa truyền thanh, buồng kỷ luật, hệ thống camera giám sát an ninh tại các buồng giam[cite: 124, 125].",
-      "Kiểm sát việc thực hiện chế độ ăn, ở, cấp phát tư trang, nhu yếu phẩm, và chăm sóc y tế[cite: 122, 130]; đặc biệt chế độ ăn nhân đôi/nhân bốn đối với người trích xuất đi xét xử hoặc phụ nữ có thai đi khám bệnh[cite: 128, 129].",
-      "Lập Phiếu kiểm sát, tổng hợp vi phạm ban hành Kết luận, Kiến nghị hoặc Kháng nghị yêu cầu Nhà tạm giữ khắc phục[cite: 138].",
-      "Tổ chức rút kinh nghiệm trực tiếp với VKS cấp dưới về kết quả kiểm sát sau khi ban hành Kết luận[cite: 242]."
+      "Xác định thời điểm, phạm vi kiểm sát (tiến hành toàn diện vào 06 tháng đầu năm và 06 tháng cuối năm) hoặc trực tiếp kiểm sát đột xuất.",
+      "Kiểm tra hệ thống hồ sơ, sổ theo dõi tạm giữ, tạm giam: việc lập danh bản, chỉ bản; lưu ý kiểm tra thân thể khi giao nhận người bị tạm giữ, tạm giam phải do cán bộ cùng giới thực hiện.",
+      "Kiểm tra cơ sở vật chất phục vụ công tác quản lý: hệ thống loa truyền thanh, buồng kỷ luật, hệ thống camera giám sát an ninh tại các buồng giam.",
+      "Kiểm sát việc thực hiện chế độ ăn, ở, cấp phát tư trang, nhu yếu phẩm, và chăm sóc y tế; đặc biệt chế độ ăn nhân đôi/nhân bốn đối với người trích xuất đi xét xử hoặc phụ nữ có thai đi khám bệnh.",
+      "Lập Phiếu kiểm sát, tổng hợp vi phạm ban hành Kết luận, Kiến nghị hoặc Kháng nghị yêu cầu Nhà tạm giữ khắc phục.",
+      "Tổ chức rút kinh nghiệm trực tiếp với VKS cấp dưới về kết quả kiểm sát sau khi ban hành Kết luận."
     ],
     vanBanCanCu: [
       "Luật Thi hành tạm giữ, tạm giam",
-      "Quy chế 259/QĐ-VKSTC ngày 20/7/2023 [cite: 94]",
-      "Thông báo số 20/TB-VKSTC ngày 26/01/2024 của VKSND tối cao [cite: 86, 88]"
+      "Quy chế 259/QĐ-VKSTC ngày 20/7/2023",
+      "Thông báo số 20/TB-VKSTC ngày 26/01/2024 của VKSND tối cao"
     ]
   },
 
@@ -352,18 +351,18 @@ const DB_QUY_TRINH = [
     trangThai: "Đang áp dụng",
     ngayBanHanh: "14/01/2022",
     tieuDe: "Kiểm sát việc Tòa án áp dụng biện pháp tạm giam và ra quyết định thi hành án",
-    moTa: "Quy trình theo dõi, kiểm sát các quyết định của Tòa án trong việc ra lệnh tạm giam, tổng hợp hình phạt, ra quyết định thi hành án, và hoãn chấp hành hình phạt tù nhằm phòng ngừa lạm dụng, kéo dài thời gian giam giữ trái luật[cite: 728, 734].",
+    moTa: "Quy trình theo dõi, kiểm sát các quyết định của Tòa án trong việc ra lệnh tạm giam, tổng hợp hình phạt, ra quyết định thi hành án, và hoãn chấp hành hình phạt tù nhằm phòng ngừa lạm dụng, kéo dài thời gian giam giữ trái luật.",
     cacBuoc: [
-      "Kiểm sát thời hạn và tính liên tục của các quyết định tạm giam do Tòa án ban hành [cite: 733]; kiên quyết chống lạm dụng lệnh tạm giam 'cho đến khi kết thúc phiên tòa' dẫn đến vi phạm thời hạn chuẩn bị xét xử[cite: 746, 747].",
-      "Kiểm tra việc Tòa án tổng hợp hình phạt: có trừ thời gian tạm giữ, tạm giam không; việc tổng hợp nhiều bản án; và mức hình phạt cao nhất đối với người dưới 18 tuổi[cite: 753, 754, 756, 760].",
-      "Kiểm sát thời hạn ban hành và gửi quyết định thi hành án hình sự bảo đảm bản án có hiệu lực phải được thi hành đúng hạn[cite: 771, 772].",
-      "Kiểm tra tính có căn cứ pháp luật đối với các Quyết định hoãn chấp hành hình phạt tù (bệnh nặng, lao động duy nhất, nuôi con nhỏ dưới 36 tháng)[cite: 784, 785, 787].",
-      "Tùy tính chất vi phạm, dự thảo văn bản Kháng nghị hoặc Kiến nghị yêu cầu Tòa án chấm dứt và khắc phục vi phạm[cite: 814]."
+      "Kiểm sát thời hạn và tính liên tục của các quyết định tạm giam do Tòa án ban hành; kiên quyết chống lạm dụng lệnh tạm giam 'cho đến khi kết thúc phiên tòa' dẫn đến vi phạm thời hạn chuẩn bị xét xử.",
+      "Kiểm tra việc Tòa án tổng hợp hình phạt: có trừ thời gian tạm giữ, tạm giam không; việc tổng hợp nhiều bản án; và mức hình phạt cao nhất đối với người dưới 18 tuổi.",
+      "Kiểm sát thời hạn ban hành và gửi quyết định thi hành án hình sự bảo đảm bản án có hiệu lực phải được thi hành đúng hạn.",
+      "Kiểm tra tính có căn cứ pháp luật đối với các Quyết định hoãn chấp hành hình phạt tù (bệnh nặng, lao động duy nhất, nuôi con nhỏ dưới 36 tháng).",
+      "Tùy tính chất vi phạm, dự thảo văn bản Kháng nghị hoặc Kiến nghị yêu cầu Tòa án chấm dứt và khắc phục vi phạm."
     ],
     vanBanCanCu: [
-      "Bộ luật Tố tụng Hình sự (Điều 277, 278, 346, 347, 364) [cite: 732, 771]",
-      "Bộ luật Hình sự (Điều 38, 55, 56, 103, 104) [cite: 752]",
-      "Thông báo số 14/TB-VKSTC ngày 14/01/2022 của VKSND tối cao [cite: 716, 718]"
+      "Bộ luật Tố tụng Hình sự (Điều 277, 278, 346, 347, 364)",
+      "Bộ luật Hình sự (Điều 38, 55, 56, 103, 104)",
+      "Thông báo số 14/TB-VKSTC ngày 14/01/2022 của VKSND tối cao"
     ]
   },
 
@@ -374,18 +373,18 @@ const DB_QUY_TRINH = [
     trangThai: "Đang áp dụng",
     ngayBanHanh: "11/10/2021",
     tieuDe: "Kiểm sát xét rút ngắn thời gian thử thách (Án treo, Tha tù trước thời hạn)",
-    moTa: "Quy trình kiểm sát hồ sơ đề nghị, tham gia phiên họp xét và quyết định rút ngắn thời gian thử thách đối với người được tha tù trước thời hạn có điều kiện hoặc người được hưởng án treo do Tòa án tổ chức[cite: 272].",
+    moTa: "Quy trình kiểm sát hồ sơ đề nghị, tham gia phiên họp xét và quyết định rút ngắn thời gian thử thách đối với người được tha tù trước thời hạn có điều kiện hoặc người được hưởng án treo do Tòa án tổ chức.",
     cacBuoc: [
-      "Tiếp nhận và kiểm sát hồ sơ đề nghị rút ngắn thời gian thử thách, bao gồm bản sao quyết định tha tù/án treo, tài liệu thể hiện sự tiến bộ và văn bản đề nghị của UBND cấp xã/đơn vị quân đội[cite: 285, 286, 289, 290].",
-      "[Trường hợp đủ điều kiện nhưng chưa đề nghị] VKS ban hành văn bản yêu cầu cơ quan có thẩm quyền lập hồ sơ đề nghị rút ngắn thời gian thử thách[cite: 294, 295, 296, 340].",
-      "Cử Kiểm sát viên tham gia phiên họp xét rút ngắn thời gian thử thách do Tòa án tổ chức[cite: 298, 299].",
-      "Kiểm sát viên trình bày quan điểm của VKS về đề nghị rút ngắn thời gian thử thách và việc tuân theo pháp luật tại phiên họp[cite: 307].",
-      "Kiểm sát hình thức, nội dung Quyết định chấp nhận/không chấp nhận của Tòa án[cite: 326].",
-      "Thực hiện quyền Kháng nghị theo thủ tục tố tụng nếu phát hiện Quyết định vi phạm pháp luật[cite: 329, 330]."
+      "Tiếp nhận và kiểm sát hồ sơ đề nghị rút ngắn thời gian thử thách, bao gồm bản sao quyết định tha tù/án treo, tài liệu thể hiện sự tiến bộ và văn bản đề nghị của UBND cấp xã/đơn vị quân đội.",
+      "[Trường hợp đủ điều kiện nhưng chưa đề nghị] VKS ban hành văn bản yêu cầu cơ quan có thẩm quyền lập hồ sơ đề nghị rút ngắn thời gian thử thách.",
+      "Cử Kiểm sát viên tham gia phiên họp xét rút ngắn thời gian thử thách do Tòa án tổ chức.",
+      "Kiểm sát viên trình bày quan điểm của VKS về đề nghị rút ngắn thời gian thử thách và việc tuân theo pháp luật tại phiên họp.",
+      "Kiểm sát hình thức, nội dung Quyết định chấp nhận/không chấp nhận của Tòa án.",
+      "Thực hiện quyền Kháng nghị theo thủ tục tố tụng nếu phát hiện Quyết định vi phạm pháp luật."
     ],
     vanBanCanCu: [
-      "Luật Thi hành án hình sự 2019 (Điều 59, 65, 85, 90) [cite: 266, 292, 333, 338, 342]",
-      "Thông tư liên tịch số 03/2021/TTLT-TANDTC-VKSNDTC-BCA-BQP [cite: 261]"
+      "Luật Thi hành án hình sự 2019 (Điều 59, 65, 85, 90)",
+      "Thông tư liên tịch số 03/2021/TTLT-TANDTC-VKSNDTC-BCA-BQP"
     ]
   },
 
@@ -396,23 +395,24 @@ const DB_QUY_TRINH = [
     trangThai: "Đang áp dụng",
     ngayBanHanh: "30/11/2023",
     tieuDe: "Kiểm sát mô hình thí điểm phạm nhân lao động, hướng nghiệp ngoài trại giam",
-    moTa: "Quy trình trực tiếp kiểm sát các trại giam thực hiện thí điểm tổ chức hoạt động lao động, hướng nghiệp, dạy nghề cho phạm nhân tại khu lao động ngoài trại giam do doanh nghiệp hợp tác[cite: 7, 11].",
+    moTa: "Quy trình trực tiếp kiểm sát các trại giam thực hiện thí điểm tổ chức hoạt động lao động, hướng nghiệp, dạy nghề cho phạm nhân tại khu lao động ngoài trại giam do doanh nghiệp hợp tác.",
     cacBuoc: [
-      "Kiểm sát thủ tục lựa chọn doanh nghiệp hợp tác: doanh nghiệp không có vốn đầu tư nước ngoài, ngành nghề không thuộc danh mục nặng nhọc, độc hại, khoảng cách đến trại giam dưới 50km[cite: 24, 26, 28].",
-      "Kiểm tra việc ký kết hợp đồng hợp tác, thủ tục lập hồ sơ, thẩm định phê duyệt thành lập khu lao động[cite: 30, 34].",
-      "Kiểm sát tiêu chí và sự tự nguyện của phạm nhân khi được đưa ra khu lao động ngoài trại giam[cite: 35, 38, 40].",
-      "Kiểm tra công tác quản lý giam giữ, an ninh, tuần tra kiểm soát, phát hiện vật cấm và điều kiện cơ sở vật chất (buồng giam, khu bếp, y tế, tường rào)[cite: 43, 45, 50].",
-      "Kiểm sát chế độ lao động, theo dõi sổ sách hạch toán kết quả thu, chi và phân phối kết quả lao động của phạm nhân[cite: 54].",
-      "Kiểm sát việc đưa phạm nhân trở lại trại giam (ít nhất trước 01 tháng đối với người sắp hết hạn tù/đặc xá hoặc đưa ngay về khi có vi phạm kỷ luật)[cite: 55, 56, 57].",
-      "Chủ động nắm tình hình, phối hợp giải quyết và báo cáo VKSND Tối cao khi xảy ra các vụ việc đột xuất (trốn, chết, phạm tội mới, tai nạn)[cite: 59, 60]."
+      "Kiểm sát thủ tục lựa chọn doanh nghiệp hợp tác: doanh nghiệp không có vốn đầu tư nước ngoài, ngành nghề không thuộc danh mục nặng nhọc, độc hại, khoảng cách đến trại giam dưới 50km.",
+      "Kiểm tra việc ký kết hợp đồng hợp tác, thủ tục lập hồ sơ, thẩm định phê duyệt thành lập khu lao động.",
+      "Kiểm sát tiêu chí và sự tự nguyện của phạm nhân khi được đưa ra khu lao động ngoài trại giam.",
+      "Kiểm tra công tác quản lý giam giữ, an ninh, tuần tra kiểm soát, phát hiện vật cấm và điều kiện cơ sở vật chất (buồng giam, khu bếp, y tế, tường rào).",
+      "Kiểm sát chế độ lao động, theo dõi sổ sách hạch toán kết quả thu, chi và phân phối kết quả lao động của phạm nhân.",
+      "Kiểm sát việc đưa phạm nhân trở lại trại giam (ít nhất trước 01 tháng đối với người sắp hết hạn tù/đặc xá hoặc đưa ngay về khi có vi phạm kỷ luật).",
+      "Chủ động nắm tình hình, phối hợp giải quyết và báo cáo VKSND Tối cao khi xảy ra các vụ việc đột xuất (trốn, chết, phạm tội mới, tai nạn)."
     ],
     vanBanCanCu: [
-      "Nghị quyết số 54/2022/QH15 của Quốc hội [cite: 7]",
-      "Nghị định số 09/2023/NĐ-CP của Chính phủ [cite: 23]",
-      "Hướng dẫn số 22/HD-VKSTC ngày 30/11/2023 của VKSND tối cao [cite: 3, 5, 6]"
+      "Nghị quyết số 54/2022/QH15 của Quốc hội",
+      "Nghị định số 09/2023/NĐ-CP của Chính phủ",
+      "Hướng dẫn số 22/HD-VKSTC ngày 30/11/2023 của VKSND tối cao"
     ]
-  }
-// ══════════════════════════════════════════════════════════
+  },
+
+  // ══════════════════════════════════════════════════════════
   // PHẦN D: ÁN HÌNH SỰ (XÉT XỬ SƠ THẨM, PHÚC THẨM, GIÁM ĐỐC THẨM, TÁI THẨM)
   // ══════════════════════════════════════════════════════════
 
@@ -522,5 +522,8 @@ const DB_QUY_TRINH = [
       "Bộ luật Tố tụng Hình sự (Điều 233, 243, 290)"
     ]
   }
+
+];
+
 // Không dùng export vì file được load bằng thẻ <script> trong HTML
 // Biến DB_QUY_TRINH sẽ được đọc trực tiếp bởi index.html
