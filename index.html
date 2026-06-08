@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hệ thống Trợ lý số Nghiệp vụ Kiểm sát – VKSND TP. Cần Thơ">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Hệ thống Trợ lý số Nghiệp vụ Kiểm sát – VKSND TP. Cần Thơ</title>
+
+  <!-- React 18 & Babel (CDN) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Các file dữ liệu (đặt cùng thư mục với index.html) -->
+  <script src="./database.js"></script>
+  <script src="./db_01_vanbanluat.js"></script>
+  <script src="./db_02_quytrinh.js"></script>
+  <script src="./db_03_rutkinhngiem.js"></script>
+  <script src="./db_04_anle.js"></script>
+  <script src="./db_05_congvan.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       CSS VARIABLES – Light Mode (mặc định)
+       Thay đổi biến tại đây để tùy chỉnh màu sắc toàn hệ thống
+    ═══════════════════════════════════════════════════════════ */
+    :root {
+      /* Màu nền */
+      --bg-app:        #EEF1F8;
+      --bg-header:     #1B3A7A;   /* Xanh đậm header – theo ảnh mẫu */
+      --bg-sidebar:    #FFFFFF;
+      --bg-center:     #F4F6FB;
+      --bg-right:      #F0F2F7;
+      --bg-card:       #FFFFFF;
+      --bg-hover:      #EEF2FF;
+      --bg-active:     #E2E8FF;
+      --bg-input:      #FFFFFF;
+
+      /* Màu chữ */
+      --text-primary:  #1A1F36;
+      --text-secondary:#4A5568;
+      --text-muted:    #8899BB;
+      --text-accent:   #1B3A7A;
+
+      /* Viền */
+      --border:        #E2E8F0;
+      --border-strong: #CBD5E0;
+
+      /* Màu chủ đạo */
+      --accent:        #1B3A7A;
+      --accent-light:  #EEF2FF;
+      --accent-mid:    #4A6FA5;
+      --green:         #38A169;
+      --red:           #E53E3E;
+
+      /* Chat */
+      --bubble-user-bg: #1B3A7A;
+      --bubble-user-tx: #FFFFFF;
+      --bubble-ai-bg:   #FFFFFF;
+      --bubble-ai-tx:   #1A1F36;
+
+      /* Shadow */
+      --shadow-sm: 0 1px 3px rgba(27,58,122,0.07);
+      --shadow-md: 0 4px 14px rgba(27,58,122,0.10);
+      --shadow-lg: 0 8px 28px rgba(27,58,122,0.13);
+
+      /* Kích thước layout */
+      --header-h:    60px;
+      --sidebar-w:   282px;
+      --right-w:     318px;
+    }
+
+    /* ── Dark Mode ──────────────────────────────────────────── */
+    [data-theme="dark"] {
+      --bg-app:        #05090F;
+      --bg-header:     #080D19;
+      --bg-sidebar:    #0C1425;
+      --bg-center:     #07101C;
+      --bg-right:      #0C1425;
+      --bg-card:       #0E1828;
+      --bg-hover:      rgba(201,168,76,0.08);
+      --bg-active:     rgba(201,168,76,0.14);
+      --bg-input:      #0E1828;
+
+      --text-primary:  #DDD6C8;
+      --text-secondary:#8A9BBF;
+      --text-muted:    #3A4B6A;
+      --text-accent:   #C9A84C;
+
+      --border:        rgba(255,255,255,0.07);
+      --border-strong: rgba(255,255,255,0.12);
+
+      --accent:        #C9A84C;
+      --accent-light:  rgba(201,168,76,0.12);
+      --accent-mid:    #A07830;
+      --green:         #27AE60;
+      --red:           #C0392B;
+
+      --bubble-user-bg: #C9A84C;
+      --bubble-user-tx: #07110A;
+      --bubble-ai-bg:   #0E1828;
+      --bubble-ai-tx:   #DDD6C8;
+
+      --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.35);
+      --shadow-lg: 0 8px 28px rgba(0,0,0,0.4);
+    }
+
+    /* ── Reset & Base ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: var(--bg-app);
+      color: var(--text-primary);
+      height: 100vh;
+      overflow: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* Transition mượt cho theme */
+    *, *::before, *::after { transition-property: background-color, border-color, color; transition-duration: 0.25s; transition-timing-function: ease; }
+    /* Loại bỏ transition cho animation riêng */
+    .fade-in, .dot, .acc-arrow { transition: none !important; }
+    .acc-arrow { transition: transform 0.22s ease !important; }
+
+    /* ═══════════════════════════════════════════════════════════
+       HEADER – Thanh tiêu đề cố định trên cùng
+    ═══════════════════════════════════════════════════════════ */
+    #header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--bg-header);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    }
+
+    .hdr-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hdr-logo {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      padding: 2px;
+    }
+
+    .hdr-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .hdr-title { color: #FFFFFF; font-size: 14px; font-weight: 700; letter-spacing: 0.3px; }
+    .hdr-sub   { color: rgba(255,255,255,0.58); font-size: 10.5px; margin-top: 2px; letter-spacing: 0.2px; }
+
+    .hdr-right { display: flex; align-items: center; gap: 10px; }
+
+    .btn-hdr {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
+      color: #FFFFFF;
+      padding: 7px 18px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .btn-hdr:hover { background: rgba(255,255,255,0.20); }
+
+    .btn-theme {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    .btn-theme:hover { background: rgba(255,255,255,0.18); }
+
+    /* ═══════════════════════════════════════════════════════════
+       APP LAYOUT – 3 cột dưới header
+    ═══════════════════════════════════════════════════════════ */
+    #app-layout {
+      display: flex;
+      height: 100vh;
+      padding-top: var(--header-h);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       LEFT SIDEBAR – Menu điều hướng
+    ═══════════════════════════════════════════════════════════ */
+    #sidebar {
+      width: var(--sidebar-w);
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    /* Ô tìm kiếm nhanh */
+    .sb-search {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .sb-search-wrap { position: relative; }
+
+    .sb-search-ico {
+      position: absolute;
+      left: 11px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    .sb-search-input {
+      width: 100%;
+      background: var(--bg-app);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px 9px 34px;
+      font-size: 13px;
+      color: var(--text-primary);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      outline: none;
+    }
+    .sb-search-input:focus { border-color: var(--accent); }
+
+    /* Danh sách menu accordion */
+    .sb-menu { flex: 1; overflow-y: auto; padding: 6px 0; }
+
+    /* ── Accordion ───────────── */
+    .acc-grp { border-bottom: 1px solid var(--border); }
+
+    .acc-hdr {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .acc-hdr:hover { background: var(--bg-hover); }
+    .acc-hdr.open  { background: var(--accent-light); }
+
+    .acc-num   { font-size: 10px; font-weight: 700; color: var(--text-muted); min-width: 20px; }
+    .acc-title {
+      flex: 1;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .acc-hdr.open .acc-title { color: var(--accent); }
+
+    .acc-arrow {
+      font-size: 9px;
+      color: var(--text-muted);
+      display: inline-block;
+      transform: rotate(0deg);
+    }
+    .acc-hdr.open .acc-arrow { transform: rotate(180deg); }
+
+    .acc-body { display: none; }
+    .acc-body.open { display: block; }
+
+    .acc-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px 9px 46px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-secondary);
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    .acc-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .acc-item.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 600;
+      border-left: 3px solid var(--accent);
+      padding-left: 43px;
+    }
+
+    .acc-badge {
+      margin-left: auto;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CENTER PANEL – Khu vực đọc nội dung văn bản
+    ═══════════════════════════════════════════════════════════ */
+    #center-panel {
+      flex: 1;
+      background: var(--bg-center);
+      overflow-y: auto;
+      min-width: 0;
+    }
+
+    .center-inner { padding: 28px 32px; max-width: 880px; }
+
+    /* Màn hình chào mặc định */
+    .center-welcome {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      gap: 14px;
+      padding: 40px;
+      color: var(--text-muted);
+    }
+    .welcome-icon  { font-size: 64px; opacity: 0.3; }
+    .welcome-title { font-size: 18px; font-weight: 600; color: var(--text-secondary); }
+    .welcome-sub   { font-size: 14px; max-width: 380px; line-height: 1.7; }
+
+    /* Breadcrumb */
+    .breadcrumb { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+
+    /* Tiêu đề trang danh sách */
+    .list-heading { margin-bottom: 20px; }
+    .list-heading h2 { font-size: 19px; font-weight: 700; color: var(--text-primary); }
+    .list-count { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+    /* Thẻ tài liệu trong danh sách */
+    .doc-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .doc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid transparent;
+      border-radius: 10px;
+      padding: 16px 18px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+    .doc-card:hover {
+      border-left-color: var(--accent);
+      box-shadow: var(--shadow-md);
+      transform: translateX(2px);
+    }
+
+    .dc-row1 { display: flex; align-items: flex-start; gap: 12px; justify-content: space-between; }
+    .dc-title { font-size: 13.5px; font-weight: 600; color: var(--text-primary); line-height: 1.45; flex: 1; }
+    .dc-meta  { font-size: 11.5px; color: var(--text-muted); margin-top: 5px; }
+    .dc-excerpt { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.55; }
+
+    .dc-badges { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+
+    .pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+    }
+
+    .status-on  { background: #DCFCE7; color: #15803D; }
+    .status-off { background: #FEE2E2; color: #B91C1C; }
+    [data-theme="dark"] .status-on  { background: #14532D; color: #86EFAC; }
+    [data-theme="dark"] .status-off { background: #7F1D1D; color: #FCA5A5; }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+    .empty-state-icon { font-size: 42px; margin-bottom: 12px; }
+
+    /* ── CHI TIẾT VĂN BẢN ────────────────────────────────── */
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--accent-light); color: var(--accent);
+      border: none; padding: 6px 14px; border-radius: 7px;
+      font-size: 12px; font-weight: 500; cursor: pointer;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      margin-bottom: 16px;
+    }
+    .btn-back:hover { background: var(--accent); color: #FFFFFF; }
+
+    .detail-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 20px;
+      letter-spacing: 0.4px;
+    }
+
+    .detail-title {
+      font-family: 'Lora', serif;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin: 12px 0;
+    }
+
+    .detail-meta {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      font-size: 12px; color: var(--text-muted);
+    }
+    .detail-meta-item { display: flex; align-items: center; gap: 4px; }
+
+    .detail-body {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 26px;
+      box-shadow: var(--shadow-sm);
+      margin-top: 20px;
+    }
+
+    .sec { margin-bottom: 20px; }
+    .sec:last-child { margin-bottom: 0; }
+
+    .sec-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .sec-value {
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.75;
+    }
+
+    .sec-highlight {
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+
+    .divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      background: var(--accent-light); color: var(--accent);
+      font-size: 11px; padding: 3px 11px;
+      border-radius: 12px; font-weight: 500;
+    }
+
+    .detail-actions {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-top: 22px; padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn-act {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      border: none; font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    .btn-primary { background: var(--accent); color: #FFFFFF; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-outline { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: #FFFFFF; }
+
+    /* ═══════════════════════════════════════════════════════════
+       RIGHT PANEL – Trợ lý AI Chat
+    ═══════════════════════════════════════════════════════════ */
+    #right-panel {
+      width: var(--right-w);
+      background: var(--bg-right);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    /* Header của panel AI */
+    .ai-hdr {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ai-avatar {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-mid));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+
+    .ai-hdr-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+    .ai-hdr-sub   { font-size: 11px; color: var(--green); margin-top: 1px; }
+
+    /* Khu vực hiển thị tin nhắn */
+    .ai-chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .chat-msg { display: flex; flex-direction: column; }
+    .chat-user { align-items: flex-end; }
+    .chat-ai   { align-items: flex-start; }
+
+    .chat-sender {
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+    .chat-user .chat-sender { color: var(--accent); }
+
+    .chat-bubble {
+      max-width: 92%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+    }
+
+    .bubble-user {
+      background: var(--bubble-user-bg);
+      color: var(--bubble-user-tx);
+      border-bottom-right-radius: 4px;
+    }
+
+    .bubble-ai {
+      background: var(--bubble-ai-bg);
+      color: var(--bubble-ai-tx);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Gợi ý ngữ cảnh */
+    .ctx-chips {
+      display: flex; flex-direction: column; gap: 5px;
+      margin-top: 4px;
+    }
+
+    .ctx-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 11px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    .ctx-chip:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+    /* Quick chips (biểu mẫu) */
+    .ai-quick-chips {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+      flex-shrink: 0;
+    }
+
+    .qchip {
+      display: flex; align-items: center; gap: 4px;
+      padding: 5px 10px; border-radius: 6px;
+      font-size: 11px; font-weight: 500;
+      cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg-app); color: var(--text-secondary);
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    .qchip:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+    /* Ô nhập liệu AI */
+    .ai-input-area {
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+      display: flex; gap: 8px; align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .ai-textarea {
+      flex: 1;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: var(--text-primary);
+      resize: none;
+      outline: none;
+      height: 40px;
+      overflow: hidden;
+      min-height: 40px;
+      max-height: 120px;
+    }
+    .ai-textarea:focus { border-color: var(--accent); }
+
+    .btn-send {
+      width: 40px; height: 40px;
+      background: var(--accent);
+      border: none; border-radius: 8px;
+      color: #FFFFFF; font-size: 17px;
+      cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-send:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-send:disabled { opacity: 0.38; cursor: not-allowed; transform: none; }
+
+    /* Typing indicator */
+    .typing-wrap { display: flex; gap: 4px; align-items: center; padding: 6px 10px; }
+    .dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: bounce-dot 1.4s infinite ease-in-out both;
+    }
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce-dot {
+      0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+      40%           { transform: scale(1); opacity: 1; }
+    }
+
+    /* Fade-in animation cho tin nhắn và thẻ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeUp 0.28s ease both; }
+
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       REACT APPLICATION
+  ═══════════════════════════════════════════════════════════ -->
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+    /* ──────────────────────────────────────────────────────────
+       MERGE DỮ LIỆU từ tất cả các file DB bên ngoài
+       (graceful fallback nếu file chưa được tải)
+    ────────────────────────────────────────────────────────── */
+    function dedup(arr, keyFn) {
+      const seen = new Set();
+      return arr.filter(item => {
+        const k = keyFn(item);
+        if (seen.has(k)) return false;
+        seen.add(k); return true;
+      });
+    }
+
+    const DOCS = dedup([
+      ...(typeof DB_VAN_BAN_LUAT  !== 'undefined' ? DB_VAN_BAN_LUAT  : []),
+      ...(typeof VKS_DATABASE     !== 'undefined' ? VKS_DATABASE     : []),
+      ...(typeof CHM_VAN_BAN_LUAT !== 'undefined' ? CHM_VAN_BAN_LUAT : []),
+    ], d => d.soHieu || d.id);
+
+    const QUYTRINH = dedup([
+      ...(typeof DB_QUY_TRINH  !== 'undefined' ? DB_QUY_TRINH  : []),
+      ...(typeof VKS_QUY_TRINH !== 'undefined' ? VKS_QUY_TRINH : []),
+    ], q => q.maQuyTrinh || q.id);
+
+    const RKN = dedup([
+      ...(typeof DB_RUT_KINH_NGHIEM  !== 'undefined' ? DB_RUT_KINH_NGHIEM  : []),
+      ...(typeof VKS_RUT_KINH_NGHIEM !== 'undefined' ? VKS_RUT_KINH_NGHIEM : []),
+      ...(typeof CHM_RUT_KINH_NGHIEM !== 'undefined' ? CHM_RUT_KINH_NGHIEM : []),
+    ], r => r.soThongBao || r.id);
+
+    const ANLE = dedup([
+      ...(typeof DB_AN_LE  !== 'undefined' ? DB_AN_LE  : []),
+      ...(typeof VKS_AN_LE !== 'undefined' ? VKS_AN_LE : []),
+      ...(typeof CHM_AN_LE !== 'undefined' ? CHM_AN_LE : []),
+    ], a => a.soAnLe || a.id);
+
+    const CONGVAN = dedup([
+      ...(typeof DB_CONG_VAN  !== 'undefined' ? DB_CONG_VAN  : []),
+      ...(typeof VKS_CONG_VAN !== 'undefined' ? VKS_CONG_VAN : []),
+      ...(typeof CHM_CONG_VAN !== 'undefined' ? CHM_CONG_VAN : []),
+    ], c => c.soHieu || c.id);
+
+    /* ──────────────────────────────────────────────────────────
+       BẢN ĐỒ MÀU SẮC theo loại văn bản
+    ────────────────────────────────────────────────────────── */
+    const LOAI_COLORS = {
+      "Bộ luật"   : "#C0392B",
+      "Luật"      : "#1B6CA8",
+      "Nghị quyết": "#7B3FA0",
+      "Nghị định" : "#C2610C",
+      "Thông tư"  : "#1E7D45",
+      "Quyết định": "#B07D10",
+      "Chỉ thị"   : "#0E7882",
+    };
+
+    const CV_COLORS = {
+      "Công văn"          : "#1B6CA8",
+      "Hướng dẫn nghiệp vụ": "#1E7D45",
+      "Chỉ thị"           : "#C0392B",
+      "Quy chế"           : "#7B3FA0",
+      "Thông tư liên tịch": "#C2610C",
+      "Tài liệu tập huấn" : "#B07D10",
+    };
+
+    /* ──────────────────────────────────────────────────────────
+       CẤU TRÚC MENU ACCORDION
+       Mỗi nhóm có danh sách children với hàm filter trên data
+    ────────────────────────────────────────────────────────── */
+    const MENU = [
+      {
+        id: "vb", num: "I", icon: "📜",
+        title: "VĂN BẢN PHÁP LUẬT",
+        children: [
+          { id: "vb-bl",  label: "Bộ luật & Luật",          type: "vb", data: DOCS, filter: d => ["Bộ luật","Luật"].includes(d.loai) },
+          { id: "vb-nd",  label: "Nghị định",                type: "vb", data: DOCS, filter: d => d.loai === "Nghị định" },
+          { id: "vb-tt",  label: "Thông tư",                 type: "vb", data: DOCS, filter: d => d.loai === "Thông tư" },
+          { id: "vb-nq",  label: "Nghị quyết",               type: "vb", data: DOCS, filter: d => d.loai === "Nghị quyết" },
+          { id: "vb-qd",  label: "Quyết định & Chỉ thị",    type: "vb", data: DOCS, filter: d => ["Quyết định","Chỉ thị"].includes(d.loai) },
+        ],
+      },
+      {
+        id: "qt", num: "II", icon: "📋",
+        title: "QUY TRÌNH NGHIỆP VỤ",
+        children: [
+          { id: "qt-hs", label: "Hình sự",            type: "qt", data: QUYTRINH, filter: q => q.loai === "Hình sự" || q.linhVuc === "Hình sự" },
+          { id: "qt-ds", label: "Dân sự",             type: "qt", data: QUYTRINH, filter: q => q.loai === "Dân sự"  || q.linhVuc === "Dân sự"  },
+          { id: "qt-hc", label: "Hành chính",         type: "qt", data: QUYTRINH, filter: q => q.loai === "Hành chính" || q.linhVuc === "Hành chính" },
+          { id: "qt-al", label: "Tất cả quy trình",   type: "qt", data: QUYTRINH, filter: () => true },
+        ],
+      },
+      {
+        id: "rkn", num: "III", icon: "💡",
+        title: "RÚT KINH NGHIỆM",
+        children: [
+          { id: "rkn-al", label: "Tất cả thông báo RKN", type: "rkn", data: RKN, filter: () => true },
+        ],
+      },
+      {
+        id: "al", num: "IV", icon: "⚖️",
+        title: "ÁN LỆ",
+        children: [
+          { id: "al-hs", label: "Hình sự",              type: "al", data: ANLE, filter: a => (a.linhVuc||'').includes("Hình sự") },
+          { id: "al-ds", label: "Dân sự & Hợp đồng",   type: "al", data: ANLE, filter: a => (a.linhVuc||'').includes("Dân sự") || (a.linhVuc||'').includes("Hợp đồng") },
+          { id: "al-dd", label: "Đất đai",              type: "al", data: ANLE, filter: a => (a.linhVuc||'').includes("Đất đai") },
+          { id: "al-ld", label: "Lao động & Thừa kế",  type: "al", data: ANLE, filter: a => (a.linhVuc||'').includes("Lao động") || (a.linhVuc||'').includes("Thừa kế") },
+          { id: "al-al", label: "Tất cả án lệ",         type: "al", data: ANLE, filter: () => true },
+        ],
+      },
+      {
+        id: "cv", num: "V", icon: "📁",
+        title: "CÔNG VĂN & HƯỚNG DẪN",
+        children: [
+          { id: "cv-cv", label: "Công văn",              type: "cv", data: CONGVAN, filter: c => c.loai === "Công văn" },
+          { id: "cv-hd", label: "Hướng dẫn nghiệp vụ", type: "cv", data: CONGVAN, filter: c => c.loai === "Hướng dẫn nghiệp vụ" },
+          { id: "cv-ct", label: "Chỉ thị",               type: "cv", data: CONGVAN, filter: c => c.loai === "Chỉ thị" },
+          { id: "cv-qc", label: "Quy chế",               type: "cv", data: CONGVAN, filter: c => c.loai === "Quy chế" },
+          { id: "cv-tl", label: "Thông tư liên tịch",   type: "cv", data: CONGVAN, filter: c => c.loai === "Thông tư liên tịch" },
+          { id: "cv-th", label: "Tài liệu tập huấn",    type: "cv", data: CONGVAN, filter: c => c.loai === "Tài liệu tập huấn" },
+        ],
+      },
+    ];
+
+    /* ──────────────────────────────────────────────────────────
+       COMPONENT: Typing Indicator (ba chấm nhảy)
+    ────────────────────────────────────────────────────────── */
+    function TypingDots() {
+      return (
+        <div className="typing-wrap">
+          <div className="dot" /><div className="dot" /><div className="dot" />
+        </div>
+      );
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       COMPONENT: Chi tiết văn bản (Detail View)
+       Hiển thị khi người dùng click vào một mục trong danh sách
+    ────────────────────────────────────────────────────────── */
+    function DetailView({ item, type, onBack }) {
+      /* Màu badge theo loại */
+      const badgeColor = useMemo(() => {
+        if (type === 'vb')  return LOAI_COLORS[item.loai] || '#1B6CA8';
+        if (type === 'cv')  return CV_COLORS[item.loai]   || '#1B6CA8';
+        if (type === 'al')  return '#7B3FA0';
+        if (type === 'qt')  return '#1E7D45';
+        return '#64748B';
+      }, [type, item]);
+
+      const title   = item.tenVanBan || item.tieuDe || item.soAnLe || item.soHieu || '(Không có tiêu đề)';
+      const typeTag = item.loai || (type === 'al' ? 'Án lệ' : type === 'qt' ? 'Quy trình' : type === 'rkn' ? 'Rút kinh nghiệm' : 'Văn bản');
+
+      /* Render nội dung theo từng loại */
+      const renderBody = () => {
+        /* ── Văn bản pháp luật ── */
+        if (type === 'vb') return (
+          <>
+            <div className="sec">
+              <div className="sec-label">Số hiệu</div>
+              <div className="sec-value" style={{ fontWeight: 700 }}>{item.soHieu}</div>
+            </div>
+            <div className="divider" />
+            <div className="sec">
+              <div className="sec-label">Cơ quan ban hành</div>
+              <div className="sec-value">{item.coQuan}</div>
+            </div>
+            <div className="sec">
+              <div className="sec-label">Ngày ban hành &rarr; Ngày có hiệu lực</div>
+              <div className="sec-value">{item.ngayBanHanh} → {item.ngayHieuLuc}</div>
+            </div>
+            <div className="divider" />
+            <div className="sec">
+              <div className="sec-label">Tóm tắt nội dung</div>
+              <div className="sec-value">{item.tomTat || '(Chưa có tóm tắt)'}</div>
+            </div>
+            {item.tags?.length > 0 && (
+              <div className="sec">
+                <div className="sec-label">Từ khóa</div>
+                <div className="tag-list">{item.tags.map((t,i) => <span key={i} className="tag">{t}</span>)}</div>
+              </div>
+            )}
+          </>
+        );
+
+        /* ── Án lệ ── */
+        if (type === 'al') return (
+          <>
+            <div className="sec">
+              <div className="sec-label">Số án lệ</div>
+              <div className="sec-value" style={{ fontWeight: 700 }}>{item.soAnLe}</div>
+            </div>
+            <div className="sec">
+              <div className="sec-label">Lĩnh vực — Cơ quan — Ngày ban hành</div>
+              <div className="sec-value">{item.linhVuc} &nbsp;·&nbsp; {item.coQuan} &nbsp;·&nbsp; {item.ngayBanHanh}</div>
+            </div>
+            <div className="divider" />
+            <div className="sec">
+              <div className="sec-label">Tóm tắt vụ việc</div>
+              <div className="sec-value">{item.tomTatVuViec}</div>
+            </div>
+            <div className="sec">
+              <div className="sec-label">Nội dung án lệ</div>
+              <div className="sec-value">{item.noiDung}</div>
+            </div>
+            <div className="sec">
+              <div className="sec-label">Nguyên tắc pháp lý được xác lập</div>
+              <div className="sec-highlight">{item.nguyenTacApDung}</div>
+            </div>
+            {item.vanBanLienQuan?.length > 0 && (
+              <div className="sec">
+                <div className="sec-label">Văn bản liên quan</div>
+                <div className="tag-list">{item.vanBanLienQuan.map((v,i) => <span key={i} className="tag">{v}</span>)}</div>
+              </div>
+            )}
+            {item.tags?.length > 0 && (
+              <div className="sec">
+                <div className="sec-label">Từ khóa</div>
+                <div className="tag-list">{item.tags.map((t,i) => <span key={i} className="tag">{t}</span>)}</div>
+              </div>
+            )}
+          </>
+        );
+
+        /* ── Quy trình ── */
+        if (type === 'qt') return (
+          <>
+            <div className="sec">
+              <div className="sec-label">Mã quy trình — Loại — Ngày ban hành</div>
+              <div className="sec-value">{item.maQuyTrinh} &nbsp;·&nbsp; {item.loai} &nbsp;·&nbsp; {item.ngayBanHanh}</div>
+            </div>
+            <div className="divider" />
+            <div className="sec">
+              <div className="sec-label">Mô tả</div>
+              <div className="sec-value">{item.moTa}</div>
+            </div>
+            {item.cacBuoc?.length > 0 && (
+              <div className="sec">
+                <div className="sec-label">Các bước thực hiện</div>
+                <ol style={{ paddingLeft: 20, lineHeight: 1.85 }}>
+                  {item.cacBuoc.map((b, i) => <li key={i} style={{ fontSize: 14, color: 'var(--text-primary)', marginBottom: 6 }}>{b}</li>)}
+                </ol>
+              </div>
+            )}
+            {item.vanBanCanCu?.length > 0 && (
+              <div className="sec">
+                <div className="sec-label">Văn bản căn cứ</div>
+                <div className="tag-list">{item.vanBanCanCu.map((v,i) => <span key={i} className="tag">{v}</span>)}</div>
+              </div>
+            )}
+          </>
+        );
+
+        /* ── Công văn / Hướng dẫn / Chỉ thị... ── */
+        if (type === 'cv') return (
+          <>
+            <div className="sec">
+              <div className="sec-label">Số hiệu</div>
+              <div className="sec-value" style={{ fontWeight: 700 }}>{item.soHieu}</div>
+            </div>
+            <div className="sec">
+              <div className="sec-label">Cơ quan ban hành — Năm — Lĩnh vực</div>
+              <div className="sec-value">{item.coQuan} &nbsp;·&nbsp; {item.nam} &nbsp;·&nbsp; {item.linhVuc}</div>
+            </div>
+            {item.tomTat && (
+              <>
+                <div className="divider" />
+                <div className="sec">
+                  <div className="sec-label">Tóm tắt nội dung</div>
+                  <div className="sec-value">{item.tomTat}</div>
+                </div>
+              </>
+            )}
+            {item.file && (
+              <div className="sec">
+                <div className="sec-label">File tài liệu</div>
+                <div className="sec-value" style={{ fontFamily: 'monospace', fontSize: 12, color: 'var(--accent)' }}>{item.file}</div>
+              </div>
+            )}
+          </>
+        );
+
+        /* ── RKN hoặc loại không xác định ── */
+        return (
+          <div className="sec">
+            <div className="sec-value">
+              {item.moTa || item.tomTat || item.noiDung || '(Không có nội dung chi tiết)'}
+            </div>
+          </div>
+        );
+      };
+
+      return (
+        <div className="center-inner fade-in">
+          {/* Nút quay lại */}
+          <button className="btn-back" onClick={onBack}>← Quay lại danh sách</button>
+
+          {/* Badge loại + trạng thái */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+            <span className="detail-badge" style={{ background: badgeColor + '22', color: badgeColor }}>
+              {typeTag}
+            </span>
+            {item.hieu && (
+              <span className={`pill ${item.hieu === 'Còn hiệu lực' ? 'status-on' : 'status-off'}`}>
+                {item.hieu}
+              </span>
+            )}
+            {item.trangThai && (
+              <span className={`pill ${item.trangThai === 'Đang áp dụng' ? 'status-on' : 'status-off'}`}>
+                {item.trangThai}
+              </span>
+            )}
+          </div>
+
+          {/* Tiêu đề */}
+          <h1 className="detail-title">{title}</h1>
+
+          {/* Meta nhanh */}
+          <div className="detail-meta">
+            {item.coQuan      && <span className="detail-meta-item">🏛️ {item.coQuan}</span>}
+            {item.ngayBanHanh && <span className="detail-meta-item">📅 {item.ngayBanHanh}</span>}
+            {item.nam         && <span className="detail-meta-item">📅 Năm {item.nam}</span>}
+            {typeof item.linhVuc === 'string' && <span className="detail-meta-item">📂 {item.linhVuc}</span>}
+          </div>
+
+          {/* Nội dung chính */}
+          <div className="detail-body">{renderBody()}</div>
+
+          {/* Nút hành động */}
+          <div className="detail-actions">
+            {item.link && item.link !== '' && (
+              <button className="btn-act btn-primary" onClick={() => window.open(item.link, '_blank')}>
+                🔗 Xem toàn văn
+              </button>
+            )}
+            {item.file && item.file !== '' && (
+              <button className="btn-act btn-outline" onClick={() => window.open(`ms-its://Van_ban_phap_luat.chm::/${item.file}`, '_blank')}>
+                📖 Mở file CHM
+              </button>
+            )}
+            <button className="btn-act btn-outline" onClick={() => window.print()}>
+              🖨️ In văn bản
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       COMPONENT: Danh sách văn bản (List View)
+    ────────────────────────────────────────────────────────── */
+    function ListView({ items, type, onSelect, searchQuery }) {
+      /* Lọc theo searchQuery nếu có */
+      const filtered = useMemo(() => {
+        if (!searchQuery.trim()) return items;
+        const q = searchQuery.toLowerCase();
+        return items.filter(item => {
+          const haystack = [
+            item.tenVanBan, item.tieuDe, item.soHieu, item.soAnLe,
+            item.coQuan, item.tomTat, item.moTa, item.noiDung,
+            item.loai, item.linhVuc,
+            ...(item.tags || []),
+          ].filter(Boolean).join(' ').toLowerCase();
+          return haystack.includes(q);
+        });
+      }, [items, searchQuery]);
+
+      if (filtered.length === 0) {
+        return (
+          <div className="empty-state">
+            <div className="empty-state-icon">🔍</div>
+            <div>Không tìm thấy kết quả{searchQuery ? ` cho "${searchQuery}"` : ''}</div>
+          </div>
+        );
+      }
+
+      function getColor(item) {
+        if (type === 'vb')  return LOAI_COLORS[item.loai] || '#1B6CA8';
+        if (type === 'cv')  return CV_COLORS[item.loai]   || '#1B6CA8';
+        if (type === 'al')  return '#7B3FA0';
+        if (type === 'qt')  return '#1E7D45';
+        return '#64748B';
+      }
+
+      return (
+        <div className="doc-list">
+          {filtered.map((item, idx) => {
+            const title   = item.tenVanBan || item.tieuDe || item.soAnLe || item.soHieu || '(Không có tiêu đề)';
+            const excerpt = (item.tomTat || item.moTa || item.tomTatVuViec || '').substring(0, 115);
+            const metas   = [item.coQuan, item.ngayBanHanh, item.nam && `Năm ${item.nam}`, item.linhVuc && typeof item.linhVuc === 'string' && item.linhVuc].filter(Boolean).join(' · ');
+            const c = getColor(item);
+
+            return (
+              <div key={item.id || idx} className="doc-card fade-in" style={{ animationDelay: `${idx * 0.035}s` }}
+                onClick={() => onSelect(item)}>
+                <div className="dc-row1">
+                  <div style={{ flex: 1 }}>
+                    <div className="dc-title">{title}</div>
+                    {metas && <div className="dc-meta">{metas}</div>}
+                  </div>
+                  <div className="dc-badges">
+                    {item.loai && (
+                      <span className="pill" style={{ background: c + '1E', color: c }}>{item.loai}</span>
+                    )}
+                    {item.hieu && (
+                      <span className={`pill ${item.hieu === 'Còn hiệu lực' ? 'status-on' : 'status-off'}`}>
+                        {item.hieu}
+                      </span>
+                    )}
+                    {item.trangThai && (
+                      <span className={`pill ${item.trangThai === 'Đang áp dụng' ? 'status-on' : 'status-off'}`}>
+                        {item.trangThai}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {excerpt && <div className="dc-excerpt">{excerpt}{(item.tomTat||item.moTa||'').length > 115 ? '…' : ''}</div>}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       COMPONENT: AI Chat Panel (cột phải)
+    ────────────────────────────────────────────────────────── */
+    function AIChatPanel({ contextItem }) {
+      const INIT_MSG = {
+        id: 0, role: 'ai',
+        text: `Xin chào đồng chí! Tôi là Trợ lý ảo AI được thiết kế riêng để hỗ trợ nghiệp vụ Kiểm sát.
+
+Tôi có thể giúp đồng chí:
+• Phân tích cấu thành tội phạm từ hồ sơ vụ án
+• Tra cứu nhanh văn bản quy phạm pháp luật
+• Tổng hợp và tóm tắt án lệ có liên quan
+• Gợi ý hướng đề xuất xử lý vụ việc
+
+Đồng chí cần hỗ trợ vấn đề gì hôm nay?`
+      };
+
+      const [messages, setMessages] = useState([INIT_MSG]);
+      const [input,    setInput]    = useState('');
+      const [loading,  setLoading]  = useState(false);
+      const chatRef  = useRef(null);
+      const textaRef = useRef(null);
+
+      /* Cuộn xuống cuối mỗi khi có tin nhắn mới */
+      useEffect(() => {
+        if (chatRef.current) {
+          chatRef.current.scrollTop = chatRef.current.scrollHeight;
+        }
+      }, [messages, loading]);
+
+      /* Gợi ý khi người dùng chọn một văn bản mới bên center */
+      const prevContextRef = useRef(null);
+      useEffect(() => {
+        if (!contextItem) return;
+        if (contextItem === prevContextRef.current) return;
+        prevContextRef.current = contextItem;
+      }, [contextItem]);
+
+      /* Tự động resize textarea */
+      function handleInputChange(e) {
+        const ta = e.target;
+        ta.style.height = '40px';
+        ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
+        setInput(ta.value);
+      }
+
+      function resetTextarea() {
+        if (textaRef.current) textaRef.current.style.height = '40px';
+      }
+
+      /* Gửi tin nhắn */
+      async function sendMessage() {
+        const text = input.trim();
+        if (!text || loading) return;
+
+        const userMsg = { id: Date.now(), role: 'user', text };
+        setMessages(prev => [...prev, userMsg]);
+        setInput(''); resetTextarea();
+        setLoading(true);
+
+        await new Promise(r => setTimeout(r, 1800));
+
+        const ctx = contextItem
+          ? `\n\n📌 Ngữ cảnh – Văn bản đang xem:\n"${(contextItem.tenVanBan||contextItem.tieuDe||contextItem.soAnLe||'').substring(0,80)}"`
+          : '';
+
+        const aiText = `🤖 Dựa trên dữ liệu hệ thống LEXVIET và đối chiếu quy định hiện hành:${ctx}
+
+1. Cơ sở pháp lý áp dụng:
+   – Bộ luật Hình sự 2015 (sửa đổi, bổ sung 2017)
+   – Các văn bản hướng dẫn thi hành liên quan
+
+2. Đánh giá sơ bộ:
+   – Hành vi có dấu hiệu thỏa mãn yếu tố cấu thành cơ bản của tội phạm
+   – Cần rà soát lời khai các bên, đối chiếu với vật chứng hiện trường
+
+3. Hướng đề xuất xử lý:
+   – Yêu cầu Cơ quan điều tra bổ sung chứng cứ còn thiếu
+   – Củng cố căn cứ pháp lý trước khi ban hành Cáo trạng
+
+Đồng chí có muốn phân tích chi tiết hơn không?`;
+
+        setMessages(prev => [...prev, { id: Date.now(), role: 'ai', text: aiText }]);
+        setLoading(false);
+      }
+
+      function onKeyDown(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+      }
+
+      function prefill(text) {
+        setInput(text);
+        if (textaRef.current) { textaRef.current.focus(); textaRef.current.style.height = '40px'; }
+      }
+
+      /* Chips gợi ý biểu mẫu */
+      const CHIPS = [
+        { ico: '📄', lbl: 'Mẫu 01 (Tiếp nhận)' },
+        { ico: '📋', lbl: 'Mẫu 03 (Thu thập)'  },
+        { ico: '⚖️', lbl: 'Mẫu 24 (Kiến nghị)' },
+        { ico: '🔍', lbl: 'Mẫu 27 (Khởi kiện)' },
+      ];
+
+      /* Câu hỏi gợi ý theo ngữ cảnh văn bản đang xem */
+      const CTX_QUESTIONS = contextItem ? [
+        `Tóm tắt nội dung chính của văn bản này`,
+        `Văn bản này áp dụng trong trường hợp nào?`,
+        `Những điểm mới quan trọng cần lưu ý là gì?`,
+      ] : [
+        'Phân tích dấu hiệu pháp lý tội Nhận hối lộ theo BLHS 2015',
+        'Phân biệt tội Cướp tài sản và Cưỡng đoạt tài sản',
+        'Tóm tắt những điểm mới của Luật Đất đai 2024',
+      ];
+
+      return (
+        <div id="right-panel">
+          {/* Header AI Panel */}
+          <div className="ai-hdr">
+            <div className="ai-avatar">🤖</div>
+            <div>
+              <div className="ai-hdr-title">Trợ lý AI Pháp lý</div>
+              <div className="ai-hdr-sub">● Sẵn sàng phân tích nghiệp vụ</div>
+            </div>
+          </div>
+
+          {/* Khu vực hiển thị chat */}
+          <div className="ai-chat" ref={chatRef}>
+            {messages.map((msg, i) => (
+              <div key={msg.id} className={`chat-msg ${msg.role === 'user' ? 'chat-user' : 'chat-ai'} fade-in`}>
+                <div className="chat-sender">
+                  {msg.role === 'user' ? 'Kiểm sát viên' : 'LEXVIET AI'}
+                </div>
+                <div className={`chat-bubble ${msg.role === 'user' ? 'bubble-user' : 'bubble-ai'}`}>
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+
+            {/* Gợi ý câu hỏi */}
+            {(messages.length === 1 || (contextItem && messages.length === 1)) && (
+              <div className="ctx-chips fade-in">
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>
+                  💡 {contextItem ? 'Gợi ý về văn bản đang xem:' : 'Câu hỏi gợi ý:'}
+                </div>
+                {CTX_QUESTIONS.map((q, i) => (
+                  <button key={i} className="ctx-chip" onClick={() => prefill(q)}>{q}</button>
+                ))}
+              </div>
+            )}
+
+            {/* Typing indicator */}
+            {loading && (
+              <div className="chat-msg chat-ai fade-in">
+                <div className="chat-sender">LEXVIET AI đang phân tích</div>
+                <div className="chat-bubble bubble-ai"><TypingDots /></div>
+              </div>
+            )}
+          </div>
+
+          {/* Quick chips biểu mẫu */}
+          <div className="ai-quick-chips">
+            {CHIPS.map((c, i) => (
+              <button key={i} className="qchip" onClick={() => prefill(`Yêu cầu ${c.lbl}`)}>
+                <span>{c.ico}</span>{c.lbl}
+              </button>
+            ))}
+          </div>
+
+          {/* Input + Nút gửi */}
+          <div className="ai-input-area">
+            <textarea
+              ref={textaRef}
+              className="ai-textarea"
+              placeholder="Nhập câu hỏi pháp lý..."
+              value={input}
+              onChange={handleInputChange}
+              onKeyDown={onKeyDown}
+            />
+            <button className="btn-send" onClick={sendMessage} disabled={loading || !input.trim()}>
+              ↗
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       COMPONENT: App – Ứng dụng chính
+    ────────────────────────────────────────────────────────── */
+    function App() {
+      const [theme,        setTheme]        = useState('light');
+      const [openGroups,   setOpenGroups]   = useState({ vb: true });
+      const [activeChild,  setActiveChild]  = useState(null);
+      const [activeItems,  setActiveItems]  = useState([]);
+      const [activeType,   setActiveType]   = useState('vb');
+      const [activeLabel,  setActiveLabel]  = useState('');
+      const [activeGroup,  setActiveGroup]  = useState('');
+      const [selectedItem, setSelectedItem] = useState(null);
+      const [searchQuery,  setSearchQuery]  = useState('');
+
+      /* Apply / remove dark theme */
+      useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
+
+      /* Toggle accordion group */
+      function toggleGroup(id) {
+        setOpenGroups(prev => ({ ...prev, [id]: !prev[id] }));
+      }
+
+      /* Click vào một mục con trong sidebar */
+      function selectChild(group, child) {
+        const items = child.data.filter(child.filter);
+        setActiveChild(child.id);
+        setActiveItems(items);
+        setActiveType(child.type);
+        setActiveLabel(child.label);
+        setActiveGroup(group.title);
+        setSelectedItem(null);
+        setSearchQuery('');
+      }
+
+      /* Mở tất cả accordion */
+      function openAllGroups() {
+        const all = {};
+        MENU.forEach(g => { all[g.id] = true; });
+        setOpenGroups(all);
+      }
+
+      return (
+        <>
+          {/* ══════════════════════════════════════════════════
+              HEADER
+          ══════════════════════════════════════════════════ */}
+          <header id="header">
+            <div className="hdr-left">
+              {/* Đoạn mã logo đã được thay thế tại đây */}
+              <div className="hdr-logo">
+                <img 
+                  src="https://vienkiemsat.cantho.gov.vn/files/images/logo-vks.png" 
+                  alt="Logo VKS" 
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/45?text=VKS'; }}
+                />
+              </div>
+              <div>
+                <div className="hdr-title">HỆ THỐNG TRỢ LÝ SỐ NGHIỆP VỤ KIỂM SÁT</div>
+                <div className="hdr-sub">Viện kiểm sát nhân dân thành phố Cần Thơ</div>
+              </div>
+            </div>
+
+            <div className="hdr-right">
+              <button className="btn-hdr" onClick={openAllGroups}>
+                ☰ Danh Mục
+              </button>
+              <button className="btn-theme" onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}>
+                {theme === 'light' ? '🌙 Nền Tối' : '☀️ Nền Sáng'}
+              </button>
+            </div>
+          </header>
+
+          {/* ══════════════════════════════════════════════════
+              3-COLUMN LAYOUT
+          ══════════════════════════════════════════════════ */}
+          <div id="app-layout">
+
+            {/* ── LEFT SIDEBAR ──────────────────────────── */}
+            <aside id="sidebar">
+              <div className="sb-search">
+                <div className="sb-search-wrap">
+                  <span className="sb-search-ico">🔍</span>
+                  <input
+                    type="text"
+                    className="sb-search-input"
+                    placeholder="Tìm nhanh tiêu chí, biểu mẫu..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <nav className="sb-menu">
+                {MENU.map(group => {
+                  const isOpen = !!openGroups[group.id];
+                  return (
+                    <div key={group.id} className="acc-grp">
+                      <div className={`acc-hdr ${isOpen ? 'open' : ''}`} onClick={() => toggleGroup(group.id)}>
+                        <span className="acc-num">{group.num}.</span>
+                        <span className="acc-title">{group.title}</span>
+                        <span className="acc-arrow">▼</span>
+                      </div>
+
+                      <div className={`acc-body ${isOpen ? 'open' : ''}`}>
+                        {group.children.map(child => {
+                          const count    = child.data.filter(child.filter).length;
+                          const isActive = activeChild === child.id;
+                          return (
+                            <button
+                              key={child.id}
+                              className={`acc-item ${isActive ? 'active' : ''}`}
+                              onClick={() => selectChild(group, child)}
+                            >
+                              {child.label}
+                              {count > 0 && <span className="acc-badge">{count}</span>}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </nav>
+            </aside>
+
+            {/* ── CENTER CONTENT PANEL ──────────────────── */}
+            <main id="center-panel">
+              {!activeChild && (
+                <div className="center-welcome">
+                  <div className="welcome-icon">⚖️</div>
+                  <div className="welcome-title">
+                    Vui lòng chọn một mục nghiệp vụ bên trái để xem nội dung văn bản
+                  </div>
+                  <div className="welcome-sub">
+                    Hệ thống tra cứu văn bản pháp luật và nghiệp vụ kiểm sát VKSND TP. Cần Thơ.
+                    Chọn nhóm danh mục bên trái để bắt đầu tra cứu.
+                  </div>
+                </div>
+              )}
+
+              {activeChild && !selectedItem && (
+                <div className="center-inner fade-in">
+                  <div className="breadcrumb">{activeGroup} › {activeLabel}</div>
+                  <div className="list-heading">
+                    <h2>{activeLabel}</h2>
+                    <div className="list-count">
+                      {activeItems.length} văn bản
+                      {searchQuery && ` · Lọc: "${searchQuery}"`}
+                    </div>
+                  </div>
+                  <ListView
+                    items={activeItems}
+                    type={activeType}
+                    onSelect={setSelectedItem}
+                    searchQuery={searchQuery}
+                  />
+                </div>
+              )}
+
+              {selectedItem && (
+                <DetailView
+                  item={selectedItem}
+                  type={activeType}
+                  onBack={() => setSelectedItem(null)}
+                />
+              )}
+            </main>
+
+            {/* ── RIGHT AI CHAT PANEL ───────────────────── */}
+            <AIChatPanel contextItem={selectedItem} />
+
+          </div>
+        </>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
