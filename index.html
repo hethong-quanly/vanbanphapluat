@@ -1184,7 +1184,7 @@ Tôi có thể giúp đồng chí:
           ? `\n\n📌 Ngữ cảnh – Văn bản đang xem:\n"${(contextItem.tenVanBan||contextItem.tieuDe||contextItem.soAnLe||'').substring(0,80)}"`
           : '';
 
-        const aiText = `🤖 Dựa trên dữ liệu hệ thống LEXVIET và đối chiếu quy định hiện hành:${ctx}
+        const aiText = `🤖 Dựa trên dữ liệu hệ thống văn bản và đối chiếu quy định hiện hành:${ctx}
 
 1. Cơ sở pháp lý áp dụng:
    – Bộ luật Hình sự 2015 (sửa đổi, bổ sung 2017)
@@ -1248,7 +1248,7 @@ Tôi có thể giúp đồng chí:
             {messages.map((msg, i) => (
               <div key={msg.id} className={`chat-msg ${msg.role === 'user' ? 'chat-user' : 'chat-ai'} fade-in`}>
                 <div className="chat-sender">
-                  {msg.role === 'user' ? 'Kiểm sát viên' : 'LEXVIET AI'}
+                  {msg.role === 'user' ? 'Kiểm sát viên' : 'Trợ lý ảo AI'}
                 </div>
                 <div className={`chat-bubble ${msg.role === 'user' ? 'bubble-user' : 'bubble-ai'}`}>
                   {msg.text}
@@ -1271,7 +1271,7 @@ Tôi có thể giúp đồng chí:
             {/* Typing indicator */}
             {loading && (
               <div className="chat-msg chat-ai fade-in">
-                <div className="chat-sender">LEXVIET AI đang phân tích</div>
+                <div className="chat-sender">Trợ lý ảo AI đang phân tích</div>
                 <div className="chat-bubble bubble-ai"><TypingDots /></div>
               </div>
             )}
