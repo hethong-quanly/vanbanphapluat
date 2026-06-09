@@ -304,6 +304,48 @@ const DB_AN_LE = [
     tags: ["Tranh chấp thừa kế", "Quyền sử dụng đất", "Di chúc", "Biên bản họp gia đình", "Quản lý sử dụng đất"],
     file: "60_2022_DS-GDT_TANDTC (2).pdf"
   }
+  {
+    id: "al-042",
+    soAnLe: "Án lệ số 42/2021/AL",
+    tieuDe: "Về quyền lựa chọn Tòa án giải quyết tranh chấp của người tiêu dùng trong trường hợp hợp đồng theo mẫu có thỏa thuận trọng tài",
+    linhVuc: "Dân sự – Bảo vệ người tiêu dùng",
+    ngayBanHanh: "24/02/2021",
+    coQuan: "TAND Tối cao",
+    tomTatVuViec: "Trong hợp đồng theo mẫu giao kết với người tiêu dùng có điều khoản lựa chọn Trọng tài nước ngoài để giải quyết tranh chấp. Khi xảy ra tranh chấp, người tiêu dùng không đồng ý lựa chọn trọng tài và khởi kiện ra Tòa án Việt Nam.",
+    noiDung: "Xác định quyền lựa chọn Tòa án Việt Nam giải quyết tranh chấp của người tiêu dùng khi hợp đồng theo mẫu có sẵn điều khoản thỏa thuận trọng tài.",
+    nguyenTacApDung: "Trường hợp này, phải xác định người tiêu dùng không lựa chọn trọng tài và có quyền lựa chọn Tòa án Việt Nam giải quyết.",
+    vanBanLienQuan: ["Luật Bảo vệ quyền lợi người tiêu dùng 2010", "Luật Trọng tài thương mại 2010"],
+    tags: ["người tiêu dùng", "hợp đồng theo mẫu", "thỏa thuận trọng tài", "trọng tài nước ngoài", "thẩm quyền tòa án"],
+    file: "Án lệ 42.docx"
+  },
+  {
+    id: "al-044",
+    soAnLe: "Án lệ số 44/2021/AL",
+    tieuDe: "Về việc xác định thời hiệu khởi kiện đối với yêu cầu phản tố",
+    linhVuc: "Tố tụng dân sự",
+    ngayBanHanh: "25/11/2021",
+    coQuan: "TAND Tối cao",
+    tomTatVuViec: "Trong vụ án dân sự, bị đơn có yêu cầu phản tố đối với nguyên đơn, người có quyền lợi, nghĩa vụ liên quan có yêu cầu độc lập nhưng phát sinh tranh chấp hoặc nhầm lẫn về việc liệu yêu cầu phản tố có bị giới hạn bởi thời hiệu khởi kiện hay không.",
+    noiDung: "Xác định bản chất pháp lý của yêu cầu phản tố tương đương với yêu cầu khởi kiện độc lập và tính áp dụng của các quy định thời hiệu.",
+    nguyenTacApDung: "Tòa án phải xác định yêu cầu phản tố của bị đơn chính là yêu cầu khởi kiện và phải tuân thủ theo các quy định của pháp luật về thời hiệu khởi kiện.",
+    vanBanLienQuan: ["Bộ luật Tố tụng dân sự 2015"],
+    tags: ["yêu cầu phản tố", "thời hiệu khởi kiện", "bị đơn", "yêu cầu độc lập", "tố tụng dân sự"],
+    file: "Án lệ 44.docx"
+  },
+  {
+    id: "al-052",
+    soAnLe: "Án lệ số 52/2021/AL",
+    tieuDe: "Về hiệu lực của hợp đồng tặng cho quyền sử dụng đất khi chưa đăng ký quyền sử dụng đất",
+    linhVuc: "Dân sự – Đất đai",
+    ngayBanHanh: "25/11/2021",
+    coQuan: "TAND Tối cao",
+    tomTatVuViec: "Hợp đồng tặng cho quyền sử dụng đất được lập thành văn bản đã được công chứng, chứng thực hợp pháp; bên được tặng cho chưa đăng ký quyền sử dụng đất do trở ngại khách quan thì bên tặng cho tài sản chết.",
+    noiDung: "Xác định hiệu lực pháp luật của hợp đồng tặng cho quyền sử dụng đất đã hoàn thành thủ tục công chứng nhưng người tặng cho qua đời trước khi thực hiện xong thủ tục sang tên đăng ký.",
+    nguyenTacApDung: "Hợp đồng tặng cho quyền sử dụng đất có hiệu lực pháp luật nếu đã thỏa mãn các điều kiện theo quy định và cho đến khi chết, người tặng cho không có văn bản nào khác để thay thế hợp đồng tặng cho đã ký kết.",
+    vanBanLienQuan: ["Bộ luật Dân sự 2015"],
+    tags: ["tặng cho tài sản", "quyền sử dụng đất", "chưa đăng ký", "công chứng", "hiệu lực hợp đồng"],
+    file: "Án lệ 52.docx"
+  }
   // ─────────────────────────────────────────────────────────────
   // THÊM ÁN LỆ MỚI VÀO PHÍA DƯỚI ĐÂY
   // ─────────────────────────────────────────────────────────────
