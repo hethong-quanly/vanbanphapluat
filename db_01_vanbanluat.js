@@ -258,4 +258,132 @@ const DB_VAN_BAN_LUAT = [
   //   tags: []
   // },
 
+  // ── CÁC NGHỊ QUYẾT MỚI BỔ SUNG ──────────────────────────────────────────────
+
+  {
+    id: 16,
+    soHieu: "01/2018/NQ-HĐTP",
+    tenVanBan: "Nghị quyết 01/2018/NQ-HĐTP hướng dẫn áp dụng Điều 66 và Điều 106 của Bộ luật Hình sự về tha tù trước thời hạn có điều kiện",
+    coQuan: "TAND Tối cao",
+    ngayBanHanh: "24/04/2018",
+    ngayHieuLuc: "09/06/2018",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [1], // Hình sự
+    tomTat: "Hướng dẫn áp dụng Điều 66 và Điều 106 của Bộ luật Hình sự về các điều kiện, trình tự để xét tha tù trước thời hạn có điều kiện đối với người đang chấp hành án phạt tù.",
+    link: "",
+    tags: ["tha tù trước thời hạn", "Điều 66 BLHS", "Điều 106 BLHS", "hình sự", "01/2018"]
+  },
+  {
+    id: 17,
+    soHieu: "03/2019/NQ-HĐTP",
+    tenVanBan: "Nghị quyết 03/2019/NQ-HĐTP hướng dẫn áp dụng Điều 324 của Bộ luật Hình sự về tội rửa tiền",
+    coQuan: "TAND Tối cao",
+    ngayBanHanh: "24/05/2019",
+    ngayHieuLuc: "07/07/2019",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [1], // Hình sự
+    tomTat: "Hướng dẫn giải thích và áp dụng một số thuật ngữ, tình tiết định khung tại Điều 324 của Bộ luật Hình sự về tội rửa tiền.",
+    link: "",
+    tags: ["tội rửa tiền", "Điều 324 BLHS", "hình sự", "03/2019"]
+  },
+  {
+    id: 18,
+    soHieu: "03/2020/NQ-HĐTP",
+    tenVanBan: "Nghị quyết 03/2020/NQ-HĐTP hướng dẫn áp dụng một số quy định của Bộ luật Hình sự trong xét xử tội phạm tham nhũng và tội phạm khác về chức vụ",
+    coQuan: "TAND Tối cao",
+    ngayBanHanh: "30/12/2020",
+    ngayHieuLuc: "15/02/2021",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [1], // Hình sự
+    tomTat: "Hướng dẫn áp dụng pháp luật trong xét xử các tội phạm về tham nhũng và chức vụ, thu hồi tài sản tham nhũng, nguyên tắc xử lý người phạm tội.",
+    link: "",
+    tags: ["tham nhũng", "tội phạm chức vụ", "hình sự", "03/2020"]
+  },
+  {
+    id: 19,
+    soHieu: "05/2018/NQ-HĐTP",
+    tenVanBan: "Nghị quyết 05/2018/NQ-HĐTP hướng dẫn áp dụng Điều 234 và Điều 244 của Bộ luật Hình sự",
+    coQuan: "TAND Tối cao",
+    ngayBanHanh: "05/11/2018",
+    ngayHieuLuc: "01/12/2018",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [1], // Hình sự
+    tomTat: "Hướng dẫn áp dụng Điều 234 về tội vi phạm quy định về bảo vệ động vật hoang dã và Điều 244 về tội vi phạm quy định về bảo vệ động vật nguy cấp, quý, hiếm của BLHS.",
+    link: "",
+    tags: ["động vật hoang dã", "động vật nguy cấp", "Điều 234 BLHS", "Điều 244 BLHS", "05/2018"]
+  },
+  {
+    id: 20,
+    soHieu: "103/2015/QH13",
+    tenVanBan: "Nghị quyết 103/2015/QH13 về việc thi hành Bộ luật tố tụng dân sự",
+    coQuan: "Quốc hội",
+    ngayBanHanh: "25/11/2015",
+    ngayHieuLuc: "01/07/2016",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [2], // Tố tụng Dân sự
+    tomTat: "Quyết nghị việc thi hành Bộ luật tố tụng dân sự số 92/2015/QH13 và cách thức áp dụng để giải quyết các vụ việc dân sự, hôn nhân gia đình, kinh doanh thương mại, lao động.",
+    link: "",
+    tags: ["thi hành BLTTDS", "tố tụng dân sự", "103/2015/QH13"]
+  },
+  {
+    id: 21,
+    soHieu: "03/2016/NQ-HĐTP",
+    tenVanBan: "Nghị quyết 03/2016/NQ-HĐTP hướng dẫn thi hành một số quy định của Luật phá sản",
+    coQuan: "TAND Tối cao",
+    ngayBanHanh: "26/08/2016",
+    ngayHieuLuc: "16/09/2016",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [4], // Kinh tế / Phá sản
+    tomTat: "Hướng dẫn thi hành một số quy định tại Điều 8, khoản 14 Điều 9, Điều 70 và Điều 104 của Luật phá sản.",
+    link: "",
+    tags: ["phá sản", "Luật phá sản", "03/2016"]
+  },
+  {
+    id: 22,
+    soHieu: "02/2016/NQ-HĐTP",
+    tenVanBan: "Nghị quyết 02/2016/NQ-HĐTP hướng dẫn thi hành một số quy định của Nghị quyết 103/2015/QH13 và Nghị quyết 104/2015/QH13",
+    coQuan: "TAND Tối cao",
+    ngayBanHanh: "30/06/2016",
+    ngayHieuLuc: "01/08/2016",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [2, 5], // Tố tụng dân sự, Tố tụng hành chính
+    tomTat: "Hướng dẫn thi hành một số quy định về việc thi hành Bộ luật tố tụng dân sự 2015 và Luật tố tụng hành chính 2015.",
+    link: "",
+    tags: ["tố tụng dân sự", "tố tụng hành chính", "thi hành", "02/2016"]
+  },
+  {
+    id: 23,
+    soHieu: "06/2019/NQ-HĐTP",
+    tenVanBan: "Nghị quyết 06/2019/NQ-HĐTP hướng dẫn xét xử vụ án xâm hại tình dục người dưới 18 tuổi",
+    coQuan: "TAND Tối cao",
+    ngayBanHanh: "01/10/2019",
+    ngayHieuLuc: "05/11/2019",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [1], // Hình sự
+    tomTat: "Hướng dẫn áp dụng một số quy định từ Điều 141 đến Điều 147 của Bộ luật Hình sự và quy định đặc thù trong xét xử vụ án xâm hại tình dục người dưới 18 tuổi.",
+    link: "",
+    tags: ["xâm hại tình dục", "người dưới 18 tuổi", "hình sự", "06/2019"]
+  },
+  {
+    id: 24,
+    soHieu: "05/2019/NQ-HĐTP",
+    tenVanBan: "Nghị quyết 05/2019/NQ-HĐTP hướng dẫn áp dụng Điều 214, Điều 215, Điều 216 của BLHS",
+    coQuan: "TAND Tối cao",
+    ngayBanHanh: "15/08/2019",
+    ngayHieuLuc: "01/09/2019",
+    hieu: "Còn hiệu lực",
+    loai: "Nghị quyết",
+    linhVuc: [1], // Hình sự
+    tomTat: "Hướng dẫn áp dụng các quy định về tội gian lận bảo hiểm xã hội, bảo hiểm thất nghiệp (Điều 214), gian lận bảo hiểm y tế (Điều 215) và trốn đóng bảo hiểm (Điều 216).",
+    link: "",
+    tags: ["bảo hiểm xã hội", "gian lận bảo hiểm", "trốn đóng bảo hiểm", "hình sự", "05/2019"]
+  }
 ];
