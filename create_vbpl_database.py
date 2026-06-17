@@ -1,0 +1,53 @@
+import os
+import json
+from bs4 import BeautifulSoup
+from pathlib import Path
+
+# === THAY ĐƯỜNG DẪN NÀY NẾU CẦN ===
+extracted_folder = r"D:\VBPL\VBPL_Extracted"
+output_file = r"D:\vbpl_database.json"
+
+database = []
+
+print("Đang quét các file .htm ...")
+
+for root, dirs, files in os.walk(extracted_folder):
+    for filename in files:
+        if filename.lower().endswith('.htm'):
+            filepath = os.path.join(root, filename)
+            
+            try:
+                with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                    html_content = f.read()
+                
+                soup = BeautifulSoup(html_content, 'lxml')
+                
+                # Lấy tiêu đề
+                title = soup.title.string.strip() if soup.title else filename
+                
+                # Lấy nội dung text sạch (loại bỏ tag HTML)
+                text = soup.get_text(separator=' ', strip=True)
+                
+                # Làm sạch text
+                text = ' '.join(text.split())
+                
+                if len(text) > 50:  # Bỏ qua file quá ngắn/rỗng
+                    database.append({
+                        "id": filename,
+                        "title": title,
+                        "filename": filename,
+                        "content": text,
+                        "path": filepath.replace(extracted_folder, "").lstrip("\\")
+                    })
+                    
+            except Exception as e:
+                print(f"Lỗi file {filename}: {e}")
+
+print(f"Đã xử lý xong {len(database)} file.")
+
+# Lưu ra JSON
+with open(output_file, 'w', encoding='utf-8') as f:
+    json.dump(database, f, ensure_ascii=False, indent=2)
+
+print(f"✅ Đã tạo database tại: {output_file}")
+print(f"Tổng số văn bản: {len(database)}")
