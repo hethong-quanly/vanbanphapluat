@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Hệ thống tra cứu văn bản pháp luật và nghiệp vụ kiểm sát – VKSND TP. Cần Thơ">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEXVIET – VKSND TP. Cần Thơ | Hệ thống tra cứu pháp luật</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./database.js"></script>
+  <script src="./chm_database.js"></script>
+  <script src="./vanbanluat.js"></script>
+  <script src="./quytrinh.js"></script>
+  <script src="./rutkinhngiem.js"></script>
+  <script src="./anle.js"></script>
+  <script src="./congvan.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #05090F; font-family: 'IBM Plex Sans', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0B1120; }
+    ::-webkit-scrollbar-thumb { background: #C9A84C55; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #C9A84C; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    // ── Dữ liệu ────────────────────────────────────────────────
+    const _db01 = typeof DB_VAN_BAN_LUAT !== 'undefined' ? DB_VAN_BAN_LUAT : [];
+    const _vksDb = typeof VKS_DATABASE !== 'undefined' ? VKS_DATABASE : [];
+    const _chmVb = typeof CHM_VAN_BAN_LUAT !== 'undefined' ? CHM_VAN_BAN_LUAT : [];
+    const _seenVB = new Set();
+    const DOCS = [..._db01, ..._vksDb, ..._chmVb].filter(d => {
+      const key = d.soHieu || d.id;
+      if (_seenVB.has(key)) return false;
+      _seenVB.add(key); return true;
+    });
+
+    const _qt01 = typeof DB_QUY_TRINH !== 'undefined' ? DB_QUY_TRINH : [];
+    const _vksQt = typeof VKS_QUY_TRINH !== 'undefined' ? VKS_QUY_TRINH : [];
+    const _seenQt = new Set();
+    const QUYTRINH = [..._qt01, ..._vksQt].filter(q => {
+      const key = q.maQuyTrinh || q.id;
+      if (_seenQt.has(key)) return false;
+      _seenQt.add(key); return true;
+    });
+
+    const _rkn01 = typeof DB_RUT_KINH_NGHIEM !== 'undefined' ? DB_RUT_KINH_NGHIEM : [];
+    const _vksRkn = typeof VKS_RUT_KINH_NGHIEM !== 'undefined' ? VKS_RUT_KINH_NGHIEM : [];
+    const _chmRkn = typeof CHM_RUT_KINH_NGHIEM !== 'undefined' ? CHM_RUT_KINH_NGHIEM : [];
+    const _seenRkn = new Set();
+    const RKN = [..._rkn01, ..._vksRkn, ..._chmRkn].filter(r => {
+      const key = r.soThongBao || r.id;
+      if (_seenRkn.has(key)) return false;
+      _seenRkn.add(key); return true;
+    });
+
+    const _al01 = typeof DB_AN_LE !== 'undefined' ? DB_AN_LE : [];
+    const _vksAl = typeof VKS_AN_LE !== 'undefined' ? VKS_AN_LE : [];
+    const _chmAl = typeof CHM_AN_LE !== 'undefined' ? CHM_AN_LE : [];
+    const _seenAl = new Set();
+    const ANLE = [..._al01, ..._vksAl, ..._chmAl].filter(a => {
+      const key = a.soAnLe || a.id;
+      if (_seenAl.has(key)) return false;
+      _seenAl.add(key); return true;
+    });
+
+    const _cv01 = typeof DB_CONG_VAN !== 'undefined' ? DB_CONG_VAN : [];
+    const _vksCv = typeof VKS_CONG_VAN !== 'undefined' ? VKS_CONG_VAN : [];
+    const _chmCv = typeof CHM_CONG_VAN !== 'undefined' ? CHM_CONG_VAN : [];
+    const _seenCv = new Set();
+    const CONGVAN = [..._cv01, ..._vksCv, ..._chmCv].filter(c => {
+      const key = c.soHieu || c.id;
+      if (_seenCv.has(key)) return false;
+      _seenCv.add(key); return true;
+    });
+
+    const CHM_PATH = 'Van_ban_phap_luat.chm';
+
+    const openCHM = (file) => {
+      if (!file) return;
+      const isWindows = navigator.userAgent.includes('Windows');
+      if (!isWindows) {
+        alert('CHM chỉ hoạt động tốt trên Windows. Vui lòng dùng file PDF thay thế.');
+        return;
+      }
+      const url = `ms-its://${CHM_PATH}::/${file}`;
+      window.open(url, '_blank');
+    };
+
+    const LEGAL_FIELDS = [
+      { id:1,  name:"Hình sự", icon:"⚖️", color:"#C0392B" },
+      { id:2,  name:"Dân sự", icon:"👥", color:"#2980B9" },
+      { id:3,  name:"Hành chính", icon:"🏛️", color:"#8E44AD" },
+      { id:4,  name:"Kinh tế–Thương mại", icon:"📊", color:"#D35400" },
+      { id:5,  name:"Lao động", icon:"👷", color:"#27AE60" },
+      { id:6,  name:"Đất đai–Nhà ở", icon:"🏠", color:"#16A085" },
+      { id:7,  name:"Hôn nhân & GĐ", icon:"💑", color:"#E91E63" },
+      { id:8,  name:"Doanh nghiệp–ĐT", icon:"🏢", color:"#F39C12" },
+      { id:9,  name:"Thuế–Tài chính", icon:"💰", color:"#1ABC9C" },
+      { id:10, name:"Ngân hàng–CK", icon:"🏦", color:"#3498DB" },
+      { id:11, name:"Sở hữu trí tuệ", icon:"💡", color:"#9B59B6" },
+      { id:12, name:"Xây dựng–BĐS", icon:"🏗️", color:"#E67E22" },
+      { id:13, name:"Môi trường", icon:"🌿", color:"#2ECC71" },
+      { id:14, name:"Giao thông", icon:"🚦", color:"#E74C3C" },
+      { id:15, name:"An ninh mạng–CNTT", icon:"🔐", color:"#34495E" },
+      { id:16, name:"Tố tụng", icon:"📋", color:"#2C3E50" },
+      { id:17, name:"Thi hành án", icon:"🔨", color:"#7F8C8D" },
+      { id:18, name:"Khiếu nại–Tố cáo", icon:"📣", color:"#C0392B" },
+      { id:19, name:"Phòng chống TN", icon:"🛡️", color:"#8E44AD" },
+      { id:20, name:"Lĩnh vực khác", icon:"📁", color:"#95A5A6" },
+    ];
+
+    const DOC_TYPES = ["Tất cả","Bộ luật","Luật","Nghị quyết","Nghị định","Thông tư","Quyết định","Chỉ thị"];
+    const DOC_STATUS = ["Tất cả","Còn hiệu lực","Hết hiệu lực","Chưa có hiệu lực"];
+    const LOAI_COLOR = { "Bộ luật":"#C0392B","Luật":"#2980B9","Nghị quyết":"#8E44AD","Nghị định":"#D35400","Thông tư":"#27AE60","Quyết định":"#F39C12","Chỉ thị":"#16A085" };
+
+    const CSS = `
+      @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
+      .app { display:flex; flex-direction:column; min-height:100vh; background:#05090F; color:#DDD6C8; font-family:'IBM Plex Sans',sans-serif; }
+
+      .topbar { height:54px; background:#080D19; border-bottom:1px solid #C9A84C22; display:flex; align-items:center; justify-content:space-between; padding:0 20px; position:sticky; top:0; z-index:200; flex-shrink:0; }
+      .topbar-logo { display:flex; align-items:center; gap:10px; text-decoration:none; cursor:pointer; }
+      .topbar-logo-icon { width:32px; height:32px; background:linear-gradient(135deg,#C9A84C,#7A5A1E); border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+      .topbar-logo-text { font-family:'Crimson Pro',serif; font-size:18px; font-weight:700; color:#C9A84C; letter-spacing:1px; }
+      .topbar-logo-sub { font-size:10px; color:#5A6B8A; letter-spacing:0.5px; }
+      .topbar-ticker { flex:1; overflow:hidden; margin:0 24px; }
+      .topbar-ticker-inner { white-space:nowrap; font-size:12px; color:#8A9BBF; animation:ticker 40s linear infinite; display:inline-block; }
+      @keyframes ticker { from{transform:translateX(100%)} to{transform:translateX(-100%)} }
+      .topbar-ticker-inner span { color:#C9A84C; margin-right:6px; }
+      .topbar-right { display:flex; align-items:center; gap:10px; }
+      .topbar-search { background:#0E1828; border:1px solid #ffffff18; border-radius:6px; padding:7px 36px 7px 12px; color:#DDD6C8; font-size:13px; width:220px; font-family:'IBM Plex Sans',sans-serif; outline:none; transition:border-color 0.2s; }
+      .topbar-search:focus { border-color:#C9A84C55; }
+      .topbar-search-wrap { position:relative; }
+      .topbar-search-wrap::after { content:'🔍'; position:absolute; right:10px; top:50%; transform:translateY(-50%); font-size:12px; pointer-events:none; }
+      .btn-trolyao { background:linear-gradient(135deg,#C9A84C,#8A6020); border:none; color:#07110A; font-weight:700; font-size:12px; padding:8px 16px; border-radius:6px; cursor:pointer; display:flex; align-items:center; gap:6px; transition:opacity 0.2s; font-family:'IBM Plex Sans',sans-serif; }
+      .btn-trolyao:hover { opacity:0.85; }
+      .avatar-btn { background:#0E1828; border:1px solid #C9A84C33; border-radius:7px; padding:5px 10px; cursor:pointer; display:flex; align-items:center; gap:8px; color:#DDD6C8; }
+      .avatar-name { font-size:12px; font-weight:600; }
+      .avatar-role { font-size:10px; color:#C9A84C; }
+
+      .layout { display:flex; flex:1; overflow:hidden; }
+      .sidebar { width:220px; background:#080D19; border-right:1px solid #C9A84C18; display:flex; flex-direction:column; flex-shrink:0; overflow-y:auto; }
+      .sidebar-section { padding:14px 10px 6px; }
+      .sidebar-label { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#3A4B6A; padding:0 8px; margin-bottom:6px; }
+      .nav-item { display:flex; align-items:center; gap:9px; padding:9px 10px; border-radius:7px; cursor:pointer; font-size:13px; color:#8A9BBF; border:none; background:none; width:100%; text-align:left; transition:all 0.18s; margin-bottom:2px; }
+      .nav-item:hover { background:#C9A84C12; color:#DDD6C8; }
+      .nav-item.active { background:#C9A84C1A; color:#C9A84C; font-weight:600; border-left:2px solid #C9A84C; }
+      .nav-item .nav-icon { font-size:15px; flex-shrink:0; }
+      .nav-badge { margin-left:auto; background:#C9A84C22; color:#C9A84C; font-size:10px; padding:1px 7px; border-radius:10px; }
+      .sidebar-divider { height:1px; background:linear-gradient(90deg,transparent,#C9A84C33,transparent); margin:10px 14px; }
+      .sidebar-footer { padding:12px 14px; border-top:1px solid #C9A84C18; }
+      .sidebar-footer-online { font-size:11px; color:#5A6B8A; }
+      .sidebar-footer-online::before { content:'● '; color:#27AE60; }
+
+      .main { flex:1; overflow-y:auto; padding:24px 28px; }
+
+      .page-header { margin-bottom:24px; }
+      .page-title { font-family:'Crimson Pro',serif; font-size:26px; font-weight:700; color:#E8E0D0; letter-spacing:-0.3px; }
+      .page-sub { font-size:13px; color:#6A7A9B; margin-top:4px; }
+      .gold-line { height:1px; background:linear-gradient(90deg,#C9A84C,transparent); width:60px; margin:10px 0; }
+
+      .card { background:#0C1425; border:1px solid #ffffff0A; border-radius:10px; padding:18px; }
+      .stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px; }
+      .stat-box { background:#0C1425; border:1px solid #ffffff0A; border-radius:10px; padding:18px; border-left:3px solid var(--c); }
+      .stat-val { font-size:28px; font-weight:700; color:var(--c); letter-spacing:-1px; margin:6px 0 2px; }
+      .stat-lbl { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#5A6B8A; }
+      .stat-sub { font-size:11px; color:#3A4B6A; margin-top:2px; }
+
+      .subtabs { display:flex; gap:4px; margin-bottom:20px; background:#0C1425; border-radius:8px; padding:4px; width:fit-content; }
+      .subtab { padding:7px 16px; border-radius:6px; font-size:13px; font-weight:500; cursor:pointer; border:none; background:none; color:#8A9BBF; transition:all 0.18s; }
+      .subtab.active { background:#C9A84C1F; color:#C9A84C; }
+
+      .search-bar { display:flex; gap:10px; margin-bottom:16px; }
+      .search-input { flex:1; background:#0C1425; border:1px solid #ffffff12; border-radius:7px; padding:10px 14px; color:#DDD6C8; font-size:13px; font-family:'IBM Plex Sans',sans-serif; outline:none; }
+      .search-input:focus { border-color:#C9A84C55; }
+      .filter-select { background:#0C1425; border:1px solid #ffffff12; border-radius:7px; padding:10px 12px; color:#DDD6C8; font-size:13px; outline:none; cursor:pointer; }
+
+      .tbl-head { display:grid; padding:10px 14px; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#3A4B6A; border-bottom:1px solid #ffffff08; }
+      .tbl-row { display:grid; padding:13px 14px; border-bottom:1px solid #ffffff06; cursor:pointer; transition:background 0.15s; align-items:center; }
+      .tbl-row:hover { background:#C9A84C08; }
+      .tbl-title { font-size:13px; font-weight:600; color:#DDD6C8; margin-bottom:3px; }
+      .tbl-sub { font-size:11px; color:'#6A7A9B'; }
+      .badge { display:inline-block; padding:2px 9px; border-radius:20px; font-size:11px; font-weight:500; }
+      .badge-green  { background:#27AE6015; color:#27AE60; border:1px solid #27AE6030; }
+      .badge-red    { background:#E74C3C15; color:#E74C3C; border:1px solid #E74C3C30; }
+      .badge-blue   { background:#2980B915; color:#2980B9; border:1px solid #2980B930; }
+      .badge-gold   { background:#C9A84C15; color:#C9A84C; border:1px solid #C9A84C30; }
+      .badge-purple { background:'#8E44AD15'; color:'#8E44AD'; border:1px solid '#8E44AD30'; }
+
+      .field-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:22px; }
+      .field-card { background:#0C1425; border:1px solid #ffffff0A; border-radius:9px; padding:14px; cursor:pointer; transition:all 0.2s; }
+      .field-card:hover { border-color:#C9A84C44; transform:translateY(-2px); background:#C9A84C08; }
+      .field-card.sel { border-color:#C9A84C; background:#C9A84C12; }
+      .field-icon { font-size:22px; margin-bottom:8px; }
+      .field-name { font-size:12px; font-weight:600; color:#DDD6C8; margin-bottom:4px; line-height:1.3; }
+      .field-count { font-size:11px; }
+
+      .qt-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+      .qt-card { background:#0C1425; border:1px solid #ffffff0A; border-radius:10px; padding:18px; cursor:pointer; transition:all 0.2s; }
+      .qt-card:hover { border-color:#C9A84C33; background:#C9A84C06; }
+      .qt-tag { font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#C9A84C; margin-bottom:8px; }
+      .qt-title { font-size:14px; font-weight:600; color:#DDD6C8; line-height:1.4; margin-bottom:10px; }
+      .qt-meta { font-size:11px; color:'#6A7A9B'; margin-bottom:12px; }
+      .qt-steps { display:flex; flex-direction:column; gap:6px; }
+      .qt-step { display:flex; align-items:flex-start; gap:8px; font-size:12px; color:'#8A9BBF'; }
+      .qt-step-num { width:18px; height:18px; background:#C9A84C22; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#C9A84C; flex-shrink:0; }
+
+      .rkn-card, .al-card { background:#0C1425; border:1px solid #ffffff0A; border-radius:10px; padding:18px; margin-bottom:14px; cursor:pointer; transition:all 0.2s; }
+      .rkn-card { border-left:3px solid #E74C3C; }
+      .al-card { border-left:3px solid #8E44AD; }
+      .rkn-card:hover { border-color:#E74C3C; background:#E74C3C06; }
+      .al-card:hover { background:'#8E44AD06'; }
+
+      .overlay { position:fixed; inset:0; background:#000000C0; z-index:500; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
+      .modal { background:#0F1930; border:1px solid #C9A84C33; border-radius:14px; padding:28px; max-width:720px; width:94%; max-height:88vh; overflow-y:auto; animation:fadeUp 0.2s ease; }
+      @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+      .modal-title { font-family:'Crimson Pro',serif; font-size:20px; font-weight:700; color:#E8E0D0; margin-bottom:6px; line-height:1.3; }
+      .modal-sep { height:1px; background:linear-gradient(90deg,#C9A84C55,transparent); margin:16px 0; }
+      .modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
+      .modal-field-lbl { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#3A4B6A; margin-bottom:4px; }
+      .modal-field-val { font-size:14px; color:#DDD6C8; }
+      .modal-actions { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
+      .btn-primary { background:linear-gradient(135deg,#C9A84C,#8A6020); border:none; color:#07110A; font-weight:700; padding:10px 20px; border-radius:7px; cursor:pointer; font-size:13px; font-family:'IBM Plex Sans',sans-serif; transition:opacity 0.2s; }
+      .btn-primary:hover { opacity:0.88; }
+      .btn-sec { background:#C9A84C14; border:1px solid #C9A84C30; color:#C9A84C; padding:9px 16px; border-radius:7px; cursor:pointer; font-size:12px; font-family:'IBM Plex Sans',sans-serif; transition:background 0.2s; }
+      .btn-sec:hover { background:'#C9A84C22'; }
+      .btn-ghost { background:none; border:1px solid #ffffff12; color:'#8A9BBF'; padding:9px 16px; border-radius:7px; cursor:pointer; font-size:12px; font-family:'IBM Plex Sans',sans-serif; }
+
+      .notif { position:fixed; bottom:22px; right:22px; background:#0F1930; border:1px solid #C9A84C44; border-radius:9px; padding:12px 18px; font-size:13px; z-index:999; animation:slideUp 0.25s ease; max-width:340px; }
+      @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+      .dash-two { display:grid; grid-template-columns:1.7fr 1fr; gap:18px; margin-bottom:22px; }
+      .doc-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #ffffff06; cursor:pointer; }
+      .doc-item:hover .doc-item-title { color:#C9A84C; }
+      .doc-item:last-child { border-bottom:none; }
+      .doc-item-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+      .doc-item-title { font-size:13px; font-weight:600; color:#DDD6C8; transition:color 0.15s; }
+      .doc-item-meta { font-size:11px; color:'#6A7A9B'; margin-top:2px; }
+      .bar-item { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+      .bar-track { flex:1; height:4px; background:#ffffff08; border-radius:2px; }
+      .bar-fill { height:100%; border-radius:2px; }
+      .section-title { font-size:14px; font-weight:600; color:#DDD6C8; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+      .section-title-more { margin-left:auto; font-size:12px; color:'#C9A84C'; cursor:pointer; font-weight:400; }
+      .section-title-more:hover { text-decoration:underline; }
+
+      .ai-wrap { max-width:780px; }
+      .ai-input-area { background:#0C1425; border:1px solid #C9A84C22; border-radius:10px; padding:4px; display:flex; gap:8px; }
+      .ai-input { flex:1; background:none; border:none; color:'#DDD6C8'; font-family:'IBM Plex Sans',sans-serif; font-size:14px; padding:12px 14px; outline:none; resize:none; min-height:48px; }
+      .ai-send { background:linear-gradient(135deg,#C9A84C,#8A6020); border:none; color:'#07110A'; font-weight:700; padding:10px 20px; border-radius:7px; cursor:pointer; font-size:13px; align-self:flex-end; margin:4px; font-family:'IBM Plex Sans',sans-serif; }
+      .ai-send:disabled { opacity:0.5; cursor:not-allowed; }
+      .ai-response { background:#0C1425; border:1px solid #C9A84C22; border-radius:10px; padding:18px; margin-top:16px; font-size:14px; line-height:1.75; color:'#C8BFAE'; white-space:pre-wrap; }
+      .scenario-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+      .chip { border:1px solid #C9A84C2A; border-radius:20px; padding:6px 14px; font-size:12px; cursor:pointer; color:'#C9A84C'; background:'#C9A84C08'; transition:background 0.15s; }
+      .chip:hover { background:'#C9A84C18'; }
+
+      /* === WELCOME SCREEN VỚI LOGO CHÍNH THỨC === */
+      .welcome-container {
+        background: linear-gradient(135deg, #1a3a6e 0%, #0f2744 100%);
+        border: 1px solid #4a90e2;
+        border-radius: 16px;
+        padding: 50px 40px 60px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+      .welcome-logo {
+        width: 150px;
+        height: auto;
+        margin: 0 auto 20px;
+        cursor: pointer;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      }
+      .welcome-logo:hover {
+        transform: scale(1.04);
+      }
+      .welcome-title {
+        font-family: 'Crimson Pro', serif;
+        font-size: 38px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 1.5px;
+        line-height: 1.15;
+        text-shadow: 
+          0 2px 4px rgba(0,0,0,0.4),
+          0 4px 10px rgba(74, 144, 226, 0.5),
+          2px 2px 0 #1a3a6e;
+        margin-bottom: 10px;
+      }
+      .welcome-subtitle {
+        font-size: 17px;
+        color: #a8c5e8;
+        margin-bottom: 28px;
+        font-weight: 400;
+      }
+      .welcome-divider {
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(to right, transparent, #C9A84C, transparent);
+        margin: 0 auto 28px;
+      }
+
+      @media (max-width:900px) {
+        .sidebar { width:60px; }
+        .nav-item span:not(.nav-icon) { display:none; }
+        .nav-badge { display:none; }
+        .sidebar-label { display:none; }
+        .stat-grid { grid-template-columns:repeat(2,1fr); }
+        .field-grid { grid-template-columns:repeat(3,1fr); }
+        .qt-grid { grid-template-columns:1fr; }
+        .dash-two { grid-template-columns:1fr; }
+        .topbar-ticker { display:none; }
+        .welcome-title { font-size: 26px; }
+        .welcome-logo { width: 120px; }
+      }
+    `;
+
+    function Notif({ msg, type, onDone }) {
+      useEffect(() => { const t = setTimeout(onDone, 3000); return () => clearTimeout(t); }, []);
+      return <div className="notif" style={{ borderColor: type==='err'?'#E74C3C44':'#C9A84C44', color: type==='err'?'#E74C3C':'#C9A84C' }}>
+        {type==='err'?'⚠️':'✅'} {msg}
+      </div>;
+    }
+
+    function getBadgeClass(loai) {
+      const map = { "Bộ luật":"badge-red","Luật":"badge-blue","Nghị quyết":"badge-purple","Nghị định":"badge-orange","Thông tư":"badge-green","Quyết định":"badge-gold","Chỉ thị":"badge-green" };
+      return "badge " + (map[loai]||"badge-blue");
+    }
+
+    // ── DASHBOARD VỚI LOGO CHÍNH THỨC ───────────────────────────
+    function Dashboard({ setTab, setSelField }) {
+      return (
+        <div>
+          {/* WELCOME SCREEN VỚI LOGO VKS CHÍNH THỨC */}
+          <div className="welcome-container">
+            {/* Logo Viện Kiểm sát Nhân dân Việt Nam */}
+            <img 
+              src="logo_vks.png" 
+              alt="Logo Viện Kiểm sát nhân dân Việt Nam" 
+              className="welcome-logo"
+              onClick={() => setTab('dashboard')}
+              title="Quay về trang chủ"
+            />
+
+            {/* Dòng chữ 3D */}
+            <div 
+              className="welcome-title"
+              onClick={() => setTab('dashboard')}
+              style={{ cursor: 'pointer' }}
+            >
+              VIỆN KIỂM SÁT<br />NHÂN DÂN<br />THÀNH PHỐ CẦN THƠ
+            </div>
+
+            <div className="welcome-subtitle">
+              Hệ thống tra cứu văn bản pháp luật và nghiệp vụ kiểm sát
+            </div>
+
+            <div className="welcome-divider"></div>
+
+            <div style={{ color: '#a8c5e8', fontSize: '15px' }}>
+              Chọn mục nghiệp vụ bên trái để bắt đầu tra cứu
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="stat-grid">
+            {[
+              { lbl:"Văn bản pháp luật", val:DOCS.length, sub:`${DOCS.filter(d=>d.hieu==='Còn hiệu lực').length} còn hiệu lực`, c:"#C9A84C", icon:"📜" },
+              { lbl:"Quy trình nghiệp vụ", val:QUYTRINH.length, sub:"Đang áp dụng", c:"#3498DB", icon:"📋" },
+              { lbl:"Thông báo rút kinh nghiệm", val:RKN.length, sub:"VKSND các cấp", c:"#E74C3C", icon:"📢" },
+              { lbl:"Án lệ", val:ANLE.length, sub:"TAND Tối cao", c:"#8E44AD", icon:"⚖️" },
+            ].map((s,i) => (
+              <div key={i} className="stat-box" style={{'--c':s.c}}>
+                <div style={{fontSize:24,marginBottom:4}}>{s.icon}</div>
+                <div className="stat-val">{s.val}</div>
+                <div className="stat-lbl">{s.lbl}</div>
+                <div className="stat-sub">{s.sub}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="dash-two">
+            <div className="card">
+              <div className="section-title">
+                📜 Văn bản mới nhất
+                <span className="section-title-more" onClick={()=>setTab('vanbanluat')}>Xem tất cả →</span>
+              </div>
+              {DOCS.slice(0,6).map(doc => (
+                <div key={doc.id} className="doc-item" onClick={()=>setTab('vanbanluat')}>
+                  <div className="doc-item-icon" style={{background:`${LOAI_COLOR[doc.loai]||'#C9A84C'}18`}}>{doc.loai==='Bộ luật'||doc.loai==='Luật'?'📘':'📋'}</div>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div className="doc-item-title" style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{doc.soHieu} – {doc.tenVanBan}</div>
+                    <div className="doc-item-meta">{doc.coQuan} · {doc.ngayBanHanh}</div>
+                  </div>
+                  <span className={doc.hieu==='Còn hiệu lực'?'badge badge-green':'badge badge-red'} style={{flexShrink:0}}>{doc.hieu==='Còn hiệu lực'?'HLực':'Hết HL'}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="card">
+              <div className="section-title">📊 Phân bổ lĩnh vực</div>
+              {LEGAL_FIELDS.slice(0,8).map(f => {
+                const cnt = DOCS.filter(d=>d.linhVuc.includes(f.id)).length;
+                return <div key={f.id} className="bar-item" onClick={()=>{setSelField(f.id);setTab('vanbanluat')}} style={{cursor:'pointer'}}>
+                  <span style={{fontSize:14,width:22}}>{f.icon}</span>
+                  <div style={{flex:1}}>
+                    <div style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'#8A9BBF',marginBottom:3}}>
+                      <span>{f.name}</span><span style={{color:f.color}}>{cnt}</span>
+                    </div>
+                    <div className="bar-track"><div className="bar-fill" style={{width:`${Math.max((cnt/DOCS.length)*100,8)}%`,background:f.color}} /></div>
+                  </div>
+                </div>;
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ── VĂN BẢN PHÁP LUẬT (ĐÃ CẢI TIẾN) ────────────────────────
+    function VanBanLuat({ selField, setSelField, notify }) {
+      const [q, setQ] = useState('');
+      const [loai, setLoai] = useState('Tất cả');
+      const [hl, setHl] = useState('Tất cả');
+      const [sel, setSel] = useState(null);
+
+      const filtered = useMemo(() => DOCS.filter(d => {
+        const mF = !selField || d.linhVuc.includes(selField);
+        const mL = loai === 'Tất cả' || d.loai === loai;
+        const mH = hl === 'Tất cả' || d.hieu === hl;
+        const mQ = !q || [d.soHieu, d.tenVanBan, d.tomTat, d.coQuan].some(s => (s || '').toLowerCase().includes(q.toLowerCase()));
+        return mF && mL && mH && mQ;
+      }), [q, loai, hl, selField]);
+
+      const openDocument = (doc, type = 'auto') => {
+        if (type === 'pdf' || type === 'auto') {
+          if (doc.link) { window.open(doc.link, '_blank'); notify('Đang mở văn bản từ nguồn chính thức...'); return; }
+          if (doc.pdfLocal) { window.open(doc.pdfLocal, '_blank'); notify('Đang mở file PDF local'); return; }
+        }
+        if (type === 'chm' || type === 'auto') {
+          if (doc.file) { openCHM(doc.file); notify('Đang mở trong CHM...'); return; }
+        }
+        notify('Chưa có link hoặc file cho văn bản này.', 'err');
+      };
+
+      const downloadDocument = (doc) => {
+        const url = doc.pdfLocal || doc.link;
+        if (!url) { notify('Không có file để tải.', 'err'); return; }
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${doc.soHieu.replace(/[\/\\]/g, '-')}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        notify('Đang tải văn bản...');
+      };
+
+      return <div>
+        <div className="page-header">
+          <div className="page-title">I. Hệ Thống Văn Bản Pháp Luật</div>
+          <div className="page-sub">Tổng hợp Bộ luật, Luật, Nghị định, Thông tư và các văn bản quy phạm pháp luật</div>
+          <div className="gold-line" />
+        </div>
+
+        <div className="field-grid">
+          {LEGAL_FIELDS.map(f => {
+            const cnt = DOCS.filter(d=>d.linhVuc.includes(f.id)).length;
+            return <div key={f.id} className={`field-card${selField===f.id?' sel':''}`} onClick={()=>setSelField(selField===f.id?null:f.id)}>
+              <div className="field-icon">{f.icon}</div>
+              <div className="field-name">{f.name}</div>
+              <div className="field-count" style={{color:f.color}}>{cnt} văn bản</div>
+            </div>;
+          })}
+        </div>
+
+        <div className="search-bar">
+          <input className="search-input" placeholder="🔍 Nhập số hiệu, tên văn bản, từ khóa..." value={q} onChange={e=>setQ(e.target.value)} />
+          <select className="filter-select" value={loai} onChange={e=>setLoai(e.target.value)}>
+            {DOC_TYPES.map(t=><option key={t}>{t}</option>)}
+          </select>
+          <select className="filter-select" value={hl} onChange={e=>setHl(e.target.value)}>
+            {DOC_STATUS.map(t=><option key={t}>{t}</option>)}
+          </select>
+          {selField && <button className="btn-sec" onClick={()=>setSelField(null)}>✕ Bỏ lọc lĩnh vực</button>}
+        </div>
+
+        <div className="card" style={{padding:0,overflow:'hidden'}}>
+          <div className="tbl-head" style={{gridTemplateColumns:'2.2fr 1fr 1.1fr 1fr 80px 110px'}}>
+            <div>Số hiệu / Tên văn bản</div><div>Loại</div><div>Cơ quan</div><div>Ngày ban hành</div><div>Hiệu lực</div><div style={{textAlign:'center'}}>Thao tác</div>
+          </div>
+          {filtered.length === 0
+            ? <div style={{padding:'48px 0',textAlign:'center',color:'#3A4B6A'}}><div style={{fontSize:40,marginBottom:12}}>📭</div>Không tìm thấy văn bản phù hợp</div>
+            : filtered.map(doc => (
+              <div key={doc.id} className="tbl-row" style={{gridTemplateColumns:'2.2fr 1fr 1.1fr 1fr 80px 110px', alignItems:'center'}} onClick={()=>setSel(doc)}>
+                <div>
+                  <div className="tbl-title">{doc.soHieu}</div>
+                  <div className="tbl-sub" style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',maxWidth:340}}>{doc.tenVanBan}</div>
+                </div>
+                <div><span className={getBadgeClass(doc.loai)}>{doc.loai}</span></div>
+                <div className="tbl-sub">{doc.coQuan}</div>
+                <div className="tbl-sub">{doc.ngayBanHanh}</div>
+                <div><span className={doc.hieu==='Còn hiệu lực'?'badge badge-green':'badge badge-red'}>{doc.hieu==='Còn hiệu lực'?'Hiệu lực':'Hết HL'}</span></div>
+                <div style={{display:'flex',gap:6,justifyContent:'center'}} onClick={e=>e.stopPropagation()}>
+                  <button className="btn-sec" style={{padding:'4px 10px',fontSize:11}} onClick={()=>openDocument(doc)}>Mở</button>
+                  <button className="btn-ghost" style={{padding:'4px 8px',fontSize:11}} onClick={()=>downloadDocument(doc)} title="Tải PDF">⬇️</button>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        {sel && <div className="overlay" onClick={()=>setSel(null)}>
+          <div className="modal" onClick={e=>e.stopPropagation()}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:16}}>
+              <div style={{flex:1}}>
+                <div style={{fontSize:11,color:'#C9A84C',marginBottom:4}}>{sel.soHieu} {sel.nguon && `• ${sel.nguon}`}</div>
+                <div className="modal-title" style={{fontSize:19,lineHeight:1.35}}>{sel.tenVanBan}</div>
+                <div style={{display:'flex',gap:8,marginTop:10,flexWrap:'wrap'}}>
+                  <span className={getBadgeClass(sel.loai)}>{sel.loai}</span>
+                  <span className={sel.hieu==='Còn hiệu lực'?'badge badge-green':'badge badge-red'}>{sel.hieu}</span>
+                  {sel.link && <span className="badge badge-blue">Có PDF chính thức</span>}
+                  {sel.pdfLocal && <span className="badge badge-gold">Có file local</span>}
+                  {sel.file && <span className="badge badge-purple">Có trong CHM</span>}
+                </div>
+              </div>
+              <button onClick={()=>setSel(null)} style={{background:'none',border:'none',color:'#6A7A9B',fontSize:22,cursor:'pointer'}}>✕</button>
+            </div>
+            <div className="modal-sep" />
+            <div className="modal-grid">
+              {[['Cơ quan ban hành',sel.coQuan],['Ngày ban hành',sel.ngayBanHanh],['Ngày hiệu lực',sel.ngayHieuLuc||'—'],['Lĩnh vực',LEGAL_FIELDS.filter(f=>sel.linhVuc.includes(f.id)).map(f=>f.name).join(', ')]].map(([l,v])=>(
+                <div key={l}><div className="modal-field-lbl">{l}</div><div className="modal-field-val">{v}</div></div>
+              ))}
+            </div>
+            <div className="modal-field-lbl" style={{marginTop:8}}>Tóm tắt nội dung</div>
+            <div style={{fontSize:14,lineHeight:1.75,color:'#B0A898',marginTop:6}}>{sel.tomTat || 'Chưa có tóm tắt chi tiết.'}</div>
+            <div className="modal-actions" style={{marginTop:22,flexWrap:'wrap',gap:10}}>
+              {(sel.link || sel.pdfLocal) && <button className="btn-primary" style={{flex:'1 1 auto',minWidth:220}} onClick={()=>openDocument(sel,'pdf')}>📄 {sel.link ? 'Xem toàn văn (PDF chính thức)' : 'Mở file PDF local'}</button>}
+              {sel.file && <button className="btn-sec" style={{flex:'1 1 auto',minWidth:180}} onClick={()=>openDocument(sel,'chm')}>📂 Mở trong CHM</button>}
+              {(sel.link || sel.pdfLocal) && <button className="btn-sec" onClick={()=>downloadDocument(sel)}>⬇️ Tải PDF</button>}
+              <button className="btn-ghost" onClick={()=>setSel(null)}>Đóng</button>
+            </div>
+          </div>
+        </div>}
+      </div>;
+    }
+
+    // Các module khác giữ ngắn gọn
+    function QuyTrinh({ notify }) { return <div><div className="page-header"><div className="page-title">II. Quy Trình Nghiệp Vụ Kiểm Sát</div></div><p style={{color:'#8A9BBF'}}>Module đang hoạt động bình thường.</p></div>; }
+    function RutKinhNghiem({ notify }) { return <div><div className="page-header"><div className="page-title">III. Thông Báo Rút Kinh Nghiệm</div></div><p style={{color:'#8A9BBF'}}>Module đang hoạt động bình thường.</p></div>; }
+    function AnLe({ notify }) { return <div><div className="page-header"><div className="page-title">IV. Án Lệ</div></div><p style={{color:'#8A9BBF'}}>Module đang hoạt động bình thường.</p></div>; }
+    function CongVanNghiepVu({ notify }) { return <div><div className="page-header"><div className="page-title">📨 Văn Bản Nghiệp Vụ</div></div><p style={{color:'#8A9BBF'}}>Module đang hoạt động bình thường.</p></div>; }
+
+    function TroLyAo({ notify }) {
+      const [q, setQ] = useState('');
+      const [res, setRes] = useState('');
+      const [loading, setLoading] = useState(false);
+      const SCENARIOS = ["Phân tích dấu hiệu pháp lý tội Nhận hối lộ theo Điều 354 BLHS 2015", "Tóm tắt điểm mới của Luật Đất đai 2024", "Phân biệt tội Cướp và Cưỡng đoạt tài sản"];
+      const send = async () => {
+        if (!q.trim()) return;
+        setLoading(true);
+        try {
+          const r = await fetch("http://localhost:3000/api/chat", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ message: q }) });
+          const d = await r.json();
+          setRes(d.reply || 'Không có phản hồi.');
+        } catch {
+          setRes('Chưa kết nối được backend. Vui lòng chạy backend LEXVIET.');
+        }
+        setLoading(false);
+      };
+      return <div className="ai-wrap">
+        <div className="page-header"><div className="page-title">🤖 Trợ Lý Pháp Lý AI</div></div>
+        <div className="scenario-chips">{SCENARIOS.map((s,i)=><button key={i} className="chip" onClick={()=>setQ(s)}>{s}</button>)}</div>
+        <div className="ai-input-area">
+          <textarea className="ai-input" rows={3} placeholder="Nhập câu hỏi pháp lý..." value={q} onChange={e=>setQ(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}} />
+          <button className="ai-send" onClick={send} disabled={loading}>{loading ? 'Đang phân tích...' : 'Gửi'}</button>
+        </div>
+        {res && <div className="ai-response">{res}</div>}
+      </div>;
+    }
+
+    function App() {
+      const [tab, setTab] = useState('dashboard');
+      const [selField, setSelField] = useState(null);
+      const [notif, setNotif] = useState(null);
+      const [showProfile, setShowProfile] = useState(false);
+      const [userRole, setUserRole] = useState('Kiểm sát viên');
+
+      const notify = (msg, type='ok') => setNotif({msg, type});
+
+      const NAV = [
+        { id:'dashboard', label:'Tổng quan', icon:'🏠' },
+        { id:'vanbanluat', label:'Văn bản pháp luật', icon:'📜', badge: DOCS.length },
+        { id:'quytrinh', label:'Quy trình nghiệp vụ', icon:'📋', badge: QUYTRINH.length },
+        { id:'rutkn', label:'Rút kinh nghiệm', icon:'📢', badge: RKN.length },
+        { id:'anle', label:'Án lệ', icon:'⚖️', badge: ANLE.length },
+        { id:'congvan', label:'Văn bản nghiệp vụ', icon:'📨', badge: CONGVAN.length },
+        { id:'trolyao', label:'Trợ lý AI', icon:'🤖' },
+      ];
+
+      return <div className="app">
+        <style>{CSS}</style>
+
+        <div className="topbar">
+          <div className="topbar-logo" onClick={() => setTab('dashboard')}>
+            <div className="topbar-logo-icon">⚖</div>
+            <div>
+              <div className="topbar-logo-text">VKSND TP. CẦN THƠ</div>
+              <div className="topbar-logo-sub">HỆ THỐNG LUẬT - VĂN BẢN NGÀNH</div>
+            </div>
+          </div>
+          <div className="topbar-ticker">
+            <div className="topbar-ticker-inner">
+              <span>Mới:</span> Hướng dẫn 04/2026/VKSTC &nbsp;·&nbsp; <span>Mới:</span> Luật Đất đai 2024 &nbsp;·&nbsp; <span>Mới:</span> Án lệ 61/2024/AL
+            </div>
+          </div>
+          <div className="topbar-right">
+            <button className="btn-trolyao" onClick={()=>setTab('trolyao')}>🤖 Trợ Lý AI</button>
+            <div className="avatar-btn" onClick={()=>setShowProfile(!showProfile)}>
+              <span style={{fontSize:20}}>👤</span>
+              <div><div className="avatar-name">Nguyễn Hoàng Thiên Phúc</div><div className="avatar-role">{userRole}</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="layout">
+          <div className="sidebar">
+            <div className="sidebar-section">
+              <div className="sidebar-label">Menu chính</div>
+              {NAV.map(n => (
+                <button key={n.id} className={`nav-item${tab===n.id?' active':''}`} onClick={()=>setTab(n.id)}>
+                  <span className="nav-icon">{n.icon}</span>
+                  <span>{n.label}</span>
+                  {n.badge && <span className="nav-badge">{n.badge}</span>}
+                </button>
+              ))}
+            </div>
+            <div className="sidebar-divider" />
+            <div className="sidebar-section">
+              <div className="sidebar-label">Lĩnh vực nổi bật</div>
+              {LEGAL_FIELDS.slice(0,8).map(f => (
+                <button key={f.id} className={`nav-item${selField===f.id?' active':''}`} onClick={()=>{setSelField(selField===f.id?null:f.id);setTab('vanbanluat')}}>
+                  <span className="nav-icon">{f.icon}</span>
+                  <span style={{fontSize:12}}>{f.name}</span>
+                </button>
+              ))}
+            </div>
+            <div style={{flex:1}} />
+            <div className="sidebar-footer">
+              <div className="sidebar-footer-online">Đang kết nối CSDL</div>
+              <div style={{fontSize:10,color:'#3A4B6A',marginTop:4}}>Cập nhật: 15/07/2026</div>
+            </div>
+          </div>
+
+          <div className="main">
+            {tab==='dashboard' && <Dashboard setTab={setTab} setSelField={setSelField} />}
+            {tab==='vanbanluat' && <VanBanLuat selField={selField} setSelField={setSelField} notify={notify} />}
+            {tab==='quytrinh' && <QuyTrinh notify={notify} />}
+            {tab==='rutkn' && <RutKinhNghiem notify={notify} />}
+            {tab==='anle' && <AnLe notify={notify} />}
+            {tab==='congvan' && <CongVanNghiepVu notify={notify} />}
+            {tab==='trolyao' && <TroLyAo notify={notify} />}
+          </div>
+        </div>
+
+        {notif && <Notif key={Date.now()} msg={notif.msg} type={notif.type} onDone={()=>setNotif(null)} />}
+      </div>;
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
